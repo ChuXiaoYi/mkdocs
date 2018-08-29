@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>django开发实战 - 学习笔记</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "django\u5f00\u53d1\u5b9e\u6218";
+    var mkdocs_page_input_path = "django.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/rust.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> 学习笔记</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../daily_problem/">日常问题</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">django开发实战</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#ps">p个大s：</a></li>
+    
+
+    <li class="toctree-l2"><a href="#django">生成一个完整的django项目</a></li>
+    
+
+    <li class="toctree-l2"><a href="#_1">项目正式开始</a></li>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">学习笔记</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>django开发实战</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h3 id="ps">p个大s：</h3>
+<p>这里用的是python3.7和Django2.0.假设全都安装成功= =
+然后这个是我做个人网站的一个过程=。=
+然后这个也不能算是个教程吧=。=
+然后这只是粗糙的记录=。=
+最后，防脱发用霸王=3=</p>
+<h3 id="django">生成一个完整的django项目</h3>
+<ul>
+<li><strong>创建Django项目</strong></li>
+</ul>
+<pre><code>django-admin.py startproject MySite
+</code></pre>
+
+<p>此时，你会看到这样的文件夹：
+<img alt="image_1cjvd08ra1bil15seqb71p312or9.png-6.5kB" src="http://static.zybuluo.com/chuxiaoyi/49h3i95aw0oqoecmvefqd8l1/image_1cjvd08ra1bil15seqb71p312or9.png" /></p>
+<ul>
+<li><strong>运行一下你的项目，看看有没有成功</strong>：</li>
+</ul>
+<pre><code>./manage.py runserver
+</code></pre>
+
+<p>终端会显示这些：
+<img alt="image_1cjvd8tjj4aq48ihk21n4d1b38m.png-79kB" src="http://static.zybuluo.com/chuxiaoyi/i4gc0elqc605ajy3f3vf69n8/image_1cjvd8tjj4aq48ihk21n4d1b38m.png" />
+有红字也不要担心，因为还没有设置呢！
+接下来去<code>http://127.0.0.1:8000/</code>看一看：
+<img alt="image_1cjvdb63b1bcl1jnpupct2610j423.png-121.7kB" src="http://static.zybuluo.com/chuxiaoyi/n2ym6tgwxd9plj2uhzugpaxi/image_1cjvdb63b1bcl1jnpupct2610j423.png" />
+成功了！
+<font color='red'><strong>ps：</strong></font>如果想要外部机器（同一网络）访问本机的Django服务的话，要写成<code>./manage.py runserver 0.0.0.0:9999</code>,并将<code>setting.py</code>中的<code>ALLOWED_HOSTS</code>改为<code>ALLOWED_HOSTS = ['*', ]</code>，一定要加<strong>逗号</strong>！
+- <strong>改一些配置</strong>
+<strong>ps</strong>：这里的顺序可能不对。= =
+1. 更改<code>/MySite/MySite/settings.py</code>中的内容
+  Django默认的<code>DATABASES</code>是<code>sqlite</code>，是这样的：
+  <img alt="image_1cjvdpm002a81skaf2714pr1f2t2g.png-13.3kB" src="http://static.zybuluo.com/chuxiaoyi/v5k5xmi0xg796sduhoai22xt/image_1cjvdpm002a81skaf2714pr1f2t2g.png" />
+  这里我是用的是<code>MySQL</code>数据库，因此，我要改成这样：</p>
+<pre><code>```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'MySite',
+        'USER': 'xxx',
+        'PASSWORD': 'xxxxx',
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
+    }
+}
+```
+</code></pre>
+<p><font color='red'>这里一定要确保数据库已经存在了。</font>在这之前，需要创建数据库，像这样滴：</p>
+<pre><code>create database MySite CHARACTER SET utf8 COLLATE utf8_general_ci;
+</code></pre>
+
+<p>还要更改<strong>时区</strong>和<strong>语言</strong>
+    <img alt="image_1cjveevfspif39o6hm2mnucn3d.png-5.8kB" src="http://static.zybuluo.com/chuxiaoyi/t8bc491f1uw4z71ij3vplcb1/image_1cjveevfspif39o6hm2mnucn3d.png" /></p>
+<ol>
+<li>
+<p>向<code>/MySite/MySite/__init__.py</code>中添加内容
+ <code>python
+ import pymysql
+ pymysql.install_as_MySQLdb()</code></p>
+</li>
+<li>
+<p><strong>数据库迁移</strong>
+首先，执行</p>
+</li>
+</ol>
+<pre><code>./manage.py makemigrations
+</code></pre>
+
+<p>然后，执行</p>
+<pre><code>./manage.py migrate
+</code></pre>
+
+<p>这样就成功啦～
+<img alt="image_1cjvfbgkulc0gvt1gl9cu01sgd4a.png-70.9kB" src="http://static.zybuluo.com/chuxiaoyi/ekq7zlcwi70z8znyr2jy1now/image_1cjvfbgkulc0gvt1gl9cu01sgd4a.png" /></p>
+<ul>
+<li><strong>创建超级用户</strong>
+创建超级用户是用来登陆到admin后台管理中的
+执行</li>
+</ul>
+<pre><code>./manage.py createsuperuser
+</code></pre>
+
+<p>然后按照提示填写就好啦～
+<strong>ps：</strong>一定要先进行数据库迁移，再创建用户。否则，会出现<img alt="image_1cjvfv00s1kuo119k1t8dh581ug84n.png-6.3kB" src="http://static.zybuluo.com/chuxiaoyi/du4zwcl0gkr8x9jc5o7vhpm1/image_1cjvfv00s1kuo119k1t8dh581ug84n.png" /></p>
+<ul>
+<li><strong>进入admin看看</strong>
+在浏览器中输入<code>http://127.0.0.1:8000/admin</code>，会出现登录页面，此时会发现全都变成中文了，说明之前的设置生效了。
+<img alt="image_1cjvg4n791bobtht1smbf1f1u7t54.png-41.6kB" src="http://static.zybuluo.com/chuxiaoyi/tfogy4umjmduw5t0utatz3o2/image_1cjvg4n791bobtht1smbf1f1u7t54.png" />
+接下来，就可以用刚刚创建的用户登陆了，查看后台数据了！</li>
+</ul>
+<h3 id="_1">项目正式开始</h3>
+<ul>
+<li><strong>创建app</strong>
+执行<code>./manage.py startapp Post</code>,查看项目结构，如下：
+<img alt="image_1cjvibkvpei29mk1doucvv12j15h.png-10kB" src="http://static.zybuluo.com/chuxiaoyi/gmgmt3mz41l9swzbv1axotyg/image_1cjvibkvpei29mk1doucvv12j15h.png" /></li>
+</ul>
+<p>完成上步操作后，需要在<code>/MySite/MySite/settings.py</code>中将app添加进去：
+<img alt="image_1cjvifci91ss01v9l1l1g1m5moo25u.png-14.5kB" src="http://static.zybuluo.com/chuxiaoyi/cqlxbmom3dcu4sskz3s9jkd8/image_1cjvifci91ss01v9l1l1g1m5moo25u.png" />
+接下来，需要在app文件夹下添加<code>urls.py</code>，用于路由映射：
+<img alt="image_1cjvilv4o14lf9a9371jkjhcr7o.png-9.4kB" src="http://static.zybuluo.com/chuxiaoyi/wv0tgog0pl8u2q8zcoq112um/image_1cjvilv4o14lf9a9371jkjhcr7o.png" />
+在<code>urls.py</code>中这样写：</p>
+<pre><code class="python">app_name = 'Post'   # 这里是为了url反向解析用
+
+urlpatterns = [
+    # 这里放映射的view
+]
+</code></pre>
+
+<p>同时，在<code>/MySite/MySite/urls.py</code>中需要添加对<code>Post.urls</code>的映射：</p>
+<pre><code class="python">from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path(r'', include('Post.urls')),
+]
+</code></pre>
+
+<ul>
+<li><strong>创建模型</strong>
+在app下的<code>models.py</code>创建自己的模型就可以啦~</li>
+</ul>
+<pre><code class="python">from django.db import models
+
+class Category(models.Model):
+    &quot;&quot;&quot;分类&quot;&quot;&quot;
+    name = models.CharField(max_length=100)
+
+
+class Tag(models.Model):
+    &quot;&quot;&quot;标签&quot;&quot;&quot;
+    name = models.CharField(max_length=100)
+
+
+class Post(models.Model):
+    &quot;&quot;&quot;文章&quot;&quot;&quot;
+    title = models.CharField(max_length=100)
+    body = models.TextField()
+    created_time = models.DateTimeField()
+    modified_time = models.DateTimeField()
+    excerpt = models.CharField(max_length=200, blank=True)  # 文章摘要，可为空
+    category = models.ForeignKey(Category, on_delete=True)  # ForeignKey表示1对多（多个post对应1个category）
+    tags = models.ManyToManyField(Tag, blank=True)
+    views = models.PositiveIntegerField(default=0)  # 阅读量
+</code></pre>
+
+<p><font color='red'>然后一定不要忘记再进行<strong>数据库迁移</strong>啊！！</font></p>
+<ul>
+<li><strong>前端模版</strong>
+这里的前端模板使用的是模板之家的
+链接🔗：http://www.cssmoban.com/tags.asp?n=html5</li>
+</ul>
+<p>首先创建templates目录，结构如下：
+<img alt="image_1cjvlp6q840k17eg1cubd8i1qpi8i.png-12.8kB" src="http://static.zybuluo.com/chuxiaoyi/clj4spcx26385unz62hwxg26/image_1cjvlp6q840k17eg1cubd8i1qpi8i.png" />
+此时，需要在<code>setting.py</code>中添加关于模板的配置：
+<img alt="image_1cjvls24ohf91gngccsuk5ce8v.png-39.8kB" src="http://static.zybuluo.com/chuxiaoyi/qp8cowqr7rlu64tu0znzihgn/image_1cjvls24ohf91gngccsuk5ce8v.png" /></p>
+<p>接下来是static目录，结构如下：
+<img alt="image_1cjvlvc96ir9hk4ubn1jk73uq9c.png-9.5kB" src="http://static.zybuluo.com/chuxiaoyi/gfdqcztquhucuf7urxraech7/image_1cjvlvc96ir9hk4ubn1jk73uq9c.png" />
+显而易见，这里放的是一些css、js文件等</p>
+<ul>
+<li><strong>index视图</strong>
+首先，在<code>Post/views.py</code>中实现<code>index</code>方法：</li>
+</ul>
+<pre><code class="python">def index(request):
+    &quot;&quot;&quot;
+    主页
+    :param request:
+    :return:
+    &quot;&quot;&quot;
+    return render(request=request, template_name='Post/index.html')
+</code></pre>
+
+<p><code>request</code>为请求对象;
+<code>template_name</code>为渲染的前端页面的路径字符串（相对templates目录）</p>
+<p>然后，在<code>Post/urls.py</code>中进行路由映射：</p>
+<pre><code class="python">urlpatterns = [
+    url(r'^$', views.index, name=&quot;index&quot;),
+]
+</code></pre>
+
+<p><font color='red'>注意：如果你主页的url是空，正则必须写成<strong>^$</strong></font></p>
+<p>最后，一定要要修改静态页面中引用的路径。
+对于Django来说，可以使用<code>static</code>标签。
+在页面开头引入<code>{% load static %}</code>，这个对应的配置信息是<img alt="image_1ck6k15rg1j1lfei3j1aoepvha9.png-2.7kB" src="http://static.zybuluo.com/chuxiaoyi/1oihspdgm87u6fs8xsyi7rs3/image_1ck6k15rg1j1lfei3j1aoepvha9.png" />
+并将页面中的路径改为<img alt="image_1ck6k35as1gm97pr1gng1ch41ns7am.png-4.5kB" src="http://static.zybuluo.com/chuxiaoyi/yij56j7cs2lce5bzsd4d4mdp/image_1ck6k35as1gm97pr1gng1ch41ns7am.png" />
+<font color='red'><strong>ps：</strong></font>对于css或者js中的引用也不要忘了改！</p>
+<p>运行一下。
+<img alt="image_1ck6k74sv5p3212h1osclqub3.png-422.3kB" src="http://static.zybuluo.com/chuxiaoyi/d5dremlh2i930xisccmz8d62/image_1ck6k74sv5p3212h1osclqub3.png" />
+搞定！</p>
+<ul>
+<li><strong>向前端渲染及分页</strong>
+首先，更改<code>index()</code></li>
+</ul>
+<pre><code class="python">from django.shortcuts import render
+from django.core.paginator import Paginator
+from .models import Post
+
+
+def index(request):
+    &quot;&quot;&quot;
+    主页
+    :param request:
+    :return:
+    &quot;&quot;&quot;
+
+    post = Post.objects.all()
+
+    limit = 3
+    paginator = Paginator(post, limit)
+    page = request.GET.get('page', 1)
+
+    result = paginator.page(page)
+    context = {
+        &quot;post_list&quot;: result,
+        &quot;page&quot;: page
+    }
+    return render(request=request, template_name='Post/index.html', context=context)
+</code></pre>
+
+<p>然后修改<code>index.html</code>
+<img alt="image_1ck6ueleqhgg1ml215qg8461hpkbg.png-122kB" src="http://static.zybuluo.com/chuxiaoyi/y1tnpxlnteb4sdpfe39lh6hh/image_1ck6ueleqhgg1ml215qg8461hpkbg.png" /></p>
+<p>运行看一下
+<img alt="image_1ck6uhi34mt1nqi1a3i46p204bt.png-173.5kB" src="http://static.zybuluo.com/chuxiaoyi/rl9rr4j86xh9eqzlhuk8vm2u/image_1ck6uhi34mt1nqi1a3i46p204bt.png" />
+搞定！</p>
+<ul>
+<li><strong>更改index.html中的所有跳转链接</strong>
+在这里，我用的是url的反向解析。这样可以减轻后期维护成本。因此，就需要在urls.py中添加如下信息：
+<img alt="image_1ck6vajq31hn72jkr4hjpe1dt1ca.png-11.1kB" src="http://static.zybuluo.com/chuxiaoyi/xb662pip3z8x1271lcahbb35/image_1ck6vajq31hn72jkr4hjpe1dt1ca.png" /></li>
+</ul>
+<p><img alt="image_1ck6vb9cieha182n1eg12rt7qfcn.png-7.8kB" src="http://static.zybuluo.com/chuxiaoyi/mrayby38anpbctc28d2dmf3q/image_1ck6vb9cieha182n1eg12rt7qfcn.png" />
+在html中修改成如下：
+<img alt="image_1ck6vcgaqlpe8dqsf8qnn17rndk.png-3.5kB" src="http://static.zybuluo.com/chuxiaoyi/gz98bcgfeuyk3wl41rrswsi0/image_1ck6vcgaqlpe8dqsf8qnn17rndk.png" /></p>
+<ul>
+<li><strong>博客文章页面</strong>
+别忘了改跳转链接！！！！
+文章详情页和主页大体结构是相似的，因此，这里使用了模版继承。
+在基类模版里，使用这个，将子类模版需要填充的位置占位
+<img alt="image_1ck99cgjpsqtjq41hnk148j1ak9.png-4.6kB" src="http://static.zybuluo.com/chuxiaoyi/49j3eahshzer64j9h6nqpuoj/image_1ck99cgjpsqtjq41hnk148j1ak9.png" />
+然后在子类模板中，使用相同的标签将填充的内容进行包裹
+最后，不要忘了在子类模板中再写上<code>{% extends 'Post/base.html' %}</code>和<code>{% load static %}</code></li>
+</ul>
+<p>在<code>Post/urls.py</code>中添加详情页的url：</p>
+<pre><code>url(r'^detail/post-(?P&lt;pk&gt;\d+)$', views.detail, name=&quot;detail&quot;),
+</code></pre>
+
+<p>并添加detail视图</p>
+<pre><code class="python">def detail(request, pk):
+&quot;&quot;&quot;
+:param request: 
+:param pk: 接收到的文章的主键id
+:return: 
+&quot;&quot;&quot;
+return render(request, template_name='Post/blog.html', )
+</code></pre>
+
+<p>运行看一下吧！
+<img alt="image_1ck99kovo16t218tb11lo19k441mm.png-257kB" src="http://static.zybuluo.com/chuxiaoyi/y4kk578e16p5tyeiyd7mhecl/image_1ck99kovo16t218tb11lo19k441mm.png" />
+搞定！
+继续在视图中添加内容，将假数据改为真实的文章数据
+对于多对多的关系来说，可以写成这样：
+<img alt="image_1ck9hp2bkhnqamtcnbbm415813.png-10.1kB" src="http://static.zybuluo.com/chuxiaoyi/rnf7dr6w65lrn908p5f73rfu/image_1ck9hp2bkhnqamtcnbbm415813.png" />
+看一看效果吧！
+<img alt="image_1ck9i8vcll104c16qd1i9r2k01g.png-264.3kB" src="http://static.zybuluo.com/chuxiaoyi/iplx5zoz3up0mlsm7k75j2ie/image_1ck9i8vcll104c16qd1i9r2k01g.png" /></p>
+<p><font color='red'><strong>接下来就是让我可以上传markdown格式的文本了！
+这个暂时先不解决了= =，小本本记下来</strong></font></p>
+<ul>
+<li><strong>添加分类栏</strong>
+这里使用自定义模版标签！
+首先，在app文件夹下，创建<code>templatetags</code>文件夹，然后创建一个py文件，里面定义模版标签，目录是这样滴：
+<img alt="image_1ckc3ee0n117f10is15k8idd402d.png-9.9kB" src="http://static.zybuluo.com/chuxiaoyi/el867o3qwzqlek2v3f39bn9z/image_1ckc3ee0n117f10is15k8idd402d.png" /></li>
+</ul>
+<p>然后定义一个分类目录的标签：</p>
+<pre><code class="python">from django import template
+from ..models import Category
+
+register = template.Library()
+
+@register.simple_tag
+def get_categories():
+    &quot;&quot;&quot;
+    分类目录标签
+    :return:
+    &quot;&quot;&quot;
+    return Category.objects.all()
+</code></pre>
+
+<p>在前端引用自定义标签时，一定要开头加载自定义的模版标签所在的py文件，<code>{% load simple_tags %}</code>,然后再使用：</p>
+<pre><code class="html">{% get_categories as category_list %}
+{% for category in category_list %}
+    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;{{ category.name }}&lt;/a&gt;&lt;/li&gt;
+{% endfor %}
+</code></pre>
+
+<p>看一下效果吧！
+<img alt="企业微信截图_f1e71885-52fc-43e6-b722-a51dc80c8934.png-364.8kB" src="http://static.zybuluo.com/chuxiaoyi/4i86entcw88n7jzapw847n57/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_f1e71885-52fc-43e6-b722-a51dc80c8934.png" />
+搞定！</p>
+<ul>
+<li><strong>评论功能</strong>
+评论功能新建一个app</li>
+</ul>
+<pre><code>./manage.py startapp comment 
+</code></pre>
+
+<p>不要忘了把它注册到django中
+<img alt="image_1ckc6rca21j8d73ogvq16a01cl01e.png-15.2kB" src="http://static.zybuluo.com/chuxiaoyi/cjebk0cdfykz15cnb347inx9/image_1ckc6rca21j8d73ogvq16a01cl01e.png" /></p>
+<p>创建模型：</p>
+<pre><code class="python">from django.db import models
+
+class Comment(models.Model):
+    name = models.CharField(max_length=20)
+    email = models.EmailField(max_length=50)
+    website = models.URLField(blank=True)
+    text = models.TextField()
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    post = models.ForeignKey('Post.Post', on_delete=True)  # 一篇文章有多个评论
+</code></pre>
+
+<p>不要忘了注册到admin中啊！</p>
+<pre><code>admin.site.register(Comment)
+</code></pre>
+
+<p>最重要的一步。数据库迁移啊！！！</p>
+<p>这里要实现的是点击submit按钮，会提交评论
+在<code>comment/views.py</code>中添加视图：</p>
+<pre><code class="python">from django.shortcuts import render, redirect
+from .models import Comment
+from Post.models import Post
+from django.urls import reverse
+
+
+def submit_comment(request, pk):
+    &quot;&quot;&quot;
+    处理提交的评论
+    :param request:
+    :return:
+    &quot;&quot;&quot;
+    post = request.POST
+    comment = Comment()
+    comment.name = post.get(&quot;name&quot;)
+    comment.email = post.get('email')
+    comment.website = post.get('website')
+    comment.text = post.get('message')
+    comment.post = Post.objects.get(id=pk)
+    comment.save()
+
+    return redirect(reverse('Post:detail', kwargs={&quot;pk&quot;: pk}))
+</code></pre>
+
+<p>更改前端页面中的评论部分：
+<img alt="image_1ckcba269rui1u8a8rt1chqulf2r.png-37.9kB" src="http://static.zybuluo.com/chuxiaoyi/f5e47hed0uv3grf7qtdo1w8g/image_1ckcba269rui1u8a8rt1chqulf2r.png" /></p>
+<p>在<code>comment/urls.py</code>中添加映射：
+<img alt="image_1ckcc3v5apog1quqljj7lrrh21p.png-13.1kB" src="http://static.zybuluo.com/chuxiaoyi/19pzrwbl1kb170pul5v7x023/image_1ckcc3v5apog1quqljj7lrrh21p.png" />
+试一下吧！
+<img alt="image_1ckcc59nn17vv1dqq1lot1lak8tk26.png-24.9kB" src="http://static.zybuluo.com/chuxiaoyi/jdgsbihsi0hdw5b56idjitl1/image_1ckcc59nn17vv1dqq1lot1lak8tk26.png" />
+搞定！</p>
+<p><font color='red'><strong>后面再完善一下。搞成可以回复的啵！小本本记下来～</strong></font></p>
+<ul>
+<li><strong>最新评论</strong>
+这个也写成自定义标签啵。</li>
+</ul>
+<pre><code class="python">@register.simple_tag
+def get_latest_comment():
+    &quot;&quot;&quot;
+    获取最新评论
+    :return:
+    &quot;&quot;&quot;
+    comment_list = Comment.objects.all()[:5].only('post', 'text')   # 只获取特定字段
+    return comment_list
+</code></pre>
+
+<p><img alt="image_1ckceclnl10r41ocn18rlu2mpfc2j.png-17.4kB" src="http://static.zybuluo.com/chuxiaoyi/8ls7ecfp6838j3n0e0uzfgfv/image_1ckceclnl10r41ocn18rlu2mpfc2j.png" />
+<code>truncatechars</code>可以截取字符串，用法：<code>{{ comment.text | truncatechars:10 }}</code>
+看一下效果
+<img alt="image_1ckcef75i1ie51q421seb1rcu1lmm30.png-20.2kB" src="http://static.zybuluo.com/chuxiaoyi/4688zzma09v6kdfe0dorx8yv/image_1ckcef75i1ie51q421seb1rcu1lmm30.png" />
+搞定！</p>
+<ul>
+<li><strong>阅读量</strong>
+在<code>Post/models.py</code>中添加：
+<img alt="image_1ckcf0alj1l1u12a450avgf14323d.png-71.1kB" src="http://static.zybuluo.com/chuxiaoyi/1cm876ipp9l2m0ahh4hrjw1o/image_1ckcf0alj1l1u12a450avgf14323d.png" /></li>
+</ul>
+<p>在<code>Post/views.py</code>中添加：
+<img alt="image_1ckcf1coerbg1j2lroe2l91q9b3q.png-48.6kB" src="http://static.zybuluo.com/chuxiaoyi/8bz7aaw3iqj6lxcx0vkvdgdd/image_1ckcf1coerbg1j2lroe2l91q9b3q.png" /></p>
+<p>在前端页面添加：
+<img alt="image_1ckcf2edjfd11i6qg8e1vq51pfo47.png-4.3kB" src="http://static.zybuluo.com/chuxiaoyi/fy60nesb0nih1f8bnt2id1yh/image_1ckcf2edjfd11i6qg8e1vq51pfo47.png" /></p>
+<p>搞定！
+<img alt="image_1ckcf3k481u62unqtur1iis10ne5k.png-7.5kB" src="http://static.zybuluo.com/chuxiaoyi/z7b8c2kehww2oufikser9o0d/image_1ckcf3k481u62unqtur1iis10ne5k.png" /></p>
+<p>好啦～到这里博客基本成型了。就是不好看= =。然后后面继续完善。小本本记下来。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../daily_problem/" class="btn btn-neutral" title="日常问题"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../daily_problem/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
