@@ -105,6 +105,8 @@
         <li class="main "><a href="#api">包装API视图</a></li>
         <li class="main "><a href="#_1">组合起来</a></li>
         <li class="main "><a href="#url">向url添加可选格式后缀</a></li>
+        <li class="main "><a href="#_2">它看起来怎么样?</a></li>
+        <li class="main "><a href="#_3">可浏览性</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -196,7 +198,91 @@ def snippet_detail(request, pk):
 </code></pre>
 
 <pre><code>def snippet_detail(request, pk, format=None):
-</code></pre></div>
+</code></pre>
+
+<p>现在更新 <code>snippets/urls.py</code> 文件，在现有url之外附加一组format_suffix_patterns。</p>
+<pre><code class="python">from django.conf.urls import url
+from rest_framework.urlpatterns import format_suffix_patterns
+from snippets import views
+
+urlpatterns = [
+    url(r'^snippets/$', views.snippet_list),
+    url(r'^snippets/(?P&lt;pk&gt;[0-9]+)$', views.snippet_detail),
+]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
+</code></pre>
+
+<p>我们不需要添加这些额外的url模式，但是它提供了一种简单、干净的方式来引用特定的格式。</p>
+<h1 id="_2">它看起来怎么样?</h1>
+<p>继续从命令行测试API，就像我们在<a href="http://www.django-rest-framework.org/tutorial/1-serialization/">教程第1部分</a>中所做的那样。一切工作都非常相似，但是我们在发送无效请求时得到了更好的错误处理。
+我们可以像以前一样得到所有snippets的列表。</p>
+<pre><code>http http://127.0.0.1:8000/snippets/
+
+HTTP/1.1 200 OK
+...
+[
+  {
+    &quot;id&quot;: 1,
+    &quot;title&quot;: &quot;&quot;,
+    &quot;code&quot;: &quot;foo = \&quot;bar\&quot;\n&quot;,
+    &quot;linenos&quot;: false,
+    &quot;language&quot;: &quot;python&quot;,
+    &quot;style&quot;: &quot;friendly&quot;
+  },
+  {
+    &quot;id&quot;: 2,
+    &quot;title&quot;: &quot;&quot;,
+    &quot;code&quot;: &quot;print \&quot;hello, world\&quot;\n&quot;,
+    &quot;linenos&quot;: false,
+    &quot;language&quot;: &quot;python&quot;,
+    &quot;style&quot;: &quot;friendly&quot;
+  }
+]
+</code></pre>
+
+<p>我们可以通过使用Accept头来控制返回的响应的格式:</p>
+<pre><code>http http://127.0.0.1:8000/snippets/ Accept:application/json  # Request JSON
+http http://127.0.0.1:8000/snippets/ Accept:text/html         # Request HTML
+</code></pre>
+
+<p>或加上格式后缀:</p>
+<pre><code>http http://127.0.0.1:8000/snippets.json  # JSON suffix
+http http://127.0.0.1:8000/snippets.api   # Browsable API suffix
+</code></pre>
+
+<p>类似地，我们可以使用Content-Type头来控制发送请求的格式。</p>
+<pre><code># POST using form data
+http --form POST http://127.0.0.1:8000/snippets/ code=&quot;print 123&quot;
+
+{
+  &quot;id&quot;: 3,
+  &quot;title&quot;: &quot;&quot;,
+  &quot;code&quot;: &quot;print 123&quot;,
+  &quot;linenos&quot;: false,
+  &quot;language&quot;: &quot;python&quot;,
+  &quot;style&quot;: &quot;friendly&quot;
+}
+
+# POST using JSON
+http --json POST http://127.0.0.1:8000/snippets/ code=&quot;print 456&quot;
+
+{
+    &quot;id&quot;: 4,
+    &quot;title&quot;: &quot;&quot;,
+    &quot;code&quot;: &quot;print 456&quot;,
+    &quot;linenos&quot;: false,
+    &quot;language&quot;: &quot;python&quot;,
+    &quot;style&quot;: &quot;friendly&quot;
+}
+</code></pre>
+
+<p>如果您向上面的 <code>http</code> 请求添加 <code>—debug</code> 切换，您将能够在请求标头中看到请求类型。</p>
+<p>现在，通过访问http://127.0.0.1:8000/snippets/，在web浏览器中打开API。</p>
+<h1 id="_3">可浏览性</h1>
+<p>因为API根据客户端请求选择响应的内容类型，所以默认情况下，当web浏览器请求该资源时，它将返回一个html格式的资源表示。这允许API返回完全web浏览的HTML表示。</p>
+<p>有一个web浏览的API是一个巨大的可用性胜利，并且使开发和使用您的API更加容易。它还极大地降低了其他开发人员想要检查和使用您的API的门槛。</p>
+<p>有关可浏览api特性以及如何自定义的更多信息，请参阅<a href="http://www.django-rest-framework.org/topics/browsable-api/">可浏览api</a>主题。</p></div>
         </div>
 
         <footer class="col-md-12">
