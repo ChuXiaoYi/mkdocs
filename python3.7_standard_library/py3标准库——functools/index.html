@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="褚晓逸">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>functools - python攻城狮</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "functools.cmp_to_key(func)", url: "#_top", children: [
+          ]},
+          {title: "functools.lru_cache(maxsize=128, typed=False", url: "#functoolslru_cachemaxsize128-typedfalse", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="django/django_rest_framework/django_rest_framework_ClassBasedViews/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="django/django_rest_framework/django_rest_framework_ClassBasedViews/" class="btn btn-xs btn-link">
+        基于类的视图
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h2 id="functoolscmp_to_keyfunc">functools.cmp_to_key(func)</h2>
+<blockquote>
+<p>将旧式比较函数转换为关键字函数。与接受字关键函数(如sort()、min()、max()、heapq. nbiggest()、heapq.nsmallest()、itertools.groupby())的工具一起使用。该函数主要用于从Python 2转换过来的程序的转换工具，Python 2支持使用比较函数。</p>
+<p>比较函数是任何可调用的函数，它接受两个参数，进行比较，然后返回负数(小于)、零(相等)或正数(大于)。键函数是一个可调用函数，它接受一个参数并返回另一个值作为排序键。</p>
+</blockquote>
+<p>放上一波源码：</p>
+<pre><code class="python">################################################################################
+### cmp_to_key() function converter
+################################################################################
+
+def cmp_to_key(mycmp):
+    &quot;&quot;&quot;Convert a cmp= function into a key= function&quot;&quot;&quot;
+    class K(object):
+        __slots__ = ['obj']
+        def __init__(self, obj):
+            self.obj = obj
+        def __lt__(self, other):
+            return mycmp(self.obj, other.obj) &lt; 0
+        def __gt__(self, other):
+            return mycmp(self.obj, other.obj) &gt; 0
+        def __eq__(self, other):
+            return mycmp(self.obj, other.obj) == 0
+        def __le__(self, other):
+            return mycmp(self.obj, other.obj) &lt;= 0
+        def __ge__(self, other):
+            return mycmp(self.obj, other.obj) &gt;= 0
+        __hash__ = None
+    return K
+</code></pre>
+
+<p>写一个demo，看一下运行流程：</p>
+<pre><code class="python">import functools
+
+
+class MyObject:
+
+    def __init__(self, val):
+        self.val = val
+
+    def __str__(self):
+        return 'MyObject({})'.format(self.val)
+
+
+def compare_obj(a, b):
+    &quot;&quot;&quot;Old-style comparison function.
+    &quot;&quot;&quot;
+    print('comparing {} and {}'.format(a, b))
+    if a.val &lt; b.val:
+        return -1
+    elif a.val &gt; b.val:
+        return 1
+    return 0
+
+# 排序的key
+get_key = functools.cmp_to_key(compare_obj)
+
+def get_key_wrapper(o):
+    &quot;Wrapper function for get_key to allow for print statements.&quot;
+    new_key = get_key(o)
+    print('key_wrapper({}) -&gt; {!r}'.format(o, new_key))
+    return new_key
+
+objs = [MyObject(x) for x in range(5, 0, -1)]
+
+for o in sorted(objs, key=get_key_wrapper):
+    print(o)
+</code></pre>
+
+<p>通常情况下，<code>cmp_to_key()</code> 将直接使用，但在本例中引入了一个额外的包装函数，以在调用关键函数时输出更多信息。
+输出如下：</p>
+<pre><code>key_wrapper(MyObject(5)) -&gt; &lt;functools.KeyWrapper object at 0x10692e510&gt;
+key_wrapper(MyObject(4)) -&gt; &lt;functools.KeyWrapper object at 0x10692e4f0&gt;
+key_wrapper(MyObject(3)) -&gt; &lt;functools.KeyWrapper object at 0x10692e4d0&gt;
+key_wrapper(MyObject(2)) -&gt; &lt;functools.KeyWrapper object at 0x10692e470&gt;
+key_wrapper(MyObject(1)) -&gt; &lt;functools.KeyWrapper object at 0x10692e490&gt;
+comparing MyObject(4) and MyObject(5)
+comparing MyObject(3) and MyObject(4)
+comparing MyObject(2) and MyObject(3)
+comparing MyObject(1) and MyObject(2)
+MyObject(1)
+MyObject(2)
+MyObject(3)
+MyObject(4)
+MyObject(5)
+</code></pre>
+
+<h2 id="functoolslru_cachemaxsize128-typedfalse">functools.lru_cache(maxsize=128, typed=False</h2>
+<blockquote>
+<p>lru_cache（）装饰器将函数包装在最近最少使用的缓存中。 函数的参数用于构建散列键，然后将其映射到结果。 后续使用相同参数的调用将从缓存中获取值，而不是调用该函数。 装饰器还向函数添加方法来检查缓存（<code>cache_info()</code>）的状态并清空缓存（<code>cache_clear()</code>）。
+装饰器将一个功能封装在一个可记忆的可调用的函数中，这样就可以保存到最近调用的maxsize。当定期使用相同的参数调用昂贵的或I/O绑定函数时，它可以节省时间。</p>
+<p>由于字典用于缓存结果，因此函数的位置和关键字参数必须是hashable的。</p>
+<p>如果maxsize设置为None，则禁用LRU特性，缓存可以无限制增长。当maxsize为2次方时，LRU特性表现最佳。</p>
+<p>如果将类型设置为true，则将分别缓存不同类型的函数参数。例如，f(3)和f(3.0)将被视为具有不同结果的不同调用。</p>
+<p>为了帮助度量缓存的有效性并调优maxsize参数，封装的函数使用cache_info()函数进行检测，该函数返回一个命名元组，显示hits(命中), misses(未命中)、maxsize和currsize。在多线程环境中，得失是近似的。</p>
+<p>decorator还提供了一个cache_clear()函数，用于清除或使缓存失效。</p>
+<p>原始的底层函数可以通过__wrapped__属性访问。这对于内省、绕过缓存或使用不同的缓存重新包装函数非常有用。</p>
+</blockquote>
+
+  <br>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="django/django_rest_framework/django_rest_framework_ClassBasedViews/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="django/django_rest_framework/django_rest_framework_ClassBasedViews/" class="btn btn-xs btn-link">
+        基于类的视图
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+      <p>
+        <a href="https://github.com/ChuXiaoYi/edit/master/docs/python3.7_standard_library/py3标准库——functools.md"><i class="fa fa-github"></i>
+Edit on GitHub</a>
+      </p><p>author by ChuXiaoYi</p>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

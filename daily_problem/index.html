@@ -1,134 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="褚晓逸">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>日常问题 - python攻城狮</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
         
-        <meta name="author" content="褚晓逸">
-        
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>日常问题 - 学习笔记</title>
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/purebasic.min.css">
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        var pageToc = [
+          {title: "1. \u5c0f\u6570\u8f6c\u6362\u4e3a\u767e\u5206\u6570", url: "#_top", children: [
+          ]},
+          {title: "2. \u6587\u4ef6\u64cd\u4f5c", url: "#2", children: [
+          ]},
+          {title: "3. \u8bfb\u5199csv\u6587\u4ef6", url: "#3-csv", children: [
+          ]},
+          {title: "4. python3.6\u8bfbini\u914d\u7f6e\u6587\u4ef6", url: "#4-python36ini", children: [
+          ]},
+          {title: "5. django\u4e4b\u5141\u8bb8\u5916\u90e8\u673a\u5668\u8bbf\u95ee\u672c\u673a\u670d\u52a1", url: "#5-django", children: [
+          ]},
+          {title: "6. Python\u591a\u8fdb\u7a0b\u5e76\u53d1\u64cd\u4f5c\u4e2d\u8fdb\u7a0b\u6c60Pool\u7684\u5e94\u7528", url: "#6-pythonpool", children: [
+          ]},
+          {title: "7. \u8fdb\u7a0b\u6c60\u4f7f\u7528queue\u961f\u5217", url: "#7-queue", children: [
+          ]},
+          {title: "8. operator.itemgetter()", url: "#8-operatoritemgetter", children: [
+          ]},
+          {title: "9. sorted()\u5185\u5efa\u51fd\u6570", url: "#9-sorted", children: [
+          ]},
+          {title: "10. python2.7 \u89e3\u51b3UnicodeDecodeError: \u2018ascii\u2019 codec can\u2019t decode byte 0xe5 in position 108: ordinal not in range(128\u3002\u3002\u3002\u3002", url: "#10-python27-unicodedecodeerror-ascii-codec-cant-decode-byte-0xe5-in-position-108-ordinal-not-in-range128", children: [
+          ]},
+          {title: "11. \u51e0\u4e2a\u6709\u7528\u7684python\u51fd\u6570 (\u7b1b\u5361\u5c14\u79ef, \u6392\u5217, \u7ec4\u5408)", url: "#11-python", children: [
+          ]},
+          {title: "12. python\u6c42\u4e24\u4e2a\u94fe\u8868\u7ec4\u6210\u7684\u6570\u5b57\u7684\u548c", url: "#12-python", children: [
+          ]},
+          {title: "13. python\u5185\u7f6e\u51fd\u6570\u2014\u2014divmod(a, b)", url: "#13-pythondivmoda-b", children: [
+          ]},
+          {title: "14. python\u5185\u7f6e\u51fd\u6570\u2014\u2014enumerate(sequence, start=0)", url: "#14-pythonenumeratesequence-start0", children: [
+          ]},
+          {title: "15. python\u5185\u7f6e\u51fd\u6570\u2014\u2014filter(function, iterable)", url: "#15-pythonfilterfunction-iterable", children: [
+          ]},
+          {title: "16. datetime", url: "#16-datetime", children: [
+          ]},
+          {title: "17. \u9488\u5bf9\u201ccould not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/vine'\u201d\u7684\u89e3\u51b3\u65b9\u5f0f", url: "#17-could-not-install-packages-due-to-an-environmenterror-errno-13-permission-denied-librarypython27site-packagesvine", children: [
+          ]},
+          {title: "18. \u5b57\u5178\u8f6cxml", url: "#18-xml", children: [
+          ]},
+          {title: "19. or\u548cand", url: "#19-orand", children: [
+          ]},
+          {title: "20. xmltodict\u7684\u5751", url: "#20-xmltodict", children: [
+          ]},
+          {title: "21. \u5217\u8868\u751f\u6210\u5f0f\u4e2d\u7684if-else", url: "#21-if-else", children: [
+          ]},
+          {title: "22. \u9488\u5bf9MySQL said: Authentication plugin 'caching_sha2_password' cannot be loaded: dlopen(/usr/local/...\u7684\u95ee\u9898", url: "#22-mysql-said-authentication-plugin-caching_sha2_password-cannot-be-loaded-dlopenusrlocal", children: [
+          ]},
+          {title: "23. django model\u83b7\u53d6\u7279\u5b9a\u5b57\u6bb5", url: "#23-django-model", children: [
+          ]},
+          {title: "24. Connection reset by peer\u7684\u5e38\u89c1\u539f\u56e0", url: "#24-connection-reset-by-peer", children: [
+          ]},
+          {title: "25. \u5173\u4e8edjango.urls.path\u548cdjango.urls.re_path", url: "#25-djangourlspathdjangourlsre_path", children: [
+          ]},
+        ];
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/rust.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
-    </head>
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
 
-    <body>
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
 
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
 
-                <!-- Collapsed navigation -->
-                <div class="navbar-header">
-                    <!-- Expander button -->
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="..">学习笔记</a>
-                </div>
 
-                <!-- Expanded navigation -->
-                <div class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li >
-                                <a href="..">目录</a>
-                            </li>
-                            <li class="active">
-                                <a href="./">日常问题</a>
-                            </li>
-                            <li >
-                                <a href="../django/">django开发实战</a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">django-rest-framework学习笔记 <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-<li >
-    <a href="../django_rest_framework/djang_rest_framework/">Serialization</a>
-</li>
-                                    
-<li >
-    <a href="../django_rest_framework/django_rest_framework_responseAndRequest/">Requests and responses</a>
-</li>
-                                </ul>
-                            </li>
-                        </ul>
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li >
-                                <a rel="next" href="..">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li >
-                                <a rel="prev" href="../django/">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/ChuXiaoYi/edit/master/docs/daily_problem.md"><i class="fa fa-github"></i> Edit on GitHub</a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="django/django/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="django/django/" class="btn btn-xs btn-link">
+        django开发实战
+      </a>
+    </div>
+    
+  </div>
 
-        <div class="container">
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#1">1. 小数转换为百分数</a></li>
-        <li class="main "><a href="#2">2. 文件操作</a></li>
-        <li class="main "><a href="#3-csv">3. 读写csv文件</a></li>
-        <li class="main "><a href="#4-python36ini">4. python3.6读ini配置文件</a></li>
-        <li class="main "><a href="#5-django">5. django之允许外部机器访问本机服务</a></li>
-        <li class="main "><a href="#6-pythonpool">6. Python多进程并发操作中进程池Pool的应用</a></li>
-        <li class="main "><a href="#7-queue">7. 进程池使用queue队列</a></li>
-        <li class="main "><a href="#8-operatoritemgetter">8. operator.itemgetter()</a></li>
-        <li class="main "><a href="#9-sorted">9. sorted()内建函数</a></li>
-        <li class="main "><a href="#10-python27-unicodedecodeerror-ascii-codec-cant-decode-byte-0xe5-in-position-108-ordinal-not-in-range128">10. python2.7 解决UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe5 in position 108: ordinal not in range(128。。。。</a></li>
-        <li class="main "><a href="#11-python">11. 几个有用的python函数 (笛卡尔积, 排列, 组合)</a></li>
-        <li class="main "><a href="#12-python">12. python求两个链表组成的数字的和</a></li>
-        <li class="main "><a href="#13-pythondivmoda-b">13. python内置函数——divmod(a, b)</a></li>
-        <li class="main "><a href="#14-pythonenumeratesequence-start0">14. python内置函数——enumerate(sequence, start=0)</a></li>
-        <li class="main "><a href="#15-pythonfilterfunction-iterable">15. python内置函数——filter(function, iterable)</a></li>
-        <li class="main "><a href="#16-datetime">16. datetime</a></li>
-        <li class="main "><a href="#17-could-not-install-packages-due-to-an-environmenterror-errno-13-permission-denied-librarypython27site-packagesvine">17. 针对“could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/vine'”的解决方式</a></li>
-        <li class="main "><a href="#18-xml">18. 字典转xml</a></li>
-        <li class="main "><a href="#19-orand">19. or和and</a></li>
-        <li class="main "><a href="#20-xmltodict">20. xmltodict的坑</a></li>
-        <li class="main "><a href="#21-if-else">21. 列表生成式中的if-else</a></li>
-        <li class="main "><a href="#22-mysql-said-authentication-plugin-caching_sha2_password-cannot-be-loaded-dlopenusrlocal">22. 针对MySQL said: Authentication plugin 'caching_sha2_password' cannot be loaded: dlopen(/usr/local/...的问题</a></li>
-        <li class="main "><a href="#23-django-model">23. django model获取特定字段</a></li>
-        <li class="main "><a href="#24-connection-reset-by-peer">24. Connection reset by peer的常见原因</a></li>
-        <li class="main "><a href="#25-djangourlspathdjangourlsre_path">25. 关于django.urls.path和django.urls.re_path</a></li>
-    </ul>
-</div></div>
-                <div class="col-md-9" role="main">
+    
 
-<h3 id="1">1. 小数转换为百分数</h3>
+    <h3 id="1">1. 小数转换为百分数</h3>
 <pre><code class="python">def change_percent(num):
 return &quot;%.2f%%&quot; % (num * 100)
 </code></pre>
@@ -812,84 +800,35 @@ dicttoxml.dicttoxml(self.post_data_dict, root=True, custom_root=&quot;request&qu
 re_path(r'^(?P&lt;album_id&gt;[0-9])/$', views.detail, name='detail'),
 </code></pre>
 
-<p>如果用url()，也会链接到re_path()的</p></div>
-        </div>
+<p>如果用url()，也会链接到re_path()的</p>
 
-        <footer class="col-md-12">
-            <hr>
-                <p>author by ChuXiaoYi</p>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = "..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../js/base.js" defer></script>
-        <script src="../search/main.js" defer></script>
+  <br>
+    
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form role="form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="django/django/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="django/django/" class="btn btn-xs btn-link">
+        django开发实战
+      </a>
     </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+    
+  </div>
+
+    <br>
 </div>
 
-    </body>
+<footer class="col-md-12 wm-page-content">
+      <p>
+        <a href="https://github.com/ChuXiaoYi/edit/master/docs/daily_problem.md"><i class="fa fa-github"></i>
+Edit on GitHub</a>
+      </p><p>author by ChuXiaoYi</p>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
 </html>

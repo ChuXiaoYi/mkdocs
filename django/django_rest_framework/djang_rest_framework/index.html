@@ -1,117 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="褚晓逸">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Serialization - python攻城狮</title>
+    <link href="../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../..';
+      var is_top_frame = false;
         
-        <meta name="author" content="褚晓逸">
-        
-        <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Serialization - 学习笔记</title>
-        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/purebasic.min.css">
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        var pageToc = [
+          {title: "\u5165\u95e8", url: "#_top", children: [
+          ]},
+          {title: "\u521b\u5efa\u4e00\u4e2a\u6a21\u578b", url: "#_2", children: [
+          ]},
+          {title: "\u521b\u5efa\u4e00\u4e2aSerializer\u7c7b", url: "#serializer", children: [
+          ]},
+          {title: "\u4f7f\u7528Serializers", url: "#serializers", children: [
+          ]},
+          {title: "\u4f7f\u7528ModelSerializers", url: "#modelserializers", children: [
+          ]},
+          {title: "\u4f7f\u7528\u6211\u4eec\u7684Serializer\u7f16\u5199\u5e38\u89c4Django\u89c6\u56fe", url: "#serializerdjango", children: [
+          ]},
+          {title: "\u6d4b\u8bd5\u6211\u4eec\u5bf9Web API\u7684\u7b2c\u4e00\u6b21\u5c1d\u8bd5", url: "#web-api", children: [
+          ]},
+          {title: "\u6211\u4eec\u73b0\u5728\u5728\u54ea", url: "#_3", children: [
+          ]},
+        ];
 
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/rust.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
-    </head>
+    </script>
+    <script src="../../../js/base.js"></script> 
+</head>
 
-    <body>
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
 
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
 
-                <!-- Collapsed navigation -->
-                <div class="navbar-header">
-                    <!-- Expander button -->
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="../..">学习笔记</a>
-                </div>
 
-                <!-- Expanded navigation -->
-                <div class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li >
-                                <a href="../..">目录</a>
-                            </li>
-                            <li >
-                                <a href="../../daily_problem/">日常问题</a>
-                            </li>
-                            <li >
-                                <a href="../../django/">django开发实战</a>
-                            </li>
-                            <li class="dropdown active">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">django-rest-framework学习笔记 <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-<li class="active">
-    <a href="./">Serialization</a>
-</li>
-                                    
-<li >
-    <a href="../django_rest_framework_responseAndRequest/">Requests and responses</a>
-</li>
-                                </ul>
-                            </li>
-                        </ul>
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li >
-                                <a rel="next" href="../../django/">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li >
-                                <a rel="prev" href="../django_rest_framework_responseAndRequest/">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/ChuXiaoYi/edit/master/docs/django_rest_framework/djang_rest_framework.md"><i class="fa fa-github"></i> Edit on GitHub</a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="django/django_rest_framework/django_rest_framework_responseAndRequest/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="django/django_rest_framework/django_rest_framework_responseAndRequest/" class="btn btn-xs btn-link">
+        Requests and responses
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="django/django/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="django/django/" class="btn btn-xs btn-link">
+        django开发实战
+      </a>
+    </div>
+    
+  </div>
 
-        <div class="container">
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#_1">入门</a></li>
-        <li class="main "><a href="#_2">创建一个模型</a></li>
-        <li class="main "><a href="#serializer">创建一个Serializer类</a></li>
-        <li class="main "><a href="#serializers">使用Serializers</a></li>
-        <li class="main "><a href="#modelserializers">使用ModelSerializers</a></li>
-        <li class="main "><a href="#serializerdjango">使用我们的Serializer编写常规Django视图</a></li>
-        <li class="main "><a href="#web-api">测试我们对Web API的第一次尝试</a></li>
-        <li class="main "><a href="#_3">我们现在在哪</a></li>
-    </ul>
-</div></div>
-                <div class="col-md-9" role="main">
+    
 
-<p><font color="blue">注意： 该笔记主要翻译自<a href="http://www.django-rest-framework.org/tutorial/1-serialization/">官方文档</a></font></p>
+    <p><font color="blue">注意： 该笔记主要翻译自<a href="http://www.django-rest-framework.org/tutorial/1-serialization/">官方文档</a></font></p>
 <h1 id="_1">入门</h1>
 <p>首先，创建新项目</p>
 <pre><code>django-admin.py startproject tutorial
@@ -425,84 +404,43 @@ HTTP/1.1 200 OK
 <h1 id="_3">我们现在在哪</h1>
 <p>到目前为止我们做得还不错，我们有一个序列化API，感觉非常类似于Django的Forms API，以及一些常规的Django视图。</p>
 <p>我们的API视图目前没有做任何特别特别的事情，除了提供json响应之外，还有一些我们仍想清理的错误处理边缘情况，但它是一个正常运行的Web API。</p>
-<p>我们将在本教程的第2部分中看到如何开始改进。</p></div>
-        </div>
+<p>我们将在本教程的第2部分中看到如何开始改进。</p>
 
-        <footer class="col-md-12">
-            <hr>
-                <p>author by ChuXiaoYi</p>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = "../..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../../js/base.js" defer></script>
-        <script src="../../search/main.js" defer></script>
+  <br>
+    
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form role="form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="django/django_rest_framework/django_rest_framework_responseAndRequest/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="django/django_rest_framework/django_rest_framework_responseAndRequest/" class="btn btn-xs btn-link">
+        Requests and responses
+      </a>
     </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
+    
+    <div class="wm-article-nav">
+      <a href="django/django/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="django/django/" class="btn btn-xs btn-link">
+        django开发实战
+      </a>
     </div>
+    
+  </div>
+
+    <br>
 </div>
 
-    </body>
+<footer class="col-md-12 wm-page-content">
+      <p>
+        <a href="https://github.com/ChuXiaoYi/edit/master/docs/django/django_rest_framework/djang_rest_framework.md"><i class="fa fa-github"></i>
+Edit on GitHub</a>
+      </p><p>author by ChuXiaoYi</p>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
 </html>
