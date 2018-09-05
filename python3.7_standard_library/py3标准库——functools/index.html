@@ -35,7 +35,9 @@
         var pageToc = [
           {title: "functools.cmp_to_key(func)", url: "#_top", children: [
           ]},
-          {title: "functools.lru_cache(maxsize=128, typed=False", url: "#functoolslru_cachemaxsize128-typedfalse", children: [
+          {title: "@functools.lru_cache(maxsize=128, typed=False)", url: "#functoolslru_cachemaxsize128-typedfalse", children: [
+          ]},
+          {title: "@functools.total_ordering", url: "#functoolstotal_ordering", children: [
           ]},
         ];
 
@@ -154,7 +156,7 @@ MyObject(4)
 MyObject(5)
 </code></pre>
 
-<h2 id="functoolslru_cachemaxsize128-typedfalse">functools.lru_cache(maxsize=128, typed=False</h2>
+<h2 id="functoolslru_cachemaxsize128-typedfalse">@functools.lru_cache(maxsize=128, typed=False)</h2>
 <blockquote>
 <p>lru_cache（）装饰器将函数包装在最近最少使用的缓存中。 函数的参数用于构建散列键，然后将其映射到结果。 后续使用相同参数的调用将从缓存中获取值，而不是调用该函数。 装饰器还向函数添加方法来检查缓存（<code>cache_info()</code>）的状态并清空缓存（<code>cache_clear()</code>）。
 装饰器将一个功能封装在一个可记忆的可调用的函数中，这样就可以保存到最近调用的maxsize。当定期使用相同的参数调用昂贵的或I/O绑定函数时，它可以节省时间。</p>
@@ -165,6 +167,30 @@ MyObject(5)
 <p>decorator还提供了一个cache_clear()函数，用于清除或使缓存失效。</p>
 <p>原始的底层函数可以通过__wrapped__属性访问。这对于内省、绕过缓存或使用不同的缓存重新包装函数非常有用。</p>
 </blockquote>
+<h2 id="functoolstotal_ordering">@functools.total_ordering</h2>
+<blockquote>
+<p>给定一个类定义一个或多个丰富的比较排序方法，这个类装饰器提供其余的方法。这简化了指定所有可能的丰富比较操作所涉及的工作:</p>
+<p>这个类类必须定义一个<code>__lt__()</code>,<code>__le__()</code>,<code>__gt__()</code>,或<code>__ge__()</code>。此外，类应该提供<code>__eq__()</code>方法。</p>
+</blockquote>
+<p>上一波源码：</p>
+<pre><code class="python">def total_ordering(cls):
+    &quot;&quot;&quot;Class decorator that fills in missing ordering methods&quot;&quot;&quot;
+    # Find user-defined comparisons (not those inherited from object).
+    roots = {op for op in _convert if getattr(cls, op, None) is not getattr(object, op, None)}
+    if not roots:
+        raise ValueError('must define at least one ordering operation: &lt; &gt; &lt;= &gt;=')
+    root = max(roots)       # prefer __lt__ to __le__ to __gt__ to __ge__
+    for opname, opfunc in _convert[root]:
+        if opname not in roots:
+            opfunc.__name__ = opname
+            setattr(cls, opname, opfunc)
+    return cls
+</code></pre>
+
+<p>来一个demo:</p>
+<pre><code class="python">
+
+</code></pre>
 
   <br>
     
