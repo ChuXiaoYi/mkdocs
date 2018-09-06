@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="褚晓逸">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>itertools - python攻城狮</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "itertools.count(start=0, step=1)", url: "#_top", children: [
+          ]},
+          {title: "itertools.cycle(iterable)", url: "#itertoolscycleiterable", children: [
+          ]},
+          {title: "itertools.repeat(object[, times])", url: "#itertoolsrepeatobject-times", children: [
+          ]},
+          {title: "itertools.accumulate(iterable[, func])", url: "#itertoolsaccumulateiterable-func", children: [
+          ]},
+          {title: "itertools.chain(*iterables)", url: "#itertoolschain42iterables", children: [
+          ]},
+          {title: "classmethod chain.from_iterable(iterable)", url: "#classmethod-chainfrom_iterableiterable", children: [
+          ]},
+          {title: "itertools.compress(data, selectors)", url: "#itertoolscompressdata-selectors", children: [
+          ]},
+          {title: "itertools.dropwhile(predicate, iterable)", url: "#itertoolsdropwhilepredicate-iterable", children: [
+          ]},
+          {title: "itertools.filterfalse(predicate, iterable)", url: "#itertoolsfilterfalsepredicate-iterable", children: [
+          ]},
+          {title: "itertools.groupby(iterable, key=None)", url: "#itertoolsgroupbyiterable-keynone", children: [
+          ]},
+          {title: "itertools.islice(iterable, start, stop[, step])\u548citertools.islice(iterable, stop)", url: "#itertoolsisliceiterable-start-stop-stepitertoolsisliceiterable-stop", children: [
+          ]},
+          {title: "itertools.starmap(function, iterable)", url: "#itertoolsstarmapfunction-iterable", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="python3.7_standard_library/py3标准库——functools/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="python3.7_standard_library/py3标准库——functools/" class="btn btn-xs btn-link">
+        functools
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>Python的内建模块itertools提供了非常有用的用于操作迭代对象的函数。</p>
+<h3 id="itertoolscountstart0-step1"><strong>itertools.count(start=0, step=1)</strong></h3>
+<p>创建一个迭代器，生成从n开始的连续整数，如果忽略n，则从0开始计算（注意：此迭代器不支持长整数)</p>
+<p>如果超出了sys.maxint，计数器将溢出并继续从-sys.maxint-1开始计算。</p>
+<p>当使用浮点数进行计数时，有时可以通过替换乘法代码来实现更高的准确率，例如：<code>(start + step * i for i in count())</code></p>
+<p>该方法等价于：</p>
+<pre><code class="python">def count(start=0, step=1):
+    # count(10) --&gt; 10 11 12 13 14 ...
+    # count(2.5, 0.5) -&gt; 2.5 3.0 3.5 ...
+    n = start
+    while True:
+        yield n
+        n += step
+</code></pre>
+
+<h3 id="itertoolscycleiterable"><strong>itertools.cycle(iterable)</strong></h3>
+<p>创造一个迭代器，复制从当前迭代器返回的每一个元素并将其保存到创建的迭代器中。当当前迭代器耗尽时，从创造的迭代器循环返回元素。</p>
+<p>简单理解就是，传入一个序列，无限循环下去</p>
+<p>大致相当于:</p>
+<pre><code class="python">def cycle(iterable):
+    # cycle('ABCD') --&gt; A B C D A B C D A B C D ...
+    saved = []
+    for element in iterable:
+        yield element
+        saved.append(element)
+    while saved:
+        for element in saved:
+              yield element
+</code></pre>
+
+<h3 id="itertoolsrepeatobject-times"><strong>itertools.repeat(object[, times])</strong></h3>
+<p>让迭代器一次又一次地返回对象。无限运行，除非指定了<code>times</code>参数控制重复次数</p>
+<p>大致相当于：</p>
+<pre><code class="python">def repeat(object, times=None):
+    # repeat(10, 3) --&gt; 10 10 10
+    if times is None:
+        while True:
+            yield object
+    else:
+        for i in range(times):
+            yield object
+</code></pre>
+
+<p>repeat的一个常见用法是提供一个用于map或zip的常数流:</p>
+<pre><code>&gt;&gt;&gt; list(map(pow, range(10), repeat(2)))
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+</code></pre>
+
+<h3 id="itertoolsaccumulateiterable-func"><strong>itertools.accumulate(iterable[, func])</strong></h3>
+<p>创建一个迭代器，它返回计算的累积和，或其他二进制函数的计算结果（这个二进制函数可以通过func参数指定）。如果指定了func参数，必须保证这个参数对应的函数可以接收两个参数。</p>
+<p>大致相当于：</p>
+<pre><code class="python">def accumulate(iterable, func=operator.add):
+    'Return running totals'
+    # accumulate([1,2,3,4,5]) --&gt; 1 3 6 10 15
+    # accumulate([1,2,3,4,5], operator.mul) --&gt; 1 2 6 24 120
+    it = iter(iterable)
+    try:
+        total = next(it)
+    except StopIteration:
+        return
+    yield total
+    for element in it:
+        total = func(total, element)
+        yield total
+</code></pre>
+
+<p>如果很难理解，可以这样理解：</p>
+<pre><code>对于默认func来说，结果就是[p0, p0+p1, p0+p1+p2, …]
+</code></pre>
+<h3 id="itertoolschain42iterables"><strong>itertools.chain(*iterables)</strong></h3>
+<p>创建一个迭代器，该迭代器从第一个迭代返回元素，直到它被耗尽，然后继续到下一个迭代，直到所有的迭代都被耗尽。用于将连续序列视为单个序列。
+大致相当于:</p>
+<pre><code class="python">def chain(*iterables):
+    # chain('ABC', 'DEF') --&gt; A B C D E F
+    for it in iterables:
+        for element in it:
+            yield element
+</code></pre>
+
+<h3 id="classmethod-chainfrom_iterableiterable"><strong>classmethod chain.from_iterable(iterable)</strong></h3>
+<p>改变<code>chain()</code>的结构，从一个懒加载的可迭代对象中获取输入值。大致相当于：</p>
+<pre><code class="python">def from_iterable(iterables):
+    # chain.from_iterable(['ABC', 'DEF']) --&gt; A B C D E F
+    for it in iterables:
+        for element in it:
+            yield element
+
+</code></pre>
+
+<h3 id="itertoolscompressdata-selectors"><strong>itertools.compress(data, selectors)</strong></h3>
+<p>过滤迭代器中的元素，只返回在selectors中计算为<code>True</code>的对应元素。当迭代器或选择器结束后，就停止。
+大致相当于：</p>
+<pre><code class="python">def compress(data, selectors):
+    # compress('ABCDEF', [1,0,1,0,1,1]) --&gt; A C E F
+    return (d for d, s in zip(data, selectors) if s)
+</code></pre>
+
+<h3 id="itertoolsdropwhilepredicate-iterable"><strong>itertools.dropwhile(predicate, iterable)</strong></h3>
+<p>去除predicate为true的元素，当第一次遇到predicate为false的情况时，直接将其与后面的全都一起返回
+大致相当于：</p>
+<pre><code class="python">
+def dropwhile(predicate, iterable):
+    # dropwhile(lambda x: x&lt;5, [1,4,6,4,1]) --&gt; 6 4 1
+    iterable = iter(iterable)
+    for x in iterable:
+        if not predicate(x):
+            yield x
+            break
+    for x in iterable:
+        yield x
+</code></pre>
+
+<h3 id="itertoolsfilterfalsepredicate-iterable"><strong>itertools.filterfalse(predicate, iterable)</strong></h3>
+<p>从迭代器中过滤出所有使predicate为<code>False</code>的元素，并返回
+大致相当于：</p>
+<pre><code class="python">def filterfalse(predicate, iterable):
+    # filterfalse(lambda x: x%2, range(10)) --&gt; 0 2 4 6 8
+    if predicate is None:
+        predicate = bool
+    for x in iterable:
+        if not predicate(x):
+            yield x
+</code></pre>
+
+<h3 id="itertoolsgroupbyiterable-keynone"><strong>itertools.groupby(iterable, key=None)</strong></h3>
+<p>创建一个从迭代中返回连续键和组的迭代器。 关键是计算每个元素的键值的函数。 如果未指定或为None，则键默认为标识函数并返回元素不变。 通常，迭代需要在相同的键函数上排序。</p>
+<p>groupby（）的操作类似于Unix中的uniq过滤器。 每次键函数的值发生变化时，它都会生成一个中断或新组（这就是为什么通常需要使用相同的键函数对数据进行排序）。 这种行为不同于SQL的GROUP BY，它聚合了常见元素而不管它们的输入顺序如何。</p>
+<p>返回的组本身是一个迭代器，它与groupby（）共享底层的iterable。 由于源是共享的，因此当groupby（）对象被迭代时，前一个组被迭代的将不再可见。 因此，如果以后需要该数据，则应将其存储为列表：</p>
+<pre><code class="python">groups = []
+uniquekeys = []
+data = sorted(data, key=keyfunc)
+for k, g in groupby(data, keyfunc):
+    groups.append(list(g))      # Store group iterator as a list
+    uniquekeys.append(k)
+</code></pre>
+
+<p><code>groupby()</code>相当于：</p>
+<pre><code class="python">class groupby:
+    # [k for k, g in groupby('AAAABBBCCDAABBB')] --&gt; A B C D A B
+    # [list(g) for k, g in groupby('AAAABBBCCD')] --&gt; AAAA BBB CC D
+    def __init__(self, iterable, key=None):
+        if key is None:
+            key = lambda x: x
+        self.keyfunc = key
+        self.it = iter(iterable)
+        self.tgtkey = self.currkey = self.currvalue = object()
+    def __iter__(self):
+        return self
+    def __next__(self):
+        self.id = object()
+        while self.currkey == self.tgtkey:
+            self.currvalue = next(self.it)    # Exit on StopIteration
+            self.currkey = self.keyfunc(self.currvalue)
+        self.tgtkey = self.currkey
+        return (self.currkey, self._grouper(self.tgtkey, self.id))
+    def _grouper(self, tgtkey, id):
+        while self.id is id and self.currkey == tgtkey:
+            yield self.currvalue
+            try:
+                self.currvalue = next(self.it)
+            except StopIteration:
+                return
+            self.currkey = self.keyfunc(self.currvalue)
+</code></pre>
+
+<p>举个例子：</p>
+<pre><code class="python">from itertools import groupby
+qs = [{'date' : 1},{'date' : 2}]
+[(name, list(group)) for name, group in itertools.groupby(qs, lambda p:p['date'])]
+
+Out[77]: [(1, [{'date': 1}]), (2, [{'date': 2}])]
+
+
+&gt;&gt;&gt; from itertools import *
+&gt;&gt;&gt; a = ['aa', 'ab', 'abc', 'bcd', 'abcde']
+&gt;&gt;&gt; for i, k in groupby(a, len):
+...     print i, list(k)
+...
+2 ['aa', 'ab']
+3 ['abc', 'bcd']
+5 ['abcde']
+</code></pre>
+
+<h3 id="itertoolsisliceiterable-start-stop-stepitertoolsisliceiterable-stop"><strong>itertools.islice(iterable, start, stop[, step])</strong>和<strong>itertools.islice(iterable, stop)</strong></h3>
+<p>创建一个迭代器，该迭代器从iterable返回选中的元素。如果start是非零的，则跳过可迭代的元素，直到到达start为止。之后，元素会连续返回，除非step设置得比step高，这会导致跳过项。如果stop为None，则继续迭代，直到迭代器耗尽为止;否则，它将在指定位置停止。与常规切片不同，islice（）不支持start，stop或step的负值。可以用于从内部结构已被扁平化的数据中提取相关字段(例如，多行报告可能每隔一行列出一个name字段)。
+大致相当于:</p>
+<pre><code class="python">def islice(iterable, *args):
+    # islice('ABCDEFG', 2) --&gt; A B
+    # islice('ABCDEFG', 2, 4) --&gt; C D
+    # islice('ABCDEFG', 2, None) --&gt; C D E F G
+    # islice('ABCDEFG', 0, None, 2) --&gt; A C E G
+    s = slice(*args)
+    start, stop, step = s.start or 0, s.stop or sys.maxsize, s.step or 1
+    it = iter(range(start, stop, step))
+    try:
+        nexti = next(it)
+    except StopIteration:
+        # Consume *iterable* up to the *start* position.
+        for i, element in zip(range(start), iterable):
+            pass
+        return
+    try:
+        for i, element in enumerate(iterable):
+            if i == nexti:
+                yield element
+                nexti = next(it)
+    except StopIteration:
+        # Consume to *stop*.
+        for i, element in zip(range(i + 1, stop), iterable):
+            pass
+</code></pre>
+
+<p>如果start为None，那么迭代从0开始。如果step是None，那么step默认为1。</p>
+<h3 id="itertoolsstarmapfunction-iterable"><strong>itertools.starmap(function, iterable)</strong></h3>
+
+  <br>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="python3.7_standard_library/py3标准库——functools/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="python3.7_standard_library/py3标准库——functools/" class="btn btn-xs btn-link">
+        functools
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+      <p>
+        <a href="https://github.com/ChuXiaoYi/edit/master/docs/python3.7_standard_library/py3标准库——itertools.md"><i class="fa fa-github"></i>
+Edit on GitHub</a>
+      </p><p>author by ChuXiaoYi</p>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
