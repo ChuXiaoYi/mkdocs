@@ -1,0 +1,43 @@
+site_name: python攻城狮
+
+repo_url: https://github.com/ChuXiaoYi
+
+site_author: 褚晓逸
+
+copyright: "author by ChuXiaoYi"
+
+nav:
+  - 日常问题: daily_problem.md
+  - django相关:
+    - django开发实战: django/django.md
+    - django-rest-framework学习笔记: 
+      - Serialization: django/django_rest_framework/djang_rest_framework.md
+      - Requests and responses: django/django_rest_framework/django_rest_framework_responseAndRequest.md
+      - 基于类的视图: django/django_rest_framework/django_rest_framework_ClassBasedViews.md
+  - python3.7标准库相关记录:
+    - functools: python3.7_standard_library/py3标准库——functools.md
+    - itertools: python3.7_standard_library/py3标准库——itertools.md
+
+site_favicon: favicon.ico
+
+theme:
+    name: windmill
+    # custom_dir: custom_theme/
+    highlightjs: true
+    hljs_style: github
+    hljs_languages:
+        - yaml
+        - rust
+    shortcuts:
+        help: 191    # ?
+        next: 78     # n
+        previous: 80 # p
+        search: 83   # s
+
+markdown_extensions: 
+  - extra
+  - tables
+  - toc
+  - fenced_code
+  - smarty
+  - footnotes
