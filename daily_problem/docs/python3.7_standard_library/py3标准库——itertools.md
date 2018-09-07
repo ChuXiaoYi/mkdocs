@@ -116,7 +116,7 @@ def compress(data, selectors):
     return (d for d, s in zip(data, selectors) if s)
 ```
 
-### **itertools.dropwhile(predicate, iterable)**
+### <span id = "dropwhile">**itertools.dropwhile(predicate, iterable)**</span>
 
 去除predicate为true的元素，当第一次遇到predicate为false的情况时，直接将其与后面的全都一起返回
 大致相当于：
@@ -241,6 +241,205 @@ def islice(iterable, *args):
 如果start为None，那么迭代从0开始。如果step是None，那么step默认为1。
 
 ### **itertools.starmap(function, iterable)**
+将`iterable`中的每一项，映射到`function`中，并执行`function`
+大致相当于：
+```python
+def starmap(function, iterable):
+    # starmap(pow, [(2,5), (3,2), (10,3)]) --> 32 9 1000
+    for args in iterable:
+        yield function(*args)
+```
+
+### **itertools.takewhile(predicate, iterable)**
+只要使`predicate`为true，就返回。当遇到第一个为`False`的值就停止。与[`dropwhile`](#dropwhile)相反
+大致相当于：
+```python
+def takewhile(predicate, iterable):
+    # takewhile(lambda x: x<5, [1,4,6,4,1]) --> 1 4
+    for x in iterable:
+        if predicate(x):
+            yield x
+        else:
+            break
+```
+
+### **itertools.tee(iterable, n=2)**
+从一个可迭代对象中返回n个独立的可迭代对象。
+
+下面的代码会解释`tee`做了什么（虽然实际的解释会更复杂一些，并且只是用了一个单独的FIFO先进先出队列）。
+大致相当于：
+```python
+def tee(iterable, n=2):
+    it = iter(iterable)
+    deques = [collections.deque() for i in range(n)]
+    def gen(mydeque):
+        while True:
+            if not mydeque:             # when the local deque is empty
+                try:
+                    newval = next(it)   # fetch a new value and
+                except StopIteration:
+                    return
+                for d in deques:        # load it to all the deques
+                    d.append(newval)
+            yield mydeque.popleft()
+    return tuple(gen(d) for d in deques)
+```
+实际这样用：
+```python
+from itertools import tee
+
+print(tee([1,2,3], 3))  # ==>(<itertools._tee object at 0x10cf787c8>, <itertools._tee object at 0x10cf78808>, <itertools._tee object at 0x10cf78848>)
+
+for a in tee([1,2,3], 3):
+    for i in a:
+        print(i, end=" ")
+    print()
+#    1 2 3                  
+#    1 2 3 
+#    1 2 3
+
+for a, b, c in tee([1,2,3], 3):
+    print(a, b, c)
+#    1 2 3                  
+#    1 2 3 
+#    1 2 3
+
+```
+一旦tee（）进行了拆分，原始的iteable不应该在其他任何地方使用; 否则，迭代可以在没有通知tee对象的情况下进行。
+
+这个itertool可能需要大量的辅助存储（取决于需要存储多少临时数据）。 通常，如果一个迭代器在另一个迭代器启动之前使用大部分或全部数据，则使用list（）而不是tee（）会更快。
+
+
+### **itertools.zip_longest(\*iterables, fillvalue=None)**
+
+聚合每一个可迭代对象的元素。如果迭代的长度不均匀，则使用`fillvalue`填充缺失值。 迭代继续，直到最长的可迭代用尽。 
+大致相当于：
+```python
+def zip_longest(*args, fillvalue=None):
+    # zip_longest('ABCD', 'xy', fillvalue='-') --> Ax By C- D-
+    iterators = [iter(it) for it in args]
+    num_active = len(iterators)
+    if not num_active:
+        return
+    while True:
+        values = []
+        for i, it in enumerate(iterators):
+            try:
+                value = next(it)
+            except StopIteration:
+                num_active -= 1
+                if not num_active:
+                    return
+                iterators[i] = repeat(fillvalue)
+                value = fillvalue
+            values.append(value)
+        yield tuple(values)
+```
+如果其中一个iterables可能是无限的，那么`zip_longest()`函数应该包含一些限制调用次数的东西（例如`islice()`或`takewhile()`）。 如果未指定，则fillvalue默认为None。
+
+### **itertools.product(\*iterables, repeat=1)**
+对放入的可迭代对象进行笛卡尔积运算。
+
+大致相当于生成器表达式中的嵌套for循环。例如，`product(A, B)`的返回和`((x,y) for x in A for y in B)`一样
+
+要计算iterable与其自身的乘积，请使用可选的repeat关键字参数指定重复次数。 例如，`product(A, repeat=4)`相当于`product(A, A, A, A)`
+
+此函数大致等同于以下代码，但实际实现不会在内存中构建中间结果：
+```python
+def product(*args, repeat=1):
+    # product('ABCD', 'xy') --> Ax Ay Bx By Cx Cy Dx Dy
+    # product(range(2), repeat=3) --> 000 001 010 011 100 101 110 111
+    pools = [tuple(pool) for pool in args] * repeat
+    result = [[]]
+    for pool in pools:
+        result = [x+[y] for x in result for y in pool]
+    for prod in result:
+        yield tuple(prod)
+```
+### <font id = 'permutations'>**itertools.permutations(iterable, r=None)**</font>
+对可迭代对象进行组合排列，组合长度为`r`
+大致相当于：
+```python
+def permutations(iterable, r=None):
+    # permutations('ABCD', 2) --> AB AC AD BA BC BD CA CB CD DA DB DC
+    # permutations(range(3)) --> 012 021 102 120 201 210
+    pool = tuple(iterable)
+    n = len(pool)
+    r = n if r is None else r
+    if r > n:
+        return
+    indices = list(range(n))
+    cycles = list(range(n, n-r, -1))
+    yield tuple(pool[i] for i in indices[:r])
+    while n:
+        for i in reversed(range(r)):
+            cycles[i] -= 1
+            if cycles[i] == 0:
+                indices[i:] = indices[i+1:] + indices[i:i+1]
+                cycles[i] = n - i
+            else:
+                j = cycles[i]
+                indices[i], indices[-j] = indices[-j], indices[i]
+                yield tuple(pool[i] for i in indices[:r])
+                break
+        else:
+            return
+```
+
+### **itertools.combinations(iterable, r)**
+和[`permutations`](#permutations)类似。但是不同的是，不会有忽略元素顺序的相同的组合
+
+其相当于：
+```python
+def combinations(iterable, r):
+    # combinations('ABCD', 2) --> AB AC AD BC BD CD
+    # combinations(range(4), 3) --> 012 013 023 123
+    pool = tuple(iterable)
+    n = len(pool)
+    if r > n:
+        return
+    indices = list(range(r))
+    yield tuple(pool[i] for i in indices)
+    while True:
+        for i in reversed(range(r)):
+            if indices[i] != i + n - r:
+                break
+        else:
+            return
+        indices[i] += 1
+        for j in range(i+1, r):
+            indices[j] = indices[j-1] + 1
+        yield tuple(pool[i] for i in indices)
+
+```
+
+### **itertools.combinations_with_replacement(iterable, r)**
+和[`combinations`](combinations)相似。但不同的是，此方法返回的组合中，会有相同元素
+其大致相当于：
+```python
+def combinations_with_replacement(iterable, r):
+    # combinations_with_replacement('ABC', 2) --> AA AB AC BB BC CC
+    pool = tuple(iterable)
+    n = len(pool)
+    if not n and r:
+        return
+    indices = [0] * r
+    yield tuple(pool[i] for i in indices)
+    while True:
+        for i in reversed(range(r)):
+            if indices[i] != n - 1:
+                break
+        else:
+            return
+        indices[i:] = [indices[i] + 1] * (r - i)
+        yield tuple(pool[i] for i in indices)
+```
+
+
+
+
+
+
 
 
 
