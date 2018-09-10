@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="褚晓逸">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>collections - python攻城狮</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "namedtuple()", url: "#_top", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="python3.7_standard_library/py3标准库——itertools/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="python3.7_standard_library/py3标准库——itertools/" class="btn btn-xs btn-link">
+        itertools
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>该模块实现了专门的容器数据类型，为Python的通用内置容器<code>dict</code>，<code>list</code>，<code>set</code>和<code>tuple</code>提供了替代方案。</p>
+<h2 id="namedtuple"><strong>namedtuple()</strong></h2>
+<p>包含命名字段的元组工厂方法
+命名元组为元组中的每个位置赋予含义，并允许更可读，自文档代码。 
+它们可以在使用常规元组的任何地方使用，并且它们添加了按名称而不是位置索引访问字段的功能。</p>
+<p>方法：</p>
+<pre><code class="python">collections.namedtuple(typename, field_names, *, rename=False, defaults=None, module=None)
+</code></pre>
+
+<ul>
+<li>
+<p>返回一个名为<code>typename</code>的新元组子类。 新子类用于创建类似元组的对象，这些对象具有可通过属性查找访问的字段以及可索引和可迭代的字段。 子类的实例还有一个有用的文档字符串（带有<code>typename</code>和<code>field_names</code>）和一个有用的<code>__repr __()</code>方法，它以<code>name = value</code>格式列出元组内容。</p>
+</li>
+<li>
+<p><code>field_names</code>是一系列字符串，例如<code>['x'，'y']</code>。 或者，<code>field_names</code>可以是单个字符串，每个字段名由<code>空格</code>和<code>/</code>或<code>逗号</code>分隔，例如<code>'x y'</code>或<code>'x，y'</code>。</p>
+</li>
+<li>
+<p>除了以下划线开头的名称外，任何有效的Python标识符都可用于字段名。有效标识符由字母，数字和下划线组成，但不以数字或下划线开头，也不能是类，for，return，global，pass或raise等关键字。</p>
+</li>
+<li>
+<p>如果<code>rename</code>为<code>true</code>，则无效的字段名称将自动替换为位置名称。 例如，<code>['abc'，'def'，'ghi'，'abc']</code>被转换为<code>['abc'，'_1'，'ghi'，'_3']</code>，消除了关键字<code>def</code>和重复的字段名<code>abc</code>。</p>
+</li>
+<li>
+<p><code>defaults</code>可以是None或可迭代的默认值。 由于具有默认值的字段必须位于没有默认值的任何字段之后，因此默认值将应用于最右侧的参数。 例如，如果字段名是[&lsquo;x&rsquo;，&rsquo;y&rsquo;，&rsquo;z&rsquo;]并且默认值是（1,2），则x将是必需参数，y将默认为1，z将默认为2。</p>
+</li>
+<li>
+<p>如果定义了<code>module</code>，则将命名元组的<code>__module__</code>属性设置为该值。</p>
+</li>
+<li>
+<p>命名的元组实例没有每个实例的字典，因此它们是轻量级的，并且不需要比常规元组更多的内存。</p>
+</li>
+</ul>
+<p>举个例子：</p>
+<pre><code class="python">&gt;&gt;&gt; # Basic example
+&gt;&gt;&gt; Point = namedtuple('Point', ['x', 'y'])
+&gt;&gt;&gt; p = Point(11, y=22)     # instantiate with positional or keyword arguments
+&gt;&gt;&gt; p[0] + p[1]             # indexable like the plain tuple (11, 22)
+33
+&gt;&gt;&gt; x, y = p                # unpack like a regular tuple
+&gt;&gt;&gt; x, y
+(11, 22)
+&gt;&gt;&gt; p.x + p.y               # fields also accessible by name
+33
+&gt;&gt;&gt; p                       # readable __repr__ with a name=value style
+Point(x=11, y=22)
+</code></pre>
+
+<p>命名元组对于将字段名称分配给csv或sqlite3模块返回的结果元组特别有用：</p>
+<pre><code class="python">EmployeeRecord = namedtuple('EmployeeRecord', 'name, age, title, department, paygrade')
+
+import csv
+for emp in map(EmployeeRecord._make, csv.reader(open(&quot;employees.csv&quot;, &quot;rb&quot;))):
+    print(emp.name, emp.title)
+
+import sqlite3
+conn = sqlite3.connect('/companydata')
+cursor = conn.cursor()
+cursor.execute('SELECT name, age, title, department, paygrade FROM employees')
+for emp in map(EmployeeRecord._make, cursor.fetchall()):
+    print(emp.name, emp.title)
+</code></pre>
+
+<p>除了从元组继承的方法之外，命名元组还支持三个额外的方法和两个属性。 为防止与字段名称冲突，方法和属性名称以下划线开头。</p>
+<ul>
+<li>
+<p><strong>classmethod somenamedtuple._make(iterable)</strong></p>
+<p>从现有序列或可迭代对象生成新的实例</p>
+<pre><code>&gt;&gt;&gt; t = [11, 22]
+&gt;&gt;&gt; Point._make(t)
+Point(x=11, y=22)
+</code></pre>
+</li>
+<li>
+<p><strong>somenamedtuple._asdict()</strong></p>
+<p>返回一个新的OrderedDict，它将字段名称映射到它们对应的值：</p>
+<pre><code>&gt;&gt;&gt; p = Point(x=11, y=22)
+&gt;&gt;&gt; p._asdict()
+OrderedDict([('x', 11), ('y', 22)])
+</code></pre>
+</li>
+<li>
+<p><strong>somenamedtuple._replace(</strong>kwargs)**</p>
+<p>返回namedtuple的新实例，用新值替换特定字段：</p>
+<pre><code>&gt;&gt;&gt; p = Point(x=11, y=22)
+&gt;&gt;&gt; p._replace(x=33)
+Point(x=33, y=22)
+&gt;&gt;&gt;id(p._replace(x=66))
+4572244008
+&gt;&gt;&gt;id(p)
+4569821544
+</code></pre>
+</li>
+<li>
+<p><strong>somenamedtuple._fields</strong></p>
+<p>列出字段名称的字符串元组。 用于内省和从现有命名元组创建新的命名元组类型。</p>
+<pre><code>&gt;&gt;&gt;p._fields            # view the field names
+('x', 'y')
+&gt;&gt;&gt; Color = namedtuple('Color', 'red green blue')
+&gt;&gt;&gt; Pixel = namedtuple('Pixel', Point._fields + Color._fields)
+&gt;&gt;&gt; Pixel(11, 22, 128, 255, 0)
+Pixel(x=11, y=22, red=128, green=255, blue=0)
+</code></pre>
+</li>
+<li>
+<p><strong>somenamedtuple._fields_defaults</strong></p>
+<p>字典将字段名称映射到默认值。</p>
+<pre><code>&gt;&gt;&gt; Account = namedtuple('Account', ['type', 'balance'], defaults=[0])
+&gt;&gt;&gt; Account._fields_defaults
+{'balance': 0}
+&gt;&gt;&gt; Account('premium')
+Account(type='premium', balance=0)
+</code></pre>
+</li>
+</ul>
+<p>要检索一个对象的字段，使用<code>getattr()</code>方法：</p>
+<pre><code class="python">&gt;&gt;&gt; getattr(p, 'x')
+11
+</code></pre>
+
+<p>要将字典转化为一个命名元组，使用<code>**x</code>的方式赋值:</p>
+<pre><code class="python">&gt;&gt;&gt; d = {'x': 11, 'y': 22}
+&gt;&gt;&gt; Point(**d)
+Point(x=11, y=22)
+</code></pre>
+
+<p>由于命名元组是常规Python类，因此很容易使用子类添加或更改功能。 以下是添加计算字段和固定宽度打印格式的方法：</p>
+<pre><code>&gt;&gt;&gt; class Point(namedtuple('Point', ['x', 'y'])):
+...     __slots__ = ()
+...     @property
+...     def hypot(self):
+...         return (self.x ** 2 + self.y ** 2) ** 0.5
+...     def __str__(self):
+...         return 'Point: x=%6.3f  y=%6.3f  hypot=%6.3f' % (self.x, self.y, self.hypot)
+
+&gt;&gt;&gt; for p in Point(3, 4), Point(14, 5/7):
+...     print(p)
+Point: x= 3.000  y= 4.000  hypot= 5.000
+Point: x=14.000  y= 0.714  hypot=14.018
+</code></pre>
+
+<p>上面显示的子类将__slots__设置为空元组。 这有助于防止创建实例字典，从而降低内存需求。</p>
+<p>子类化对于添加新的存储字段没有用。 相反，只需从_fields属性创建一个新的命名元组类型：</p>
+<pre><code>&gt;&gt;&gt; Point3D = namedtuple('Point3D', Point._fields + ('z',))
+</code></pre>
+
+<p>可以通过直接分配<code>__doc__</code>字段来自定义文档字符串：</p>
+<pre><code>&gt;&gt;&gt; Book = namedtuple('Book', ['id', 'title', 'authors'])
+&gt;&gt;&gt; Book.__doc__ += ': Hardcover book in active collection'
+&gt;&gt;&gt; Book.id.__doc__ = '13-digit ISBN'
+&gt;&gt;&gt; Book.title.__doc__ = 'Title of first printing'
+&gt;&gt;&gt; Book.authors.__doc__ = 'List of authors sorted by last name'
+</code></pre>
+
+<p>通过使用<code>_replace()</code>对定制的已经有默认值的原型实例进行改造</p>
+<pre><code>&gt;&gt;&gt; Account = namedtuple('Account', 'owner balance transaction_count')
+&gt;&gt;&gt; default_account = Account('&lt;owner name&gt;', 0.0, 0)
+&gt;&gt;&gt; johns_account = default_account._replace(owner='John')
+&gt;&gt;&gt; janes_account = default_account._replace(owner='Jane')
+</code></pre>
+
+  <br>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="python3.7_standard_library/py3标准库——itertools/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="python3.7_standard_library/py3标准库——itertools/" class="btn btn-xs btn-link">
+        itertools
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+      <p>
+        <a href="https://github.com/ChuXiaoYi/edit/master/docs/python3.7_standard_library/py3标准库——collections.md"><i class="fa fa-github"></i>
+Edit on GitHub</a>
+      </p><p>author by ChuXiaoYi</p>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
