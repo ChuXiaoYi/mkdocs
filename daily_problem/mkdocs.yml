@@ -17,6 +17,7 @@ nav:
   - python3.7标准库相关记录:
     - functools: python3.7_standard_library/py3标准库——functools.md
     - itertools: python3.7_standard_library/py3标准库——itertools.md
+    - collections: python3.7_standard_library/py3标准库——collections.md
 
 site_favicon: favicon.ico
 
