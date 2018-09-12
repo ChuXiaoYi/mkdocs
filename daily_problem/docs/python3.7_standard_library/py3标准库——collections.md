@@ -329,7 +329,16 @@ def delete_nth(d, n):
 要实现双端切片，请使用类似的方法应用`rotate()`将目标元素置于双端队列的左侧。 使用`popleft()`删除旧条目，使用`extend()`添加新条目，然后反转旋转。 通过该方法的微小变化，可以轻松实现Forth样式堆栈操作，例如dup，drop，swap，over，pick，rot和roll。
 
 
+## **ChainMap**
 
+`ChainMap`类提供一个快速链接多个映射（字典）的操作。通常情况下，他会比创建字典然后调用`update()`快。
+
+该类可用于模拟嵌套作用域，在模板中很有用。
+
+实现：
+```python
+class collections.ChainMap(*maps)
+```
 
 
 
