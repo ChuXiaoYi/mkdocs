@@ -5,6 +5,7 @@
 参考文档：
 
 - [python_levenshtein 的安装和使用](https://www.jianshu.com/p/06370a33e1ee)
+- [相似度算法之余弦相似度](https://blog.csdn.net/zz_dd_yy/article/details/51926305)
 
 ### **Levenshtein**
 
@@ -43,9 +44,82 @@
 		>>> Levenshtein.ratio('a,cdsf', 'abcd')		      
 		0.6
 
-<!-- ### **difflib** -->
+### **difflib**
+
+我主要用的是`SequenceMatcher`， 因此，本次只介绍`SequenceMatcher`.
+
+`SequenceMatcher`是可以对两个可序列化的对象进行比较的类
+
+官网上的用法是：
+
+	>>> s = SequenceMatcher(lambda x: x == " ",
+    ...                     "private Thread currentThread;",
+    ...                     "private volatile Thread currentThread;")
+    >>> print(round(s.ratio(), 3))
+    0.866
+
+    第一个参数为一个函数，主要用来去掉自己不想算在内的元素；如果没有，可以写`None`
+    后面两个参数就是需要比较的两个对象了
 
 
+### **余弦定理**
+
+[相似度算法之余弦相似度](https://blog.csdn.net/zz_dd_yy/article/details/51926305)
+
+通过阅读上面的文章，我们可以简单总结计算相似度的几个步骤：
+
+1. 列出所有出现的字母，并分别统计两个字符串出现这些字母的次数。这里我是这样写的，利用`from collections import Counter, OrderedDict`
+
+	方法：
+
+		>>> from collections import Counter, OrderedDict
+		>>> from copy import deepcopy
+		>>> a = 'abc'
+		>>> b = 'bcde'
+		>>> item = set(a) | set(b)
+		>>> item
+		{'b', 'c', 'e', 'd', 'a'}
+		>>> model = OrderedDict().fromkeys(item)
+		>>> model
+		OrderedDict([('b', None), ('c', None), ('e', None), ('d', None), ('a', None)])
+		>>> model1 = deepcopy(model)
+		>>> model2 = deepcopy(model)
+		>>> model1.update(Counter(a))
+		>>> model1
+		OrderedDict([('b', 1), ('c', 1), ('e', None), ('d', None), ('a', 1)])
+		>>> model2.update(Counter(b))
+		>>> model2
+		OrderedDict([('b', 1), ('c', 1), ('e', 1), ('d', 1), ('a', None)])
+
+	这样写的原因是，在比较词频的时候，要保证每个字母的顺序是一样的～
+
+2. 利用余弦公式计算相似度
+
+	方法：
+
+		>>> import math
+		>>> sum = 0	#分子
+		>>> q1 = 0	#分母
+		>>> q2 = 0	#分母
+		>>> for i in item:
+				a = model1[i] if type(model1[i]) != type(None) else 0
+				b = model2[i] if type(model2[i]) != type(None) else 0
+				sum += a * b
+				q1 += pow(a, 2)
+				q2 += pow(b, 2)
+		>>> sum
+		2
+		>>> q1
+		3
+		>>> q2
+		4
+		>>> result = float(sum) / (math.sqrt(q1) * math.sqrt(q2))
+		>>> result
+		0.5773502691896258
+
+这样就算出相似度啦～
+
+<font color="red">ps：本文说的计算的字符串，全是英文字符串～～</font>
 
 
 
