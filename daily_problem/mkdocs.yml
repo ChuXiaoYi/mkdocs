@@ -19,6 +19,8 @@ nav:
     - itertools: python3.7_standard_library/py3标准库——itertools.md
     - collections: python3.7_standard_library/py3标准库——collections.md
   - 计算字符串相似度相关方法: calculate_similiar.md
+  - celery:
+    - celery快速入门: celery/celery-01.md
 
 
 site_favicon: favicon.ico
