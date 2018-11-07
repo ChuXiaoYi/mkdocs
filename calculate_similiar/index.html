@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="褚晓逸">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>计算字符串相似度相关方法 - python攻城狮</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Levenshtein", url: "#_top", children: [
+          ]},
+          {title: "difflib", url: "#difflib", children: [
+          ]},
+          {title: "\u4f59\u5f26\u5b9a\u7406", url: "#_1", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="celery/celery-01/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="celery/celery-01/" class="btn btn-xs btn-link">
+        celery快速入门
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="python3.7_standard_library/py3标准库——collections/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="python3.7_standard_library/py3标准库——collections/" class="btn btn-xs btn-link">
+        collections
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>产品出了一个奇怪的需求，想通过字符串相似度取匹配城市= =（当然，最后证实通过字符串相似度取判断两个字符串是不是一个城市是不对的！！！）</p>
+<p>这里就记录一下我计算字符串(英文字符串)相似度的方法吧～</p>
+<p>参考文档：</p>
+<ul>
+<li><a href="https://www.jianshu.com/p/06370a33e1ee">python_levenshtein 的安装和使用</a></li>
+<li><a href="https://blog.csdn.net/zz_dd_yy/article/details/51926305">相似度算法之余弦相似度</a></li>
+</ul>
+<h3 id="levenshtein"><strong>Levenshtein</strong></h3>
+<ul>
+<li>
+<p>Levenshtein.hamming(str1, str2)</p>
+<p>计算汉明距离。要求str1和str2必须长度一致。是描述两个等长字串之间对应位置上不同字符的个数。</p>
+<p>用法：</p>
+<pre><code>&gt;&gt;&gt; import Levenshtein     
+&gt;&gt;&gt; Levenshtein.hamming('abc', 'cba')
+2
+&gt;&gt;&gt; Levenshtein.hamming('abc', 'def')
+3
+</code></pre>
+</li>
+<li>
+<p>Levenshtein.distance(str1, str2)</p>
+<p>计算编辑距离（也成Levenshtein距离）。是描述由一个字串转化成另一个字串最少的操作次数，在其中的操作包括插入、删除、替换。</p>
+<p>用法：</p>
+<pre><code>&gt;&gt;&gt; Levenshtein.distance('abc', 'ab')
+1
+&gt;&gt;&gt; Levenshtein.distance('cxy', 'ab')
+3
+</code></pre>
+</li>
+<li>
+<p>Levenshtein.ratio(str1, str2)</p>
+<p>计算莱文斯坦比。计算公式 r = (sum - ldist) / sum, 其中sum是指str1 和 str2 字串的长度总和，ldist是类编辑距离</p>
+<p><font color="red">注意：</font>这里的类编辑距离不是<code>Levenshtein.distance(str1, str2)</code>所说的编辑距离，<code>Levenshtein.distance(str1, str2)</code>中三种操作中每个操作+1，而在此处，删除、插入依然+1，但是替换+2
+这样设计的目的：ratio(&lsquo;a&rsquo;, &lsquo;c&rsquo;)，sum=2,按2中计算为（2-1）/2 = 0.5,’a&rsquo;,&rsquo;c&rsquo;没有重合，显然不合算，但是替换操作+2，就可以解决这个问题。</p>
+<p>用法：</p>
+<pre><code>&gt;&gt;&gt; Levenshtein.ratio('a,cdsf', 'abcd')           
+0.6
+</code></pre>
+</li>
+</ul>
+<h3 id="difflib"><strong>difflib</strong></h3>
+<p>我主要用的是<code>SequenceMatcher</code>， 因此，本次只介绍<code>SequenceMatcher</code>.</p>
+<p><code>SequenceMatcher</code>是可以对两个可序列化的对象进行比较的类</p>
+<p>官网上的用法是：</p>
+<pre><code>&gt;&gt;&gt; s = SequenceMatcher(lambda x: x == " ",
+...                     "private Thread currentThread;",
+...                     "private volatile Thread currentThread;")
+&gt;&gt;&gt; print(round(s.ratio(), 3))
+0.866
+
+第一个参数为一个函数，主要用来去掉自己不想算在内的元素；如果没有，可以写`None`
+后面两个参数就是需要比较的两个对象了
+</code></pre>
+<h3 id="_1"><strong>余弦定理</strong></h3>
+<p><a href="https://blog.csdn.net/zz_dd_yy/article/details/51926305">相似度算法之余弦相似度</a></p>
+<p>通过阅读上面的文章，我们可以简单总结计算相似度的几个步骤：</p>
+<ol>
+<li>
+<p>列出所有出现的字母，并分别统计两个字符串出现这些字母的次数。这里我是这样写的，利用<code>from collections import Counter, OrderedDict</code></p>
+<p>方法：</p>
+<pre><code>&gt;&gt;&gt; from collections import Counter, OrderedDict
+&gt;&gt;&gt; from copy import deepcopy
+&gt;&gt;&gt; a = 'abc'
+&gt;&gt;&gt; b = 'bcde'
+&gt;&gt;&gt; item = set(a) | set(b)
+&gt;&gt;&gt; item
+{'b', 'c', 'e', 'd', 'a'}
+&gt;&gt;&gt; model = OrderedDict().fromkeys(item)
+&gt;&gt;&gt; model
+OrderedDict([('b', None), ('c', None), ('e', None), ('d', None), ('a', None)])
+&gt;&gt;&gt; model1 = deepcopy(model)
+&gt;&gt;&gt; model2 = deepcopy(model)
+&gt;&gt;&gt; model1.update(Counter(a))
+&gt;&gt;&gt; model1
+OrderedDict([('b', 1), ('c', 1), ('e', None), ('d', None), ('a', 1)])
+&gt;&gt;&gt; model2.update(Counter(b))
+&gt;&gt;&gt; model2
+OrderedDict([('b', 1), ('c', 1), ('e', 1), ('d', 1), ('a', None)])
+</code></pre>
+<p>这样写的原因是，在比较词频的时候，要保证每个字母的顺序是一样的～</p>
+</li>
+<li>
+<p>利用余弦公式计算相似度</p>
+<p>方法：</p>
+<pre><code>&gt;&gt;&gt; import math
+&gt;&gt;&gt; sum = 0 #分子
+&gt;&gt;&gt; q1 = 0  #分母
+&gt;&gt;&gt; q2 = 0  #分母
+&gt;&gt;&gt; for i in item:
+        a = model1[i] if type(model1[i]) != type(None) else 0
+        b = model2[i] if type(model2[i]) != type(None) else 0
+        sum += a * b
+        q1 += pow(a, 2)
+        q2 += pow(b, 2)
+&gt;&gt;&gt; sum
+2
+&gt;&gt;&gt; q1
+3
+&gt;&gt;&gt; q2
+4
+&gt;&gt;&gt; result = float(sum) / (math.sqrt(q1) * math.sqrt(q2))
+&gt;&gt;&gt; result
+0.5773502691896258
+</code></pre>
+</li>
+</ol>
+<p>这样就算出相似度啦～</p>
+<p><font color="red">ps：本文说的计算的字符串，全是英文字符串～～</font></p>
+
+  <br>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="celery/celery-01/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="celery/celery-01/" class="btn btn-xs btn-link">
+        celery快速入门
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="python3.7_standard_library/py3标准库——collections/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="python3.7_standard_library/py3标准库——collections/" class="btn btn-xs btn-link">
+        collections
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+      <p>
+        <a href="https://github.com/ChuXiaoYi/edit/master/docs/calculate_similiar.md"><i class="fa fa-github"></i>
+Edit on GitHub</a>
+      </p><p>author by ChuXiaoYi</p>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
