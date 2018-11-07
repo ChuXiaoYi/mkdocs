@@ -21,6 +21,7 @@ nav:
   - 计算字符串相似度相关方法: calculate_similiar.md
   - celery:
     - celery快速入门: celery/celery-01.md
+    - celery进阶: celery/celery-02.md
 
 
 site_favicon: favicon.ico

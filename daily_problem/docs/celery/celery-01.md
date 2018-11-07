@@ -77,6 +77,7 @@ celery的架构分为三部分：broker，worker，backend
 		```
 		sudo rabbitmq-server
 		```
+
 		![image_1crkbmffqatp134q14hj1qkn11c7m.png-31.6kB](http://static.zybuluo.com/chuxiaoyi/lmj4ijmlbm4tjmher44ili1n/image_1crkbmffqatp134q14hj1qkn11c7m.png)
 
 
@@ -85,6 +86,153 @@ celery的架构分为三部分：broker，worker，backend
 		```
 		sudo rabbitmqctl stop
 		```
+
+- redis
+
+	- 安装
+
+		```
+		pip3 install -U "celery[redis]"
+		```
+
+		[redis安装包戳这里](http://download.redis.io/releases/)
+
+	- 启动与停止
+
+		```
+		redis-server
+		```
+
+		![image_1crm0m6qe1jvuc5jnkgldk9as9.png-58kB](http://static.zybuluo.com/chuxiaoyi/8xgdv7f84vusoloaek576a4l/image_1crm0m6qe1jvuc5jnkgldk9as9.png)
+
+		```
+		redis-cli shutdown
+		```
+
+下面，我们来安装celery
+
+```
+pip3 install celery
+```
+
+实现一个celery架构的第一步，就是需要一个celery实例。通常这个实例叫app，并且这个实例将作为一切你想在celery中做的事的入口。所以，必须保证app所在的module可以让任意一个文件导入。
+
+这里我们做一个简单的示例，把所有东西都写在一个module（tasks.py）中
+
+```python
+from celery import Celery
+
+app = Celery('tasks', broker='pyamqp://guest@localhost//')
+
+
+@app.task
+def add(x, y):
+    return x + y
+```
+
+Celery的第一个参数“tasks”是当前module的名称。只有当“__name__ == '__main__'”的时候才能自动生成名称
+
+第二个参数“broker”，指定了使用的消息中间件的url，这里使用的是rabbitmq
+
+使用“@app.task”装饰的“add”，将作为任务放到任务队列中
+
+运行一下，看看效果
+
+```
+celery -A tasks worker --loglevel=info
+```
+
+![image_1crm304c81kuj70mjtrr0k1vk62m.png-71.7kB](http://static.zybuluo.com/chuxiaoyi/jsxht7u3za82i3itbsd6zp3h/image_1crm304c81kuj70mjtrr0k1vk62m.png)
+
+
+celery启动后，我们需要向celery中添加任务
+
+```
+>>> from tasks import add
+>>> add.delay(1, 1)
+<AsyncResult: f17075c0-f36d-44e9-87a0-df7a24d66438>
+```
+
+`delay()`是`apply_async()`的一种快捷使用方式，用来更好的控制任务的执行
+
+控制台打印了如下信息：
+
+![image_1crm3ihba5v46cnjrkaag1dhr4j.png-17.4kB](http://static.zybuluo.com/chuxiaoyi/2wu91socwh0hmjn2zbczk0g0/image_1crm3ihba5v46cnjrkaag1dhr4j.png)
+
+我们可以看到，add任务已经被worker处理。
+
+调用一个任务，将返回一个AsyncResult实例。这个实例可以用来检查任务的状态，从而等待任务完成并获取其返回值
+
+这里我们没有设置backend，所以在通过AsyncResult实例检查任务状态时，会报错`AttributeError: 'DisabledBackend' object has no attribute '_get_task_meta_for'`
+
+上面提到的会报错，原因是没有一个backend可以用来存储任务的状态及结果，因此，我们在上面的tasks.py中，添加backend参数
+
+```python
+from celery import Celery
+
+app = Celery('tasks', broker='pyamqp://guest@localhost//', backend='redis://localhost')
+
+
+@app.task
+def add(x, y):
+    return x + y
+```
+
+重新启动celery，再次调用任务
+
+```
+>>> from tasks import add
+>>> result = add.delay(1, 1)
+```
+这时我们会发现控制台打印了和上面一样的内容
+
+同时，我们通过result（这是一个AsyncResult实例）检查任务的状态
+
+```
+>>> result.ready()
+True
+```
+
+结果为True，证明已经执行结束，此时，我们查看结果
+
+```
+>>> result.get()
+2
+>>> result.result
+2
+```
+
+这里我们用了两个方式去获取结果，他们的区别在于`get()`在获取到结果的时候，同时释放了资源，而`result`却没有。backend在存储和传输结果的时候，会占用资源，因此推荐使用`get()`。
+
+我们的backend使用了redis来存储，那么我们去redis中看一看结果
+
+![image_1crm4ercmsnj1of553jucf18bv50.png-35.5kB](http://static.zybuluo.com/chuxiaoyi/ie0e8qfr716s75tpwx45qjnc/image_1crm4ercmsnj1of553jucf18bv50.png)
+
+
+这样一个celery的简单入门就结束啦～～～
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
