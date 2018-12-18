@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="褚晓逸">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>django开发实战2 - python攻城狮</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "\u5217\u8868\u9875", url: "#_top", children: [
+              {title: "\u5206\u9875", url: "#_2" },
+              {title: "flash\u63d2\u4ef6", url: "#flash" },
+          ]},
+          {title: "\u8be6\u60c5\u9875", url: "#_3", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="django/django_rest_framework/djang_rest_framework/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="django/django_rest_framework/djang_rest_framework/" class="btn btn-xs btn-link">
+        Serialization
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="django/django/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="django/django/" class="btn btn-xs btn-link">
+        django开发实战1
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>自从做了之前的<a href="https://blog.csdn.net/weixin_40156487/article/details/81512807">django项目开发实战——博客</a>之后，一直没有继续做下去。现在终于有时间把后面的笔记补起来了！(虽然还是一个很简陋滴= =)</p>
+<p>git地址：<a href="https://github.com/ChuXiaoYi/BlogWebSite/tree/test">https://github.com/ChuXiaoYi/BlogWebSite/tree/test</a></p>
+<p>先放图：
+<img alt="image_1cv08semaqaa1d981p161p4n20km.png-164.9kB" src="http://static.zybuluo.com/chuxiaoyi/014sgoq399s4i3xry82inham/image_1cv08semaqaa1d981p161p4n20km.png" /></p>
+<p><img alt="image_1cv091rb08sr1d3rvoj1vegm621j.png-234.6kB" src="http://static.zybuluo.com/chuxiaoyi/a8hj3l009wcuwrxofm0gfzvp/image_1cv091rb08sr1d3rvoj1vegm621j.png" /></p>
+<h2 id="_1">列表页</h2>
+<p>页面是扒的<a href="https://templatemag.com/blog/">这个地址</a>，然后做了一些修改</p>
+<p>列表页主要说明一下<strong>分页</strong>和<strong>flash</strong>插件</p>
+<h4 id="_2">分页</h4>
+<p>判断是否有上一页下一页需要用<code>paginator</code>处理过的<code>post_list</code></p>
+<pre><code class="python">view.py
+
+limit = 3
+paginator = Paginator(post, limit)
+page = request.GET.get('page', 1)
+result = paginator.page(page)
+context = {
+    &quot;post_list&quot;: result,
+    &quot;page&quot;: page,
+}
+</code></pre>
+
+<pre><code class="html">list.html
+
+&lt;div class=&quot;pagination clearfix&quot;&gt;
+    &lt;ul class=&quot;pager&quot;&gt;
+        {% if post_list.has_previous %}
+            &lt;li class=&quot;previous&quot;&gt;&lt;a href=&quot;?page={{ post_list.previous_page_number }}&quot;&gt;&lt;span
+                    aria-hidden=&quot;true&quot;&gt;&amp;larr;&lt;/span&gt; Newer&lt;/a&gt;&lt;/li&gt;
+        {% else %}
+            &lt;li class=&quot;previous disabled&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;larr;&lt;/span&gt;
+                Newer&lt;/a&gt;&lt;/li&gt;
+        {% endif %}
+        {% if post_list.has_next %}
+            &lt;li class=&quot;next&quot;&gt;&lt;a href=&quot;?page={{ post_list.next_page_number }}&quot;&gt;Older &lt;span
+                    aria-hidden=&quot;true&quot;&gt;&amp;rarr;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+        {% else %}
+            &lt;li class=&quot;next disabled&quot;&gt;&lt;a href=&quot;#&quot;&gt;Older &lt;span aria-hidden=&quot;true&quot;&gt;&amp;rarr;&lt;/span&gt;&lt;/a&gt;
+            &lt;/li&gt;
+        {% endif %}
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+
+<h4 id="flash">flash插件</h4>
+<p>这是一个国际友人写的一个js脚本。放到页面中可以直接用。这里我把它处理成html代码直接放到页面中了。<a href="http://chabudai.org/blog/?s=honehoneclock">原地址戳这里</a></p>
+<pre><code class="html">&lt;object classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot;
+        codebase=&quot;http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0&quot;
+        width=&quot;100%&quot; height=&quot;auto&quot; id=&quot;honehoneclock&quot; align=&quot;middle&quot;&gt;
+    &lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot;&gt;
+    &lt;param name=&quot;movie&quot;
+           value=&quot;http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.swf&quot;&gt;
+    &lt;param name=&quot;quality&quot; value=&quot;high&quot;&gt;
+    &lt;param name=&quot;bgcolor&quot; value=&quot;#ffffff&quot;&gt;
+    &lt;param name=&quot;wmode&quot; value=&quot;transparent&quot;&gt;
+    &lt;param name=&quot;play&quot; value=&quot;true&quot;&gt;
+    &lt;embed wmode=&quot;transparent&quot;
+           src=&quot;http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.swf&quot;
+           quality=&quot;high&quot; bgcolor=&quot;#ffffff&quot; width=&quot;100%&quot; height=&quot;auto&quot; name=&quot;honehoneclock&quot;
+           align=&quot;middle&quot; allowscriptaccess=&quot;always&quot; type=&quot;application/x-shockwave-flash&quot;
+           pluginspage=&quot;http://www.macromedia.com/go/getflashplayer&quot;&gt;
+&lt;/object&gt;
+</code></pre>
+
+<p><img alt="image_1cv0acqik1534vs31h8s1gs91ts53q.png-12kB" src="http://static.zybuluo.com/chuxiaoyi/rm6lo0y6ln4ydcgax2w27cc9/image_1cv0acqik1534vs31h8s1gs91ts53q.png" /></p>
+<p>如果想把背景改为透明的，修改<code>http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.swf</code>为<code>http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.swf</code>就可以啦～</p>
+<h2 id="_3">详情页</h2>
+<p>这里主要有说明两个：<code>markdown生成目录</code>和<code>markdown高亮</code></p>
+<ol>
+<li>首先，安装第三方包</li>
+</ol>
+<pre><code class="python">pip3 install mardkown
+</code></pre>
+
+<ol>
+<li>在<code>view.py</code>中导入第三方包，并修改代码为：</li>
+</ol>
+<pre><code class="python">md = markdown.Markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.toc',
+        ])
+post.body = md.convert(post.body)
+
+comment_list = Comment.objects.filter(post__id=pk)
+
+context = {
+    'post': post,
+    'toc': md.toc,
+    'comment_list': comment_list
+}
+</code></pre>
+
+<p><font color="red">注意:</font>这里使用的是<code>Markdown</code>实例化一个对象！</p>
+<pre><code class="python">'markdown.extensions.toc',
+</code></pre>
+
+<pre><code class="python">'toc': md.toc,
+</code></pre>
+
+<p>如果想要自动生成目录，一定要写这两个！</p>
+<p>但是，如果只是这样的话，并不能实现代码的高亮。接下来我们还需要做一些事情。</p>
+<ol>
+<li>安装Pygments</li>
+</ol>
+<pre><code class="python">pip3 install Pygments 
+</code></pre>
+
+<p>运行<code>pygmentize -S default -f html -a .codehilite &gt; code.css</code>命令,将<code>code.css</code>放到你的静态文件目录下，并在html的头部添加<code>&lt;link rel="stylesheet" href="{% static 'Post/css/code.css' %}"&gt;</code>(你的路径可能和我的不一样，不要错啦！)</p>
+<p>最后，千万不要忘记添加</p>
+<pre><code class="python">'markdown.extensions.codehilite',
+</code></pre>
+
+<p>如果步骤正确，你会看到这样滴：
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20181218183108452.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDE1NjQ4Nw==,size_16,color_FFFFFF,t_70" /></p>
+<p>我很喜欢CSDN可以隐藏过长的文章。我也实现了一个
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20181218183358167.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDE1NjQ4Nw==,size_16,color_FFFFFF,t_70" /></p>
+<pre><code class="html">&lt;div class=&quot;hide-article-box text-center&quot; id=&quot;hide-article-box&quot;&gt;
+   &lt;a class=&quot;btn&quot; id=&quot;btn-readmore&quot; onclick=&quot;btnReadMore()&quot;&gt;阅读更多&lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+
+<pre><code class="js">window.onload = function () {
+        var readMore = document.getElementById('btn-readmore');
+        var hideArticleBox = document.getElementById('hide-article-box');
+        var content = document.getElementById('entry-content');
+        readMore.onclick = function () {
+            content.style.height = 'auto';
+            hideArticleBox.style.display = 'none';
+        }
+    }
+</code></pre>
+
+  <br>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="django/django_rest_framework/djang_rest_framework/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="django/django_rest_framework/djang_rest_framework/" class="btn btn-xs btn-link">
+        Serialization
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="django/django/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="django/django/" class="btn btn-xs btn-link">
+        django开发实战1
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+      <p>
+        <a href="https://github.com/ChuXiaoYi/edit/master/docs/django/django2.md"><i class="fa fa-github"></i>
+Edit on GitHub</a>
+      </p><p>author by ChuXiaoYi</p>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

@@ -58,6 +58,16 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
+    <div class="wm-article-nav pull-right">
+      <a href="celery/celery-02/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="celery/celery-02/" class="btn btn-xs btn-link">
+        celery进阶
+      </a>
+    </div>
+    
     <div class="wm-article-nav">
       <a href="calculate_similiar/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
@@ -131,19 +141,114 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
 <li>
 <p>启动与停止</p>
-<p><code>sudo rabbitmq-server</code>
-<img alt="image_1crkbmffqatp134q14hj1qkn11c7m.png-31.6kB" src="http://static.zybuluo.com/chuxiaoyi/lmj4ijmlbm4tjmher44ili1n/image_1crkbmffqatp134q14hj1qkn11c7m.png" /></p>
+<p><code>sudo rabbitmq-server</code></p>
+<p><img alt="image_1crkbmffqatp134q14hj1qkn11c7m.png-31.6kB" src="http://static.zybuluo.com/chuxiaoyi/lmj4ijmlbm4tjmher44ili1n/image_1crkbmffqatp134q14hj1qkn11c7m.png" /></p>
 <p>注意，rabbimq停止的时候不要用kill命令，要用下面这个：</p>
 <p><code>sudo rabbitmqctl stop</code></p>
 </li>
 </ul>
 </li>
+<li>
+<p>redis</p>
+<ul>
+<li>
+<p>安装</p>
+<p><code>pip3 install -U "celery[redis]"</code></p>
+<p><a href="http://download.redis.io/releases/">redis安装包戳这里</a></p>
+</li>
+<li>
+<p>启动与停止</p>
+<p><code>redis-server</code></p>
+<p><img alt="image_1crm0m6qe1jvuc5jnkgldk9as9.png-58kB" src="http://static.zybuluo.com/chuxiaoyi/8xgdv7f84vusoloaek576a4l/image_1crm0m6qe1jvuc5jnkgldk9as9.png" /></p>
+<p><code>redis-cli shutdown</code></p>
+</li>
 </ul>
+</li>
+</ul>
+<p>下面，我们来安装celery</p>
+<pre><code>pip3 install celery
+</code></pre>
+
+<p>实现一个celery架构的第一步，就是需要一个celery实例。通常这个实例叫app，并且这个实例将作为一切你想在celery中做的事的入口。所以，必须保证app所在的module可以让任意一个文件导入。</p>
+<p>这里我们做一个简单的示例，把所有东西都写在一个module（tasks.py）中</p>
+<pre><code class="python">from celery import Celery
+
+app = Celery('tasks', broker='pyamqp://guest@localhost//')
+
+
+@app.task
+def add(x, y):
+    return x + y
+</code></pre>
+
+<p>Celery的第一个参数“tasks”是当前module的名称。只有当“<strong>name</strong> == &lsquo;<strong>main</strong>&lsquo;”的时候才能自动生成名称</p>
+<p>第二个参数“broker”，指定了使用的消息中间件的url，这里使用的是rabbitmq</p>
+<p>使用“@app.task”装饰的“add”，将作为任务放到任务队列中</p>
+<p>运行一下，看看效果</p>
+<pre><code>celery -A tasks worker --loglevel=info
+</code></pre>
+
+<p><img alt="image_1crm304c81kuj70mjtrr0k1vk62m.png-71.7kB" src="http://static.zybuluo.com/chuxiaoyi/jsxht7u3za82i3itbsd6zp3h/image_1crm304c81kuj70mjtrr0k1vk62m.png" /></p>
+<p>celery启动后，我们需要向celery中添加任务</p>
+<pre><code>&gt;&gt;&gt; from tasks import add
+&gt;&gt;&gt; add.delay(1, 1)
+&lt;AsyncResult: f17075c0-f36d-44e9-87a0-df7a24d66438&gt;
+</code></pre>
+
+<p><code>delay()</code>是<code>apply_async()</code>的一种快捷使用方式，用来更好的控制任务的执行</p>
+<p>控制台打印了如下信息：</p>
+<p><img alt="image_1crm3ihba5v46cnjrkaag1dhr4j.png-17.4kB" src="http://static.zybuluo.com/chuxiaoyi/2wu91socwh0hmjn2zbczk0g0/image_1crm3ihba5v46cnjrkaag1dhr4j.png" /></p>
+<p>我们可以看到，add任务已经被worker处理。</p>
+<p>调用一个任务，将返回一个AsyncResult实例。这个实例可以用来检查任务的状态，从而等待任务完成并获取其返回值</p>
+<p>这里我们没有设置backend，所以在通过AsyncResult实例检查任务状态时，会报错<code>AttributeError: 'DisabledBackend' object has no attribute '_get_task_meta_for'</code></p>
+<p>上面提到的会报错，原因是没有一个backend可以用来存储任务的状态及结果，因此，我们在上面的tasks.py中，添加backend参数</p>
+<pre><code class="python">from celery import Celery
+
+app = Celery('tasks', broker='pyamqp://guest@localhost//', backend='redis://localhost')
+
+
+@app.task
+def add(x, y):
+    return x + y
+</code></pre>
+
+<p>重新启动celery，再次调用任务</p>
+<pre><code>&gt;&gt;&gt; from tasks import add
+&gt;&gt;&gt; result = add.delay(1, 1)
+</code></pre>
+
+<p>这时我们会发现控制台打印了和上面一样的内容</p>
+<p>同时，我们通过result（这是一个AsyncResult实例）检查任务的状态</p>
+<pre><code>&gt;&gt;&gt; result.ready()
+True
+</code></pre>
+
+<p>结果为True，证明已经执行结束，此时，我们查看结果</p>
+<pre><code>&gt;&gt;&gt; result.get()
+2
+&gt;&gt;&gt; result.result
+2
+</code></pre>
+
+<p>这里我们用了两个方式去获取结果，他们的区别在于<code>get()</code>在获取到结果的时候，同时释放了资源，而<code>result</code>却没有。backend在存储和传输结果的时候，会占用资源，因此推荐使用<code>get()</code>。</p>
+<p>我们的backend使用了redis来存储，那么我们去redis中看一看结果</p>
+<p><img alt="image_1crm4ercmsnj1of553jucf18bv50.png-35.5kB" src="http://static.zybuluo.com/chuxiaoyi/ie0e8qfr716s75tpwx45qjnc/image_1crm4ercmsnj1of553jucf18bv50.png" /></p>
+<p>这样一个celery的简单入门就结束啦～～～</p>
 
   <br>
     
 
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="celery/celery-02/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="celery/celery-02/" class="btn btn-xs btn-link">
+        celery进阶
+      </a>
+    </div>
     
     <div class="wm-article-nav">
       <a href="calculate_similiar/" class="btn btn-xs btn-default pull-left">
