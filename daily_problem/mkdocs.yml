@@ -9,7 +9,8 @@ copyright: "author by ChuXiaoYi"
 nav:
   - 日常问题: daily_problem.md
   - django相关:
-    - django开发实战: django/django.md
+    - django开发实战1: django/django.md
+    - django开发实战2: django/django2.md
     - django-rest-framework学习笔记: 
       - Serialization: django/django_rest_framework/djang_rest_framework.md
       - Requests and responses: django/django_rest_framework/django_rest_framework_responseAndRequest.md
