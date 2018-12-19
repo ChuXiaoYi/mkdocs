@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="褚晓逸">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>django开发实战2 - python攻城狮</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "\u5217\u8868\u9875", url: "#_top", children: [
+              {title: "\u5206\u9875", url: "#_2" },
+              {title: "flash\u63d2\u4ef6", url: "#flash" },
+          ]},
+          {title: "\u8be6\u60c5\u9875", url: "#_3", children: [
+          ]},
+          {title: "\u5168\u6587\u68c0\u7d22", url: "#_4", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="django/django_rest_framework/djang_rest_framework/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="django/django_rest_framework/djang_rest_framework/" class="btn btn-xs btn-link">
+        Serialization
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="django/django/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="django/django/" class="btn btn-xs btn-link">
+        django开发实战1
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>参考文档：
+    - <a href="https://cloud.tencent.com/developer/article/1099709">Django 博客使用 Markdown 自动生成文章目录</a>
+    - <a href="https://www.zmrenwu.com/post/45/">Django Haystack 全文检索与关键词高亮</a></p>
+<p>自从做了之前的<a href="https://blog.csdn.net/weixin_40156487/article/details/81512807">django项目开发实战——博客</a>之后，一直没有继续做下去。现在终于有时间把后面的笔记补起来了！(虽然还是一个很简陋滴= =)</p>
+<p>git地址：<a href="https://github.com/ChuXiaoYi/BlogWebSite/tree/test">https://github.com/ChuXiaoYi/BlogWebSite/tree/test</a></p>
+<p>先放图：
+<img alt="image_1cv08semaqaa1d981p161p4n20km.png-164.9kB" src="http://static.zybuluo.com/chuxiaoyi/014sgoq399s4i3xry82inham/image_1cv08semaqaa1d981p161p4n20km.png" /></p>
+<p><img alt="image_1cv091rb08sr1d3rvoj1vegm621j.png-234.6kB" src="http://static.zybuluo.com/chuxiaoyi/a8hj3l009wcuwrxofm0gfzvp/image_1cv091rb08sr1d3rvoj1vegm621j.png" /></p>
+<h2 id="_1">列表页</h2>
+<p>页面是扒的<a href="https://templatemag.com/blog/">这个地址</a>，然后做了一些修改</p>
+<p>列表页主要说明一下<strong>分页</strong>和<strong>flash</strong>插件</p>
+<h4 id="_2">分页</h4>
+<p>判断是否有上一页下一页需要用<code>paginator</code>处理过的<code>post_list</code></p>
+<pre><code class="python">view.py
+
+limit = 3
+paginator = Paginator(post, limit)
+page = request.GET.get('page', 1)
+result = paginator.page(page)
+context = {
+    &quot;post_list&quot;: result,
+    &quot;page&quot;: page,
+}
+</code></pre>
+
+<pre><code class="html">list.html
+
+&lt;div class=&quot;pagination clearfix&quot;&gt;
+    &lt;ul class=&quot;pager&quot;&gt;
+        {% if post_list.has_previous %}
+            &lt;li class=&quot;previous&quot;&gt;&lt;a href=&quot;?page={{ post_list.previous_page_number }}&quot;&gt;&lt;span
+                    aria-hidden=&quot;true&quot;&gt;&amp;larr;&lt;/span&gt; Newer&lt;/a&gt;&lt;/li&gt;
+        {% else %}
+            &lt;li class=&quot;previous disabled&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;larr;&lt;/span&gt;
+                Newer&lt;/a&gt;&lt;/li&gt;
+        {% endif %}
+        {% if post_list.has_next %}
+            &lt;li class=&quot;next&quot;&gt;&lt;a href=&quot;?page={{ post_list.next_page_number }}&quot;&gt;Older &lt;span
+                    aria-hidden=&quot;true&quot;&gt;&amp;rarr;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+        {% else %}
+            &lt;li class=&quot;next disabled&quot;&gt;&lt;a href=&quot;#&quot;&gt;Older &lt;span aria-hidden=&quot;true&quot;&gt;&amp;rarr;&lt;/span&gt;&lt;/a&gt;
+            &lt;/li&gt;
+        {% endif %}
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+
+<h4 id="flash">flash插件</h4>
+<p>这是一个国际友人写的一个js脚本。放到页面中可以直接用。这里我把它处理成html代码直接放到页面中了。<a href="http://chabudai.org/blog/?s=honehoneclock">原地址戳这里</a></p>
+<pre><code class="html">&lt;object classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot;
+        codebase=&quot;http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0&quot;
+        width=&quot;100%&quot; height=&quot;auto&quot; id=&quot;honehoneclock&quot; align=&quot;middle&quot;&gt;
+    &lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot;&gt;
+    &lt;param name=&quot;movie&quot;
+           value=&quot;http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.swf&quot;&gt;
+    &lt;param name=&quot;quality&quot; value=&quot;high&quot;&gt;
+    &lt;param name=&quot;bgcolor&quot; value=&quot;#ffffff&quot;&gt;
+    &lt;param name=&quot;wmode&quot; value=&quot;transparent&quot;&gt;
+    &lt;param name=&quot;play&quot; value=&quot;true&quot;&gt;
+    &lt;embed wmode=&quot;transparent&quot;
+           src=&quot;http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.swf&quot;
+           quality=&quot;high&quot; bgcolor=&quot;#ffffff&quot; width=&quot;100%&quot; height=&quot;auto&quot; name=&quot;honehoneclock&quot;
+           align=&quot;middle&quot; allowscriptaccess=&quot;always&quot; type=&quot;application/x-shockwave-flash&quot;
+           pluginspage=&quot;http://www.macromedia.com/go/getflashplayer&quot;&gt;
+&lt;/object&gt;
+</code></pre>
+
+<p><img alt="image_1cv0acqik1534vs31h8s1gs91ts53q.png-12kB" src="http://static.zybuluo.com/chuxiaoyi/rm6lo0y6ln4ydcgax2w27cc9/image_1cv0acqik1534vs31h8s1gs91ts53q.png" /></p>
+<p>如果想把背景改为透明的，修改<code>http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.swf</code>为<code>http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.swf</code>就可以啦～</p>
+<h2 id="_3">详情页</h2>
+<p>这里主要有说明两个：<code>markdown生成目录</code>和<code>markdown高亮</code></p>
+<ol>
+<li>首先，安装第三方包</li>
+</ol>
+<pre><code class="python">pip3 install mardkown
+</code></pre>
+
+<ol>
+<li>在<code>view.py</code>中导入第三方包，并修改代码为：</li>
+</ol>
+<pre><code class="python">md = markdown.Markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.toc',
+        ])
+post.body = md.convert(post.body)
+
+comment_list = Comment.objects.filter(post__id=pk)
+
+context = {
+    'post': post,
+    'toc': md.toc,
+    'comment_list': comment_list
+}
+</code></pre>
+
+<p><font color="red">注意:</font>这里使用的是<code>Markdown</code>实例化一个对象！</p>
+<pre><code class="python">'markdown.extensions.toc',
+</code></pre>
+
+<pre><code class="python">'toc': md.toc,
+</code></pre>
+
+<p>如果想要自动生成目录，一定要写这两个！</p>
+<p>但是如果我们点击目录，发现url变得很不美观，接下来我们来优化一下</p>
+<p>将<code>markdown.extensions.toc</code>改为<code>TocExtension(slugify=slugify)</code>，但是在这之前，不要忘记引入两个必要的包<code>from django.utils.text import slugify</code>和<code>from markdown.extensions.toc import TocExtension</code></p>
+<pre><code class="python">md = markdown.Markdown(extensions=[
+        'markdown.extensions.extra',
+        'markdown.extensions.codehilite',
+        TocExtension(slugify=slugify),
+    ])
+</code></pre>
+
+<p><code>TocExtension</code>在实例化时其<code>slugify</code>参数可以接受一个函数作为参数，这个函数将被用于处理标题的锚点值。Markdown内置的处理方法不能处理中文标题，所以我们使用了<code>django.utils.text</code>中的<code>slugify</code>方法，该方法可以很好地处理中文.</p>
+<p>现在在看就可以发现，url变得好看多了
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20181219111501584.png" /></p>
+<p>但是，如果只是这样的话，并不能实现代码的高亮。接下来我们还需要做一些事情。</p>
+<ol>
+<li>安装Pygments</li>
+</ol>
+<pre><code class="python">pip3 install Pygments 
+</code></pre>
+
+<p>运行<code>pygmentize -S default -f html -a .codehilite &gt; code.css</code>命令,将<code>code.css</code>放到你的静态文件目录下，并在html的头部添加<code>&lt;link rel="stylesheet" href="{% static 'Post/css/code.css' %}"&gt;</code>(你的路径可能和我的不一样，不要错啦！)</p>
+<p>最后，千万不要忘记添加</p>
+<pre><code class="python">'markdown.extensions.codehilite',
+</code></pre>
+
+<p>如果步骤正确，你会看到这样滴：
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20181218183108452.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDE1NjQ4Nw==,size_16,color_FFFFFF,t_70" /></p>
+<p>我很喜欢CSDN可以隐藏过长的文章。我也实现了一个
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20181218183358167.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDE1NjQ4Nw==,size_16,color_FFFFFF,t_70" /></p>
+<pre><code class="html">&lt;div class=&quot;hide-article-box text-center&quot; id=&quot;hide-article-box&quot;&gt;
+   &lt;a class=&quot;btn&quot; id=&quot;btn-readmore&quot; onclick=&quot;btnReadMore()&quot;&gt;阅读更多&lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+
+<pre><code class="js">window.onload = function () {
+        var readMore = document.getElementById('btn-readmore');
+        var hideArticleBox = document.getElementById('hide-article-box');
+        var content = document.getElementById('entry-content');
+        readMore.onclick = function () {
+            content.style.height = 'auto';
+            hideArticleBox.style.display = 'none';
+        }
+    }
+</code></pre>
+
+<h2 id="_4">全文检索</h2>
+<p>对于一个搜索引擎来说，至少应该能够根据用户的搜索关键词对搜索结果进行排序以及高亮关键字。这里使用的是<code>django-haystack</code>实现这些特性。</p>
+<p>django-haystack 是一个专门提供搜索功能的 django 第三方应用，它支持 Solr、Elasticsearch、Whoosh、Xapian 等多种搜索引擎，配合著名的中文自然语言处理库<code>jieba</code>分词，就可以为我们的博客提供一个效果不错的博客文章搜索系统。</p>
+<p><strong>首先，安装依赖包：</strong></p>
+<pre><code class="python">pip3 install whoosh django-haystack jieba
+</code></pre>
+
+<p><font color="red">注意：</font>不要同时安装<code>haystack</code>和<code>django-haystack</code>，会冲突的！！</p>
+<p><strong>配置setting</strong></p>
+<pre><code class="python">INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # 这里要写哦～
+    'haystack',
+    &quot;Post&quot;,
+    &quot;comment&quot;
+]
+</code></pre>
+
+<pre><code class="python">HAYSTACK_CONNECTIONS = {
+    'default': {
+        # 指定了 django haystack 使用的搜索引擎，这里我们使用了 blog.whoosh_cn_backend.WhooshEngine，虽然目前这个引擎还不存在，但我们接下来会创建它。
+        'ENGINE': 'Post.whoosh_cn_backend.WhooshEngine',
+        # PATH 指定了索引文件需要存放的位置，我们设置为项目根目录 BASE_DIR 下的 whoosh_index 文件夹（在建立索引是会自动创建）
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+# 指定如何对搜索结果分页，这里设置为每 10 项结果为一页。
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+# 指定什么时候更新索引，这里我们使用 haystack.signals.RealtimeSignalProcessor，作用是每当有文章更新时就更新索引。由于博客文章更新不会太频繁，因此实时更新没有问题。
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+</code></pre>
+
+<p><strong>处理数据</strong></p>
+<p>接下来就要告诉 django haystack 使用那些数据建立索引以及如何存放索引。如果要对<code>Post</code>应用下的数据进行全文检索，做法是在<code>Post</code>应用下建立一个<code>search_indexes.py</code>文件，写上如下代码：</p>
+<pre><code class="python">from haystack import indexes
+from .models import Post
+
+
+class PostIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+
+    def get_model(self):
+        return Post
+
+    def index_queryset(self, using=None):
+        return self.get_model().objects.all()
+</code></pre>
+
+<p>路径：
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20181219120855412.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDE1NjQ4Nw==,size_16,color_FFFFFF,t_70" /></p>
+<p>这是 django haystack 的规定。要相对某个 app 下的数据进行全文检索，就要在该 app 下创建一个 search_indexes.py 文件，然后创建一个 XXIndex 类（XX 为含有被检索数据的模型，如这里的 Post），并且继承 SearchIndex 和 Indexable。</p>
+<p>每个索引里面必须有且只能有一个字段为<code>document=True</code>，这代表 django haystack 和搜索引擎将使用此字段的内容作为索引进行检索(primary field)。注意，如果使用一个字段设置了<code>document=True</code>，则一般约定此字段名为<code>text</code>，这是在 SearchIndex 类里面一贯的命名，以防止后台混乱，当然名字你也可以随便改，不过不建议改。</p>
+<p>并且，haystack提供了<code>use_template=True</code>在text字段中这样就允许我们使用数据模板去建立搜索引擎索引的文件，说得通俗点就是索引里面需要存放一些什么东西，例如Post的title字段，这样我们可以通过 title 内容来检索 Post 数据了。举个例子，假如你搜索 Python ，那么就可以检索出title中含有 Python 的Post了，怎么样是不是很简单？数据模板的路径为 <code>templates/search/indexes/youapp/\&lt;model_name&gt;_text.txt</code>（例如 templates/search/indexes/blog/post_text.txt, <font color="red">model_name必须是小写的哦！</font>)，其内容为：</p>
+<pre><code class="python">{{ object.title }}
+{{ object.body }}
+</code></pre>
+
+<p>路径：
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/2018121912092277.png" /></p>
+<p><strong>配置 URL</strong>
+在项目的<code>urls.py</code>中添加</p>
+<pre><code class="python">urlpatterns = [
+    re_path('admin/', admin.site.urls),
+    # 在这里
+    re_path(r'^search/', include('haystack.urls')),
+    re_path(r'', include('Post.urls', namespace=&quot;Post&quot;)),
+    re_path(r'', include('comment.urls', namespace=&quot;comment&quot;)),
+]
+</code></pre>
+
+<p><strong>修改搜索表单</strong></p>
+<pre><code class="html">&lt;form class=&quot;input-group&quot; action=&quot;{% url 'haystack_search' %}&quot;&gt;
+    &lt;input class=&quot;form-control&quot; type=&quot;search&quot; name=&quot;q&quot; placeholder=&quot;search&quot;&gt;
+    &lt;span class=&quot;input-group-btn&quot;&gt;
+        &lt;button class=&quot;btn btn-default&quot; type=&quot;submit&quot;&gt;Go!&lt;/button&gt;
+    &lt;/span&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p><font color="red">注意：</font>input的name属性的值一定要是<code>q</code></p>
+<p><strong>创建搜索结果页面</strong>
+<code>haystack_search</code>视图函数会将搜索结果传递给模板<code>search/search.html</code>，因此创建这个模板文件，对搜索结果进行渲染：</p>
+<pre><code class="html">{% if query %}
+    {% for result in page.object_list %}
+        &lt;article id=&quot;post-77&quot;
+                 class=&quot;clearfix post post-77 blog type-blog status-publish has-post-thumbnail hentry&quot;&gt;
+            &lt;h2 class=&quot;entry-title&quot;&gt;
+                &lt;a href=&quot;{% url 'Post:detail' result.object.id %}&quot; rel=&quot;bookmark&quot;&gt;
+                    {% highlight result.object.title with query %}
+                &lt;/a&gt;
+            &lt;/h2&gt;
+            &lt;div class=&quot;entry-meta&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-time&quot;&gt;&lt;/i&gt;
+                &lt;time class=&quot;meta-date&quot; itemprop=&quot;datePublished&quot;
+                      datetime=&quot;{{ result.object.modified_time }}&quot;&gt; {{ result.object.modified_time }}&lt;/time&gt;
+                &lt;i class=&quot;glyphicon glyphicon-tags&quot;&gt;&lt;/i&gt;&amp;nbsp;
+                &lt;span class=&quot;post-cate&quot;&gt;{{ result.object.category.name }}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;entry-content&quot;&gt;
+                &lt;p&gt;{% highlight result.object.body with query %}&amp;hellip;&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;etry-more&quot;&gt;
+                &lt;a href=&quot;{% url 'Post:detail' result.object.id %}&quot; rel=&quot;bookmark&quot;&gt;Read More&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/article&gt;
+    {% empty %}
+        &lt;div class=&quot;no-post&quot;&gt;没有搜索到你想要的结果！&lt;/div&gt;
+    {% endfor %}
+{% endif %}
+</code></pre>
+
+<p>路径：
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20181219121428191.png" /></p>
+<p>这个模板基本和<code>Post/list.html</code>一样，只是由于haystack对搜索结果做了分页，传给模板的变量是一个<code>page</code>对象，所以我们从<code>page</code>中取出这一页对应的搜索结果，然后对其循环显示，即<code>{% for result in page.object_list %}</code>。另外要取得Post（文章）以显示文章的数据如标题、正文，需要从<code>result</code>的<code>object</code>属性中获取.<code>query</code>变量的值即为用户搜索的关键词。</p>
+<p><strong>高亮关键词</strong>
+在django haystack中实现这个效果也非常简单，只需要使用<code>{% highlight %}</code>模板标签即可,上面的示例已经有了高亮。高亮处理的原理其实就是给文本中的关键字包上一个<code>span</code>标签并且为其添加<code>highlighted</code>样式,因此你可以自己设置高亮的颜色哦：</p>
+<pre><code class="css">&lt;style&gt;
+    span.highlighted {
+        color: red;
+    }
+&lt;/style&gt;
+</code></pre>
+
+<p><strong>修改搜索引擎为中文分词</strong>
+我们使用 Whoosh 作为搜索引擎，但在 django haystack 中为 Whoosh 指定的分词器是英文分词器，可能会使得搜索结果不理想，我们把这个分词器替换成 jieba 中文分词器。从你安装的 haystack 中把<code>haystack/backends/whoosh_backends.py</code>文件拷贝到<code>Post/</code>下，重命名为<code>whoosh_cn_backends.py</code>（之前我们在 <code>settings.py</code>中的<code>HAYSTACK_CONNECTIONS</code> 指定的就是这个文件），然后找到如下一行代码：</p>
+<pre><code class="python">schema_fields[field_class.index_fieldname] = TEXT(stored=True, analyzer=StemmingAnalyzer(), field_boost=field_class.boost, sortable=True)
+</code></pre>
+
+<p>将其中的<code>analyzer</code>改为<code>ChineseAnalyzer</code>，当然为了使用它，你需要在文件顶部引入：<code>from jieba.analyse import ChineseAnalyzer</code>。
+改成这样：</p>
+<pre><code class="python">#注意先找到这个再修改，而不是直接添加  
+schema_fields[field_class.index_fieldname] = TEXT(stored=True, analyzer=ChineseAnalyzer(),field_boost=field_class.boost, sortable=True)
+</code></pre>
+
+<p><strong>建立索引文件</strong>
+最后一步就是建立索引文件了，运行命令<code>python manage.py rebuild_index</code>就可以建立索引文件了。
+最后就可以看到效果啦
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20181219122427497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDE1NjQ4Nw==,size_16,color_FFFFFF,t_70" /></p>
+
+  <br>
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="django/django_rest_framework/djang_rest_framework/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="django/django_rest_framework/djang_rest_framework/" class="btn btn-xs btn-link">
+        Serialization
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="django/django/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="django/django/" class="btn btn-xs btn-link">
+        django开发实战1
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+      <p>
+        <a href="https://github.com/ChuXiaoYi/edit/master/docs/django/django2.md"><i class="fa fa-github"></i>
+Edit on GitHub</a>
+      </p><p>author by ChuXiaoYi</p>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
