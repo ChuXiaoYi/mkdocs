@@ -1,6 +1,8 @@
-site_name: python攻城狮
+site_name: cxy's blog 
 
 repo_url: https://github.com/ChuXiaoYi
+site_url: http:// www.chuxiaoyi.cn
+google_analytics: ['UA-36723568-3', 'mkdocs.org']
 
 site_author: 褚晓逸
 
@@ -23,12 +25,13 @@ nav:
   - celery:
     - celery快速入门: celery/celery-01.md
     - celery进阶: celery/celery-02.md
-
+  - vim:
+      - vim简单入门: vim/vim-01.md
 
 site_favicon: favicon.ico
 
 theme:
-    name: windmill
+    name: material
     # custom_dir: custom_theme/
     highlightjs: true
     hljs_style: github
@@ -40,11 +43,43 @@ theme:
         next: 78     # n
         previous: 80 # p
         search: 83   # s
+    palette:
+        primary: 'indigo'
+        accent: 'indigo'
+    font:
+        text: 'Roboto'
+        code: 'Roboto Mono'
 
-markdown_extensions: 
-  - extra
-  - tables
-  - toc
-  - fenced_code
-  - smarty
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+      linenums: true 
+  - toc:
+      permalink: true
   - footnotes
+  - meta
+  - def_list
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_png
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist
+  - pymdownx.tilde
+
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/ChuXiaoYi?tab=repositories' 
+    - type: 'book'
+      link: 'https://blog.csdn.net/weixin_40156487'
+  disqus: 'chuxiaoyi'

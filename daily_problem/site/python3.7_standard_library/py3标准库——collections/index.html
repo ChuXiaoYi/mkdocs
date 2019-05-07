@@ -1,98 +1,654 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  
-  
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="author" content="褚晓逸">
-    
-    <link rel="shortcut icon" href="../../favicon.ico">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>collections - python攻城狮</title>
-    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
-    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
-    <link href="../../css/base.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/highlight.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
 
-    <script src="../../js/jquery-3.2.1.min.js"></script>
-    <script src="../../js/bootstrap-3.3.7.min.js"></script>
-    <script src="../../js/highlight.pack.js"></script>
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-    <base target="_top">
-    <script>
-      var base_url = '../..';
-      var is_top_frame = false;
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+        <link rel="canonical" href="http:// www.chuxiaoyi.cn/python3.7_standard_library/py3标准库——collections/">
+      
+      
+        <meta name="author" content="褚晓逸">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.3, mkdocs-material-4.2.0">
+    
+    
+      
+        <title>collections - cxy's blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.750b69bd.css">
+      
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
         
-        var pageToc = [
-          {title: "namedtuple()", url: "#_top", children: [
-          ]},
-          {title: "deque", url: "#deque", children: [
-          ]},
-          {title: "ChainMap", url: "#chainmap", children: [
-          ]},
-          {title: "Counter", url: "#counter", children: [
-          ]},
-          {title: "OrderedDict", url: "#ordereddict", children: [
-          ]},
-        ];
-
-    </script>
-    <script src="../../js/base.js"></script> 
-</head>
-
-<body>
-<script>
-if (is_top_frame) { $('body').addClass('wm-top-page'); }
-</script>
-
-
-
-<div class="container-fluid wm-page-content">
-  <a name="_top"></a>
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+      <a href="#namedtuple" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
     
-    <div class="wm-article-nav pull-right">
-      <a href="calculate_similiar/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="calculate_similiar/" class="btn btn-xs btn-link">
-        计算字符串相似度相关方法
-      </a>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http:// www.chuxiaoyi.cn" title="cxy's blog" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              cxy's blog
+            </span>
+            <span class="md-header-nav__topic">
+              collections
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
     </div>
-    
-    <div class="wm-article-nav">
-      <a href="python3.7_standard_library/py3标准库——itertools/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="python3.7_standard_library/py3标准库——itertools/" class="btn btn-xs btn-link">
-        itertools
-      </a>
-    </div>
-    
   </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/ChuXiaoYi/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http:// www.chuxiaoyi.cn" title="cxy's blog" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    cxy's blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/ChuXiaoYi/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../daily_problem/" title="日常问题" class="md-nav__link">
+      日常问题
+    </a>
+  </li>
 
     
+      
+      
+      
 
-    <p>该模块实现了专门的容器数据类型，为Python的通用内置容器<code>dict</code>，<code>list</code>，<code>set</code>和<code>tuple</code>提供了替代方案。</p>
-<h2 id="namedtuple"><strong>namedtuple()</strong></h2>
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      django相关
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        django相关
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/django/" title="django开发实战1" class="md-nav__link">
+      django开发实战1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/django2/" title="django开发实战2" class="md-nav__link">
+      django开发实战2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      django-rest-framework学习笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        django-rest-framework学习笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/django_rest_framework/djang_rest_framework/" title="Serialization" class="md-nav__link">
+      Serialization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/django_rest_framework/django_rest_framework_responseAndRequest/" title="Requests and responses" class="md-nav__link">
+      Requests and responses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../django/django_rest_framework/django_rest_framework_ClassBasedViews/" title="基于类的视图" class="md-nav__link">
+      基于类的视图
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      python3.7标准库相关记录
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        python3.7标准库相关记录
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../py3标准库——functools/" title="functools" class="md-nav__link">
+      functools
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../py3标准库——itertools/" title="itertools" class="md-nav__link">
+      itertools
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        collections
+      </label>
+    
+    <a href="./" title="collections" class="md-nav__link md-nav__link--active">
+      collections
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#namedtuple" title="namedtuple()" class="md-nav__link">
+    namedtuple()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deque" title="deque" class="md-nav__link">
+    deque
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chainmap" title="ChainMap" class="md-nav__link">
+    ChainMap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#counter" title="Counter" class="md-nav__link">
+    Counter
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordereddict" title="OrderedDict" class="md-nav__link">
+    OrderedDict
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../calculate_similiar/" title="计算字符串相似度相关方法" class="md-nav__link">
+      计算字符串相似度相关方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      celery
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        celery
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../celery/celery-01/" title="celery快速入门" class="md-nav__link">
+      celery快速入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../celery/celery-02/" title="celery进阶" class="md-nav__link">
+      celery进阶
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      vim
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        vim
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../vim/vim-01/" title="vim简单入门" class="md-nav__link">
+      vim简单入门
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#namedtuple" title="namedtuple()" class="md-nav__link">
+    namedtuple()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deque" title="deque" class="md-nav__link">
+    deque
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chainmap" title="ChainMap" class="md-nav__link">
+    ChainMap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#counter" title="Counter" class="md-nav__link">
+    Counter
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordereddict" title="OrderedDict" class="md-nav__link">
+    OrderedDict
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/ChuXiaoYi/edit/master/docs/python3.7_standard_library/py3标准库——collections.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>collections</h1>
+                
+                <p>该模块实现了专门的容器数据类型，为Python的通用内置容器<code>dict</code>，<code>list</code>，<code>set</code>和<code>tuple</code>提供了替代方案。</p>
+<h2 id="namedtuple"><strong>namedtuple()</strong><a class="headerlink" href="#namedtuple" title="Permanent link">&para;</a></h2>
 <p>包含命名字段的元组工厂方法
 命名元组为元组中的每个位置赋予含义，并允许更可读，自文档代码。 
 它们可以在使用常规元组的任何地方使用，并且它们添加了按名称而不是位置索引访问字段的功能。</p>
-<p>实现：</p>
-<pre><code class="python">collections.namedtuple(typename, field_names, *, rename=False, defaults=None, module=None)
-</code></pre>
-
+<p>实现：
+<div class="codehilite"><pre><span></span><span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="n">typename</span><span class="p">,</span> <span class="n">field_names</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">rename</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div></p>
 <ul>
 <li>
 <p>返回一个名为<code>typename</code>的新元组子类。 新子类用于创建类似元组的对象，这些对象具有可通过属性查找访问的字段以及可索引和可迭代的字段。 子类的实例还有一个有用的文档字符串（带有<code>typename</code>和<code>field_names</code>）和一个有用的<code>__repr __()</code>方法，它以<code>name = value</code>格式列出元组内容。</p>
@@ -107,7 +663,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>如果<code>rename</code>为<code>true</code>，则无效的字段名称将自动替换为位置名称。 例如，<code>['abc'，'def'，'ghi'，'abc']</code>被转换为<code>['abc'，'_1'，'ghi'，'_3']</code>，消除了关键字<code>def</code>和重复的字段名<code>abc</code>。</p>
 </li>
 <li>
-<p><code>defaults</code>可以是None或可迭代的默认值。 由于具有默认值的字段必须位于没有默认值的任何字段之后，因此默认值将应用于最右侧的参数。 例如，如果字段名是[&lsquo;x&rsquo;，&rsquo;y&rsquo;，&rsquo;z&rsquo;]并且默认值是（1,2），则x将是必需参数，y将默认为1，z将默认为2。</p>
+<p><code>defaults</code>可以是None或可迭代的默认值。 由于具有默认值的字段必须位于没有默认值的任何字段之后，因此默认值将应用于最右侧的参数。 例如，如果字段名是['x'，'y'，'z']并且默认值是（1,2），则x将是必需参数，y将默认为1，z将默认为2。</p>
 </li>
 <li>
 <p>如果定义了<code>module</code>，则将命名元组的<code>__module__</code>属性设置为该值。</p>
@@ -116,460 +672,465 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>命名的元组实例没有每个实例的字典，因此它们是轻量级的，并且不需要比常规元组更多的内存。</p>
 </li>
 </ul>
-<p>举个例子：</p>
-<pre><code class="python">&gt;&gt;&gt; # Basic example
-&gt;&gt;&gt; Point = namedtuple('Point', ['x', 'y'])
-&gt;&gt;&gt; p = Point(11, y=22)     # instantiate with positional or keyword arguments
-&gt;&gt;&gt; p[0] + p[1]             # indexable like the plain tuple (11, 22)
-33
-&gt;&gt;&gt; x, y = p                # unpack like a regular tuple
-&gt;&gt;&gt; x, y
-(11, 22)
-&gt;&gt;&gt; p.x + p.y               # fields also accessible by name
-33
-&gt;&gt;&gt; p                       # readable __repr__ with a name=value style
-Point(x=11, y=22)
-</code></pre>
+<p>举个例子：
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="c1"># Basic example</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Point</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Point&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>     <span class="c1"># instantiate with positional or keyword arguments</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>             <span class="c1"># indexable like the plain tuple (11, 22)</span>
+<span class="mi">33</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">p</span>                <span class="c1"># unpack like a regular tuple</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+<span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">22</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span>               <span class="c1"># fields also accessible by name</span>
+<span class="mi">33</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span>                       <span class="c1"># readable __repr__ with a name=value style</span>
+<span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+</pre></div></p>
+<p>命名元组对于将字段名称分配给csv或sqlite3模块返回的结果元组特别有用：
+<div class="codehilite"><pre><span></span><span class="n">EmployeeRecord</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;EmployeeRecord&#39;</span><span class="p">,</span> <span class="s1">&#39;name, age, title, department, paygrade&#39;</span><span class="p">)</span>
 
-<p>命名元组对于将字段名称分配给csv或sqlite3模块返回的结果元组特别有用：</p>
-<pre><code class="python">EmployeeRecord = namedtuple('EmployeeRecord', 'name, age, title, department, paygrade')
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="k">for</span> <span class="n">emp</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="n">EmployeeRecord</span><span class="o">.</span><span class="n">_make</span><span class="p">,</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;employees.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">))):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">emp</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">emp</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
 
-import csv
-for emp in map(EmployeeRecord._make, csv.reader(open(&quot;employees.csv&quot;, &quot;rb&quot;))):
-    print(emp.name, emp.title)
-
-import sqlite3
-conn = sqlite3.connect('/companydata')
-cursor = conn.cursor()
-cursor.execute('SELECT name, age, title, department, paygrade FROM employees')
-for emp in map(EmployeeRecord._make, cursor.fetchall()):
-    print(emp.name, emp.title)
-</code></pre>
-
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;/companydata&#39;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT name, age, title, department, paygrade FROM employees&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">emp</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="n">EmployeeRecord</span><span class="o">.</span><span class="n">_make</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">emp</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">emp</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</pre></div></p>
 <p>除了从元组继承的方法之外，命名元组还支持三个额外的方法和两个属性。 为防止与字段名称冲突，方法和属性名称以下划线开头。</p>
 <ul>
 <li>
 <p><strong>classmethod somenamedtuple._make(iterable)</strong></p>
 <p>从现有序列或可迭代对象生成新的实例</p>
-<pre><code>&gt;&gt;&gt; t = [11, 22]
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; t = [11, 22]
 &gt;&gt;&gt; Point._make(t)
 Point(x=11, y=22)
-</code></pre>
+</pre></div>
+
+
 </li>
 <li>
 <p><strong>somenamedtuple._asdict()</strong></p>
 <p>返回一个新的OrderedDict，它将字段名称映射到它们对应的值：</p>
-<pre><code>&gt;&gt;&gt; p = Point(x=11, y=22)
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; p = Point(x=11, y=22)
 &gt;&gt;&gt; p._asdict()
-OrderedDict([('x', 11), ('y', 22)])
-</code></pre>
+OrderedDict([(&#39;x&#39;, 11), (&#39;y&#39;, 22)])
+</pre></div>
+
+
 </li>
 <li>
-<p><strong>somenamedtuple._replace(</strong>kwargs)**</p>
+<p><strong>somenamedtuple._replace(**kwargs)</strong></p>
 <p>返回namedtuple的新实例，用新值替换特定字段：</p>
-<pre><code>&gt;&gt;&gt; p = Point(x=11, y=22)
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; p = Point(x=11, y=22)
 &gt;&gt;&gt; p._replace(x=33)
 Point(x=33, y=22)
 &gt;&gt;&gt;id(p._replace(x=66))
 4572244008
 &gt;&gt;&gt;id(p)
 4569821544
-</code></pre>
+</pre></div>
+
+
 </li>
 <li>
 <p><strong>somenamedtuple._fields</strong></p>
 <p>列出字段名称的字符串元组。 用于内省和从现有命名元组创建新的命名元组类型。</p>
-<pre><code>&gt;&gt;&gt;p._fields            # view the field names
-('x', 'y')
-&gt;&gt;&gt; Color = namedtuple('Color', 'red green blue')
-&gt;&gt;&gt; Pixel = namedtuple('Pixel', Point._fields + Color._fields)
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;p._fields            # view the field names
+(&#39;x&#39;, &#39;y&#39;)
+&gt;&gt;&gt; Color = namedtuple(&#39;Color&#39;, &#39;red green blue&#39;)
+&gt;&gt;&gt; Pixel = namedtuple(&#39;Pixel&#39;, Point._fields + Color._fields)
 &gt;&gt;&gt; Pixel(11, 22, 128, 255, 0)
 Pixel(x=11, y=22, red=128, green=255, blue=0)
-</code></pre>
+</pre></div>
+
+
 </li>
 <li>
 <p><strong>somenamedtuple._fields_defaults</strong></p>
 <p>字典将字段名称映射到默认值。</p>
-<pre><code>&gt;&gt;&gt; Account = namedtuple('Account', ['type', 'balance'], defaults=[0])
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; Account = namedtuple(&#39;Account&#39;, [&#39;type&#39;, &#39;balance&#39;], defaults=[0])
 &gt;&gt;&gt; Account._fields_defaults
-{'balance': 0}
-&gt;&gt;&gt; Account('premium')
-Account(type='premium', balance=0)
-</code></pre>
+{&#39;balance&#39;: 0}
+&gt;&gt;&gt; Account(&#39;premium&#39;)
+Account(type=&#39;premium&#39;, balance=0)
+</pre></div>
+
+
 </li>
 </ul>
-<p>要检索一个对象的字段，使用<code>getattr()</code>方法：</p>
-<pre><code class="python">&gt;&gt;&gt; getattr(p, 'x')
-11
-</code></pre>
-
-<p>要将字典转化为一个命名元组，使用<code>**x</code>的方式赋值:</p>
-<pre><code class="python">&gt;&gt;&gt; d = {'x': 11, 'y': 22}
-&gt;&gt;&gt; Point(**d)
-Point(x=11, y=22)
-</code></pre>
-
-<p>由于命名元组是常规Python类，因此很容易使用子类添加或更改功能。 以下是添加计算字段和固定宽度打印格式的方法：</p>
-<pre><code>&gt;&gt;&gt; class Point(namedtuple('Point', ['x', 'y'])):
+<p>要检索一个对象的字段，使用<code>getattr()</code>方法：
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="mi">11</span>
+</pre></div>
+要将字典转化为一个命名元组，使用<code>**x</code>的方式赋值:
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Point</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+</pre></div></p>
+<p>由于命名元组是常规Python类，因此很容易使用子类添加或更改功能。 以下是添加计算字段和固定宽度打印格式的方法：
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; class Point(namedtuple(&#39;Point&#39;, [&#39;x&#39;, &#39;y&#39;])):
 ...     __slots__ = ()
 ...     @property
 ...     def hypot(self):
 ...         return (self.x ** 2 + self.y ** 2) ** 0.5
 ...     def __str__(self):
-...         return 'Point: x=%6.3f  y=%6.3f  hypot=%6.3f' % (self.x, self.y, self.hypot)
+...         return &#39;Point: x=%6.3f  y=%6.3f  hypot=%6.3f&#39; % (self.x, self.y, self.hypot)
 
 &gt;&gt;&gt; for p in Point(3, 4), Point(14, 5/7):
 ...     print(p)
 Point: x= 3.000  y= 4.000  hypot= 5.000
 Point: x=14.000  y= 0.714  hypot=14.018
-</code></pre>
-
-<p>上面显示的子类将__slots__设置为空元组。 这有助于防止创建实例字典，从而降低内存需求。</p>
-<p>子类化对于添加新的存储字段没有用。 相反，只需从_fields属性创建一个新的命名元组类型：</p>
-<pre><code>&gt;&gt;&gt; Point3D = namedtuple('Point3D', Point._fields + ('z',))
-</code></pre>
-
-<p>可以通过直接分配<code>__doc__</code>字段来自定义文档字符串：</p>
-<pre><code>&gt;&gt;&gt; Book = namedtuple('Book', ['id', 'title', 'authors'])
-&gt;&gt;&gt; Book.__doc__ += ': Hardcover book in active collection'
-&gt;&gt;&gt; Book.id.__doc__ = '13-digit ISBN'
-&gt;&gt;&gt; Book.title.__doc__ = 'Title of first printing'
-&gt;&gt;&gt; Book.authors.__doc__ = 'List of authors sorted by last name'
-</code></pre>
-
-<p>通过使用<code>_replace()</code>对定制的已经有默认值的原型实例进行改造</p>
-<pre><code>&gt;&gt;&gt; Account = namedtuple('Account', 'owner balance transaction_count')
-&gt;&gt;&gt; default_account = Account('&lt;owner name&gt;', 0.0, 0)
-&gt;&gt;&gt; johns_account = default_account._replace(owner='John')
-&gt;&gt;&gt; janes_account = default_account._replace(owner='Jane')
-</code></pre>
-
-<h2 id="deque"><strong>deque</strong></h2>
-<p>实现：</p>
-<pre><code class="python">class collections.deque([iterable[, maxlen]])
-</code></pre>
-
-<p>返回一个新的deque（双端队列）对象，它初始化自<code>iterable</code>。 如果未指定iterable，则新的deque为空。</p>
+</pre></div>
+上面显示的子类将__slots__设置为空元组。 这有助于防止创建实例字典，从而降低内存需求。</p>
+<p>子类化对于添加新的存储字段没有用。 相反，只需从_fields属性创建一个新的命名元组类型：
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; Point3D = namedtuple(&#39;Point3D&#39;, Point._fields + (&#39;z&#39;,))
+</pre></div></p>
+<p>可以通过直接分配<code>__doc__</code>字段来自定义文档字符串：
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; Book = namedtuple(&#39;Book&#39;, [&#39;id&#39;, &#39;title&#39;, &#39;authors&#39;])
+&gt;&gt;&gt; Book.__doc__ += &#39;: Hardcover book in active collection&#39;
+&gt;&gt;&gt; Book.id.__doc__ = &#39;13-digit ISBN&#39;
+&gt;&gt;&gt; Book.title.__doc__ = &#39;Title of first printing&#39;
+&gt;&gt;&gt; Book.authors.__doc__ = &#39;List of authors sorted by last name&#39;
+</pre></div></p>
+<p>通过使用<code>_replace()</code>对定制的已经有默认值的原型实例进行改造
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; Account = namedtuple(&#39;Account&#39;, &#39;owner balance transaction_count&#39;)
+&gt;&gt;&gt; default_account = Account(&#39;&lt;owner name&gt;&#39;, 0.0, 0)
+&gt;&gt;&gt; johns_account = default_account._replace(owner=&#39;John&#39;)
+&gt;&gt;&gt; janes_account = default_account._replace(owner=&#39;Jane&#39;)
+</pre></div></p>
+<h2 id="deque"><strong>deque</strong><a class="headerlink" href="#deque" title="Permanent link">&para;</a></h2>
+<p>实现：
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">collections</span><span class="o">.</span><span class="n">deque</span><span class="p">([</span><span class="n">iterable</span><span class="p">[,</span> <span class="n">maxlen</span><span class="p">]])</span>
+</pre></div>
+返回一个新的deque（双端队列）对象，它初始化自<code>iterable</code>。 如果未指定iterable，则新的deque为空。</p>
 <p>Deques是堆栈和队列的泛化(名称发音为“deck”，是“双端队列”的缩写)。Deques支持从deque的任意一侧线程安全、内存高效的<code>appends</code>和<code>pop</code>，在任何方向上的性能都大致相同都是O(1)。</p>
 <p>尽管<code>list</code>对象支持类似的操作，但它们针对快速固定长度操作进行了优化，并导致pop(0)和insert(0，v)操作有O(n)内存移动成本，这些操作改变了底层数据表示的大小和位置。</p>
 <p>如果未指定<code>maxlen</code>或为None，则deques可能会增长到任意长度。 否则，双端队列限制为指定的最大长度。 一旦有界长度双端队列已满，当添加新项时，则会从对方端丢弃相应数量的项。 有界长度deques提供类似于Unix中的<code>tail</code>过滤器的功能。 它们还可用于跟踪仅涉及最近活动的事务和其他数据池。</p>
-<p>Deque对象支持以下方法：</p>
-<pre><code class="python">append(x)   # 从deque的右边加入x
+<p>Deque对象支持以下方法：
+<div class="codehilite"><pre><span></span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>   <span class="c1"># 从deque的右边加入x</span>
 
-appendleft(x)   #从deque的左边加入x
+<span class="n">appendleft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>   <span class="c1">#从deque的左边加入x</span>
 
-clear()     #清除deque中的每一个元素，使其长度为0
+<span class="n">clear</span><span class="p">()</span>     <span class="c1">#清除deque中的每一个元素，使其长度为0</span>
 
-copy()      # 创建一个deque的浅拷贝
+<span class="n">copy</span><span class="p">()</span>      <span class="c1"># 创建一个deque的浅拷贝</span>
 
-count(x)    # deque中元素等于x的数量
+<span class="n">count</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>    <span class="c1"># deque中元素等于x的数量</span>
 
-extend(iterable)    # 从右侧扩展deque
+<span class="n">extend</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>    <span class="c1"># 从右侧扩展deque</span>
 
-extendleft(iterable)    # 从左侧扩展deque。但是，左边扩展的序列是反转iterable的顺序
+<span class="n">extendleft</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>    <span class="c1"># 从左侧扩展deque。但是，左边扩展的序列是反转iterable的顺序</span>
 
-index(x[, start[, stop]])   # 返回deque中的x位置（在索引开始时或索引停止之前）。返回第一个匹配的对象，如果没找到，会抛出`ValueError`
+<span class="n">index</span><span class="p">(</span><span class="n">x</span><span class="p">[,</span> <span class="n">start</span><span class="p">[,</span> <span class="n">stop</span><span class="p">]])</span>   <span class="c1"># 返回deque中的x位置（在索引开始时或索引停止之前）。返回第一个匹配的对象，如果没找到，会抛出`ValueError`</span>
 
-insert(i, x)    # 将x插入到deque的位置i。如果插入后导致deque超过`maxlen`，会抛出`IndexError`
+<span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>    <span class="c1"># 将x插入到deque的位置i。如果插入后导致deque超过`maxlen`，会抛出`IndexError`</span>
 
-pop()   # 从deque的右侧移除并返回一个元素。 如果没有元素，则会抛出IndexError。
+<span class="n">pop</span><span class="p">()</span>   <span class="c1"># 从deque的右侧移除并返回一个元素。 如果没有元素，则会抛出IndexError。</span>
 
-popleft()   # 从deque的左侧移除并返回一个元素。 如果没有元素，则会抛出IndexError。
+<span class="n">popleft</span><span class="p">()</span>   <span class="c1"># 从deque的左侧移除并返回一个元素。 如果没有元素，则会抛出IndexError。</span>
 
-remove(value)   # 删除第一次出现的值。 如果未找到，则会抛出ValueError
+<span class="n">remove</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>   <span class="c1"># 删除第一次出现的值。 如果未找到，则会抛出ValueError</span>
 
-reverse()       # 在原位反转deque的元素，然后返回None
+<span class="n">reverse</span><span class="p">()</span>       <span class="c1"># 在原位反转deque的元素，然后返回None</span>
 
-rotate(n=1)     # 向右旋转deque n步。 如果n为负数，则向左旋转。
-                # 当双端队列不为空时，向右旋转一步相当于d.appendleft(d.pop())，向左旋转一步相当于d.append(d.popleft())。
-</code></pre>
-
-<p>Deque对象还提供一个只读属性：</p>
-<pre><code class="python">maxlen  # deque的大小，如果无界，则为None
-</code></pre>
-
+<span class="n">rotate</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>     <span class="c1"># 向右旋转deque n步。 如果n为负数，则向左旋转。</span>
+                <span class="c1"># 当双端队列不为空时，向右旋转一步相当于d.appendleft(d.pop())，向左旋转一步相当于d.append(d.popleft())。</span>
+</pre></div></p>
+<p>Deque对象还提供一个只读属性：
+<div class="codehilite"><pre><span></span><span class="n">maxlen</span>  <span class="c1"># deque的大小，如果无界，则为None</span>
+</pre></div></p>
 <p>除上述之外，deques支持迭代，pickling, len(d), reverse(d), copy.copy(d), copy.deepcopy(d), 使用<code>in</code>运算符进行成员资格测试，以及下标引用，例如d[-1]。 索引访问在两端都是O(1), 但在中间减慢到O(n)。 对于快速随机访问，请改用list。</p>
-<p>栗子：</p>
-<pre><code class="python">&gt;&gt;&gt; from collections import deque
-&gt;&gt;&gt; d = deque('ghi')                 # make a new deque with three items
-&gt;&gt;&gt; for elem in d:                   # iterate over the deque's elements
-...     print(elem.upper())
-G
-H
-I
+<p>栗子：
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="s1">&#39;ghi&#39;</span><span class="p">)</span>                 <span class="c1"># make a new deque with three items</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>                   <span class="c1"># iterate over the deque&#39;s elements</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+<span class="n">G</span>
+<span class="n">H</span>
+<span class="n">I</span>
 
-&gt;&gt;&gt; d.append('j')                    # add a new entry to the right side
-&gt;&gt;&gt; d.appendleft('f')                # add a new entry to the left side
-&gt;&gt;&gt; d                                # show the representation of the deque
-deque(['f', 'g', 'h', 'i', 'j'])
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;j&#39;</span><span class="p">)</span>                    <span class="c1"># add a new entry to the right side</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>                <span class="c1"># add a new entry to the left side</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>                                <span class="c1"># show the representation of the deque</span>
+<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">])</span>
 
-&gt;&gt;&gt; d.pop()                          # return and remove the rightmost item
-'j'
-&gt;&gt;&gt; d.popleft()                      # return and remove the leftmost item
-'f'
-&gt;&gt;&gt; list(d)                          # list the contents of the deque
-['g', 'h', 'i']
-&gt;&gt;&gt; d[0]                             # peek at leftmost item
-'g'
-&gt;&gt;&gt; d[-1]                            # peek at rightmost item
-'i'
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>                          <span class="c1"># return and remove the rightmost item</span>
+<span class="s1">&#39;j&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>                      <span class="c1"># return and remove the leftmost item</span>
+<span class="s1">&#39;f&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>                          <span class="c1"># list the contents of the deque</span>
+<span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                             <span class="c1"># peek at leftmost item</span>
+<span class="s1">&#39;g&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>                            <span class="c1"># peek at rightmost item</span>
+<span class="s1">&#39;i&#39;</span>
 
-&gt;&gt;&gt; list(reversed(d))                # list the contents of a deque in reverse
-['i', 'h', 'g']
-&gt;&gt;&gt; 'h' in d                         # search the deque
-True
-&gt;&gt;&gt; d.extend('jkl')                  # add multiple elements at once
-&gt;&gt;&gt; d
-deque(['g', 'h', 'i', 'j', 'k', 'l'])
-&gt;&gt;&gt; d.rotate(1)                      # right rotation
-&gt;&gt;&gt; d
-deque(['l', 'g', 'h', 'i', 'j', 'k'])
-&gt;&gt;&gt; d.rotate(-1)                     # left rotation
-&gt;&gt;&gt; d
-deque(['g', 'h', 'i', 'j', 'k', 'l'])
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>                <span class="c1"># list the contents of a deque in reverse</span>
+<span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;h&#39;</span> <span class="ow">in</span> <span class="n">d</span>                         <span class="c1"># search the deque</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="s1">&#39;jkl&#39;</span><span class="p">)</span>                  <span class="c1"># add multiple elements at once</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                      <span class="c1"># right rotation</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>                     <span class="c1"># left rotation</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">])</span>
 
-&gt;&gt;&gt; deque(reversed(d))               # make a new deque in reverse order
-deque(['l', 'k', 'j', 'i', 'h', 'g'])
-&gt;&gt;&gt; d.clear()                        # empty the deque
-&gt;&gt;&gt; d.pop()                          # cannot pop from an empty deque
-Traceback (most recent call last):
-    File &quot;&lt;pyshell#6&gt;&quot;, line 1, in -toplevel-
-        d.pop()
-IndexError: pop from an empty deque
+<span class="o">&gt;&gt;&gt;</span> <span class="n">deque</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>               <span class="c1"># make a new deque in reverse order</span>
+<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>                        <span class="c1"># empty the deque</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>                          <span class="c1"># cannot pop from an empty deque</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+    <span class="n">File</span> <span class="s2">&quot;&lt;pyshell#6&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">-</span><span class="n">toplevel</span><span class="o">-</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="ne">IndexError</span><span class="p">:</span> <span class="n">pop</span> <span class="kn">from</span> <span class="nn">an</span> <span class="nn">empty</span> <span class="nn">deque</span>
 
-&gt;&gt;&gt; d.extendleft('abc')              # extendleft() reverses the input order
-&gt;&gt;&gt; d
-deque(['c', 'b', 'a'])
-</code></pre>
-
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">extendleft</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">)</span>              <span class="c1"># extendleft() reverses the input order</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">])</span>
+</pre></div></p>
 <p>接下来，介绍一些deque的使用方法</p>
-<p>有界长度deques提供类似于Unix中的<code>tail</code>过滤器的功能：</p>
-<pre><code class="python">def tail(filename, n=10):
-    'Return the last n lines of a file'
-    with open(filename) as f:
-        return deque(f, n)
-</code></pre>
+<p>有界长度deques提供类似于Unix中的<code>tail</code>过滤器的功能：
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">tail</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="s1">&#39;Return the last n lines of a file&#39;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">deque</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</pre></div></p>
+<p>使用deques的另一种方法是通过向右追加并弹出到左侧来维护一系列最近添加的元素：
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
 
-<p>使用deques的另一种方法是通过向右追加并弹出到左侧来维护一系列最近添加的元素：</p>
-<pre><code class="python">from collections import deque
-import itertools
+<span class="k">def</span> <span class="nf">moving_average</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="c1"># moving_average([40, 30, 50, 46, 39, 44]) --&gt; 40.0 42.0 45.0 43.0</span>
+    <span class="c1"># http://en.wikipedia.org/wiki/Moving_average</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">elem</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">s</span> <span class="o">/</span> <span class="n">n</span>
 
-def moving_average(iterable, n=3):
-    # moving_average([40, 30, 50, 46, 39, 44]) --&gt; 40.0 42.0 45.0 43.0
-    # http://en.wikipedia.org/wiki/Moving_average
-    it = iter(iterable)
-    d = deque(itertools.islice(it, n-1))
-    d.appendleft(0)
-    s = sum(d)
-    for elem in it:
-        s += elem - d.popleft()
-        d.append(elem)
-        yield s / n
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">moving_average</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">44</span><span class="p">]):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
-if __name__ == '__main__':
-    for i in moving_average([40, 30, 50, 46, 39, 44]):
-        print(i)
-
-结果：
-40.0
-42.0
-45.0
-43.0
-
-</code></pre>
-
-<p>可以使用存储在双端队列中的输入迭代器来实现循环调度程序。 值从位置零处的活动迭代器产生。 如果该迭代器耗尽，可以使用popleft()删除它; 否则，它可以使用rotate()方法循环回到最后：</p>
-<pre><code class="python">def roundrobin(*iterables):
-    &quot;roundrobin('ABC', 'D', 'EF') --&gt; A D E B F C&quot;
-    iterators = deque(map(iter, iterables))
-    while iterators:
-        try:
-            while True:
-                yield next(iterators[0])
-                iterators.rotate(-1)
-        except StopIteration:
-            # Remove an exhausted iterator.
-            iterators.popleft()
-</code></pre>
-
-<p><code>rotate()</code>方法提供了一种实现双端切片和删除的方法。 例如，<code>del d[n]</code>的纯Python实现依赖于<code>rotate()</code>方法来定位要弹出的元素：</p>
-<pre><code class="python">def delete_nth(d, n):
-    d.rotate(-n)
-    d.popleft()
-    d.rotate(n)
-</code></pre>
-
-<p>要实现双端切片，请使用类似的方法应用<code>rotate()</code>将目标元素置于双端队列的左侧。 使用<code>popleft()</code>删除旧条目，使用<code>extend()</code>添加新条目，然后反转旋转。 通过该方法的微小变化，可以轻松实现Forth样式堆栈操作，例如dup，drop，swap，over，pick，rot和roll。</p>
-<h2 id="chainmap"><strong>ChainMap</strong></h2>
+<span class="err">结果：</span>
+<span class="mf">40.0</span>
+<span class="mf">42.0</span>
+<span class="mf">45.0</span>
+<span class="mf">43.0</span>
+</pre></div></p>
+<p>可以使用存储在双端队列中的输入迭代器来实现循环调度程序。 值从位置零处的活动迭代器产生。 如果该迭代器耗尽，可以使用popleft()删除它; 否则，它可以使用rotate()方法循环回到最后：
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">roundrobin</span><span class="p">(</span><span class="o">*</span><span class="n">iterables</span><span class="p">):</span>
+    <span class="s2">&quot;roundrobin(&#39;ABC&#39;, &#39;D&#39;, &#39;EF&#39;) --&gt; A D E B F C&quot;</span>
+    <span class="n">iterators</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">iter</span><span class="p">,</span> <span class="n">iterables</span><span class="p">))</span>
+    <span class="k">while</span> <span class="n">iterators</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="nb">next</span><span class="p">(</span><span class="n">iterators</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">iterators</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="c1"># Remove an exhausted iterator.</span>
+            <span class="n">iterators</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+</pre></div></p>
+<p><code>rotate()</code>方法提供了一种实现双端切片和删除的方法。 例如，<code>del d[n]</code>的纯Python实现依赖于<code>rotate()</code>方法来定位要弹出的元素：
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">delete_nth</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+要实现双端切片，请使用类似的方法应用<code>rotate()</code>将目标元素置于双端队列的左侧。 使用<code>popleft()</code>删除旧条目，使用<code>extend()</code>添加新条目，然后反转旋转。 通过该方法的微小变化，可以轻松实现Forth样式堆栈操作，例如dup，drop，swap，over，pick，rot和roll。</p>
+<h2 id="chainmap"><strong>ChainMap</strong><a class="headerlink" href="#chainmap" title="Permanent link">&para;</a></h2>
 <p><code>ChainMap</code>类提供一个快速链接多个映射（字典）的操作。通常情况下，他会比创建字典然后调用<code>update()</code>快。</p>
 <p>该类可用于模拟嵌套作用域，在模板中很有用。</p>
-<p>实现：</p>
-<pre><code class="python">class collections.ChainMap(*maps)
-</code></pre>
-
+<p>实现：
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">collections</span><span class="o">.</span><span class="n">ChainMap</span><span class="p">(</span><span class="o">*</span><span class="n">maps</span><span class="p">)</span>
+</pre></div></p>
 <p><code>ChainMap</code>类组合多个字典或其他映射到一个可更新的、单一的对象中。如果没有指定<code>maps</code>，就会提供一个空字典，以此来保证每个新链中都会有至少一个字典（映射）</p>
 <p>底层映射存储在列表中。 该列表是公共的，可以使用<code>maps</code>属性访问或更新。</p>
-<pre><code class="python">&gt;&gt;&gt; from collections import ChainMap
-&gt;&gt;&gt; m1 = {'color': 'red', 'user': 'guest'}
-&gt;&gt;&gt; m2 = {'name': 'drfish', 'age': '18'}
-&gt;&gt;&gt; chain_map = ChainMap(m1, m2)
-&gt;&gt;&gt; chain_map
-ChainMap({'color': 'red', 'user': 'guest'}, {'name': 'drfish', 'age': '18'})
-&gt;&gt;&gt; print(chain_map.get('name'))
-drfish
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">ChainMap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">m1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="s1">&#39;guest&#39;</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">m2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;drfish&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">chain_map</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">chain_map</span>
+<span class="n">ChainMap</span><span class="p">({</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="s1">&#39;guest&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;drfish&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="s1">&#39;18&#39;</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">chain_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span>
+<span class="n">drfish</span>
+</pre></div>
 
 <p>支持所有常用的字典方法。除此之外，还支持以下属性：</p>
 <ul>
 <li>
 <p><strong>maps</strong></p>
 <p>返回一个用户可以更新的映射列表。他是按照搜索顺序排序的。</p>
-<pre><code>&gt;&gt;&gt; chain_map.maps
-[{'color': 'red', 'user': 'guest'}, {'name': 'drfish', 'age': '18'}]
-</code></pre>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; chain_map.maps
+[{&#39;color&#39;: &#39;red&#39;, &#39;user&#39;: &#39;guest&#39;}, {&#39;name&#39;: &#39;drfish&#39;, &#39;age&#39;: &#39;18&#39;}]
+</pre></div>
+
+
 </li>
 <li>
 <p><strong>new_child(m=None)</strong></p>
 <p>返回一个新的ChainMap，这个新ChainMap包含新添加的map，并且这个map在首位。如果没有指定m，那么就会在最前面添加一个空dict。因此<code>d.new_child()</code>相当于<code>ChainMap({}, *d.maps)</code>。</p>
 <p>需要注意的是，这将产生一个全新的ChainMap，和之前的互不干扰</p>
 <p>读一下源码会更容易理解：</p>
-<pre><code>def new_child(self, m=None):                # like Django's Context.push()
-    '''New ChainMap with a new map followed by all previous maps.
+<div class="codehilite"><pre><span></span>def new_child(self, m=None):                # like Django&#39;s Context.push()
+    &#39;&#39;&#39;New ChainMap with a new map followed by all previous maps.
     If no map is provided, an empty dict is used.
-    '''
+    &#39;&#39;&#39;
     if m is None:
         m = {}
     return self.__class__(m, *self.maps)
-</code></pre>
+</pre></div>
+
+
 <p>示例：</p>
-<pre><code>&gt;&gt;&gt; m3 = {'data': '1-6'}
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; m3 = {&#39;data&#39;: &#39;1-6&#39;}
 &gt;&gt;&gt; chain_map.new_child(m=m3)
-ChainMap({'data': '1-6'}, {'color': 'red', 'user': 'guest'}, {'name': 'drfish', 'age': '18'})
+ChainMap({&#39;data&#39;: &#39;1-6&#39;}, {&#39;color&#39;: &#39;red&#39;, &#39;user&#39;: &#39;guest&#39;}, {&#39;name&#39;: &#39;drfish&#39;, &#39;age&#39;: &#39;18&#39;})
 &gt;&gt;&gt; chain_map
-ChainMap({'color': 'red', 'user': 'guest'}, {'name': 'drfish', 'age': '18'})
+ChainMap({&#39;color&#39;: &#39;red&#39;, &#39;user&#39;: &#39;guest&#39;}, {&#39;name&#39;: &#39;drfish&#39;, &#39;age&#39;: &#39;18&#39;})
 &gt;&gt;&gt; id(chain_map.new_child(m=m3))
 4496700080
 &gt;&gt;&gt; id(chain_map)
 4496631176
-</code></pre>
+</pre></div>
+
+
 </li>
 <li>
 <p><strong>parents</strong></p>
-<pre><code>@property
-def parents(self):                          # like Django's Context.pop()
-    'New ChainMap from maps[1:].'
+<div class="codehilite"><pre><span></span>@property
+def parents(self):                          # like Django&#39;s Context.pop()
+    &#39;New ChainMap from maps[1:].&#39;
     return self.__class__(*self.maps[1:])
-</code></pre>
+</pre></div>
+
+
 <p>返回一个新的ChainMap，这个新ChainMap不包括第一个dict。这个对于跳过第一个map搜索很有用。<code>d.parents</code>大致相当于<code>ChainMap(*d.maps[1:])</code></p>
-<pre><code>&gt;&gt;&gt; chain_map.parents
-ChainMap({'name': 'drfish', 'age': '18'})
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; chain_map.parents
+ChainMap({&#39;name&#39;: &#39;drfish&#39;, &#39;age&#39;: &#39;18&#39;})
 &gt;&gt;&gt; id(chain_map.parents)
 4492113680
 &gt;&gt;&gt; id(chain_map)
 4496631176
-</code></pre>
+</pre></div>
+
+
 </li>
 </ul>
-<h2 id="counter"><strong>Counter</strong></h2>
-<p>实现：</p>
-<pre><code class="python">class collections.Counter([iterable-or-mapping])
-</code></pre>
-
+<h2 id="counter"><strong>Counter</strong><a class="headerlink" href="#counter" title="Permanent link">&para;</a></h2>
+<p>实现：
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">([</span><span class="n">iterable</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">mapping</span><span class="p">])</span>
+</pre></div></p>
 <p>源码中，简单介绍了一些用法：</p>
-<pre><code class="python">&gt;&gt;&gt; c = Counter('abcdeabcdabcaba')  # count elements from a string
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s1">&#39;abcdeabcdabcaba&#39;</span><span class="p">)</span>  <span class="c1"># count elements from a string</span>
 
-&gt;&gt;&gt; c.most_common(3)                # three most common elements
-[('a', 5), ('b', 4), ('c', 3)]
-&gt;&gt;&gt; sorted(c)                       # list all unique elements
-['a', 'b', 'c', 'd', 'e']
-&gt;&gt;&gt; ''.join(sorted(c.elements()))   # list elements with repetitions
-'aaaaabbbbcccdde'
-&gt;&gt;&gt; sum(c.values())                 # total of all counts
-15
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>                <span class="c1"># three most common elements</span>
+<span class="p">[(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>                       <span class="c1"># list all unique elements</span>
+<span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">elements</span><span class="p">()))</span>   <span class="c1"># list elements with repetitions</span>
+<span class="s1">&#39;aaaaabbbbcccdde&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>                 <span class="c1"># total of all counts</span>
+<span class="mi">15</span>
 
-&gt;&gt;&gt; c['a']                          # count of letter 'a'
-5
-&gt;&gt;&gt; for elem in 'shazam':           # update counts from an iterable
-...     c[elem] += 1                # by adding 1 to each element's count
-&gt;&gt;&gt; c['a']                          # now there are seven 'a'
-7
-&gt;&gt;&gt; del c['b']                      # remove all 'b'
-&gt;&gt;&gt; c['b']                          # now there are zero 'b'
-0
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>                          <span class="c1"># count of letter &#39;a&#39;</span>
+<span class="mi">5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="s1">&#39;shazam&#39;</span><span class="p">:</span>           <span class="c1"># update counts from an iterable</span>
+<span class="o">...</span>     <span class="n">c</span><span class="p">[</span><span class="n">elem</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>                <span class="c1"># by adding 1 to each element&#39;s count</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>                          <span class="c1"># now there are seven &#39;a&#39;</span>
+<span class="mi">7</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>                      <span class="c1"># remove all &#39;b&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>                          <span class="c1"># now there are zero &#39;b&#39;</span>
+<span class="mi">0</span>
 
-&gt;&gt;&gt; d = Counter('simsalabim')       # make another counter
-&gt;&gt;&gt; c.update(d)                     # add in the second counter
-&gt;&gt;&gt; c['a']                          # now there are nine 'a'
-9
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s1">&#39;simsalabim&#39;</span><span class="p">)</span>       <span class="c1"># make another counter</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>                     <span class="c1"># add in the second counter</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>                          <span class="c1"># now there are nine &#39;a&#39;</span>
+<span class="mi">9</span>
 
-&gt;&gt;&gt; c.clear()                       # empty the counter
-&gt;&gt;&gt; c
-Counter()
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>                       <span class="c1"># empty the counter</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span>
+<span class="n">Counter</span><span class="p">()</span>
 
-Note:  If a count is set to zero or reduced to zero, it will remain
-in the counter until the entry is deleted or the counter is cleared:
+<span class="n">Note</span><span class="p">:</span>  <span class="n">If</span> <span class="n">a</span> <span class="n">count</span> <span class="ow">is</span> <span class="nb">set</span> <span class="n">to</span> <span class="n">zero</span> <span class="ow">or</span> <span class="n">reduced</span> <span class="n">to</span> <span class="n">zero</span><span class="p">,</span> <span class="n">it</span> <span class="n">will</span> <span class="n">remain</span>
+<span class="ow">in</span> <span class="n">the</span> <span class="n">counter</span> <span class="n">until</span> <span class="n">the</span> <span class="n">entry</span> <span class="ow">is</span> <span class="n">deleted</span> <span class="ow">or</span> <span class="n">the</span> <span class="n">counter</span> <span class="ow">is</span> <span class="n">cleared</span><span class="p">:</span>
 
-&gt;&gt;&gt; c = Counter('aaabbc')
-&gt;&gt;&gt; c['b'] -= 2                     # reduce the count of 'b' by two
-&gt;&gt;&gt; c.most_common()                 # 'b' is still in, but its count is zero
-[('a', 3), ('c', 1), ('b', 0)]
-
-</code></pre>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s1">&#39;aaabbc&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">2</span>                     <span class="c1"># reduce the count of &#39;b&#39; by two</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>                 <span class="c1"># &#39;b&#39; is still in, but its count is zero</span>
+<span class="p">[(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+</pre></div>
 
 <p><code>Counter</code>是dict的子类，可以用来计算可哈希对象的数量。它是一个无序的集合，并且元素作为dict的key，数量作为dict的value。数量可以是任意整数值，包括0和负数。</p>
-<pre><code class="python">&gt;&gt;&gt; c = Counter()                           # a new, empty counter
-&gt;&gt;&gt; Counter(&quot;adfadf&quot;)                       # a new counter from an iterables
-Counter({'a': 2, 'd': 2, 'f': 2})           
-&gt;&gt;&gt; Counter({'red': 4, 'blue': 2})          # a new counter from a mapping
-Counter({'red': 4, 'blue': 2})
-&gt;&gt;&gt; Counter(cats=4, dogs=8)                 # a new counter from keyword args
-Counter({'dogs': 8, 'cats': 4})
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>                           <span class="c1"># a new, empty counter</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Counter</span><span class="p">(</span><span class="s2">&quot;adfadf&quot;</span><span class="p">)</span>                       <span class="c1"># a new counter from an iterables</span>
+<span class="n">Counter</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>           
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Counter</span><span class="p">({</span><span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>          <span class="c1"># a new counter from a mapping</span>
+<span class="n">Counter</span><span class="p">({</span><span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Counter</span><span class="p">(</span><span class="n">cats</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dogs</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>                 <span class="c1"># a new counter from keyword args</span>
+<span class="n">Counter</span><span class="p">({</span><span class="s1">&#39;dogs&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;cats&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
+</pre></div>
 
 <p>对于那些不存在的元素，如果想要获取它，Counter会返回0，而不会引发<code>KeyError</code>：</p>
-<pre><code class="python">&gt;&gt;&gt; c = Counter(['eggs', 'ham'])
-&gt;&gt;&gt; c['bacon']                              # count of a missing element is zero
-0
-</code></pre>
-
-<p>从源码中可以看出来为什么不引发<code>KeyError</code>:</p>
-<pre><code class="python">def __missing__(self, key):
-    'The count of elements not in the Counter is zero.'
-    # Needed so that self[missing_item] does not raise KeyError
-    return 0
-</code></pre>
+<p><div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="s1">&#39;eggs&#39;</span><span class="p">,</span> <span class="s1">&#39;ham&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;bacon&#39;</span><span class="p">]</span>                              <span class="c1"># count of a missing element is zero</span>
+<span class="mi">0</span>
+</pre></div>
+从源码中可以看出来为什么不引发<code>KeyError</code>:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="fm">__missing__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="s1">&#39;The count of elements not in the Counter is zero.&#39;</span>
+    <span class="c1"># Needed so that self[missing_item] does not raise KeyError</span>
+    <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
 
 <p>如果count设置为零或减少为零，它将保留在counter中，直到删除该条目或清除计数器：</p>
-<pre><code class="python">&gt;&gt;&gt; c['sausage'] = 0                        # counter entry with a zero count
-&gt;&gt;&gt; del c['sausage']  
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;sausage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>                        <span class="c1"># counter entry with a zero count</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;sausage&#39;</span><span class="p">]</span>  
+</pre></div>
 
 <p>由于Counter是dict的子类，因此他具备dict的方法。除此之外，它还具备以下方法：</p>
 <ul>
 <li>
 <p><strong>elements()</strong></p>
 <p>返回每一个元素，元素会根据个数重复count次，并且是以任意顺序返回的。如果元素的个数小于1(包括负值)，那么就会被忽略不返回</p>
-<pre><code>&gt;&gt;&gt; c = Counter(a=4, b=2, c=0, d=-2)
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; c = Counter(a=4, b=2, c=0, d=-2)
 &gt;&gt;&gt; sorted(c.elements())
-['a', 'a', 'a', 'a', 'b', 'b']
-</code></pre>
+[&#39;a&#39;, &#39;a&#39;, &#39;a&#39;, &#39;a&#39;, &#39;b&#39;, &#39;b&#39;]
+</pre></div>
+
+
 </li>
 <li>
 <p><strong>most_common([n])</strong></p>
 <p>返回n个最常见元素及其计数的列表，从最常见到最少。 如果省略n或None，则most_common（）返回计数器中的所有元素。 具有相同计数的元素是任意排序的：</p>
-<pre><code>&gt;&gt;&gt; Counter('abracadabra').most_common(3)  
-[('a', 5), ('r', 2), ('b', 2)]
-</code></pre>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; Counter(&#39;abracadabra&#39;).most_common(3)  
+[(&#39;a&#39;, 5), (&#39;r&#39;, 2), (&#39;b&#39;, 2)]
+</pre></div>
+
+
 </li>
 <li>
 <p><strong>subtract([iterable-or-mapping])</strong></p>
 <p>根据迭代器或映射中对当前元素进行加减操作。和<code>dict.update()</code>类似，但是注意，是操作，而不是替换。输入和输出可以为0或负数</p>
-<pre><code>&gt;&gt;&gt; c = Counter(a=4, b=2, c=0, d=-2)
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; c = Counter(a=4, b=2, c=0, d=-2)
 &gt;&gt;&gt; d = Counter(a=1, b=2, c=3, d=4)
 &gt;&gt;&gt; c.subtract(d)
 &gt;&gt;&gt; c
-Counter({'a': 3, 'b': 0, 'c': -3, 'd': -6}
-</code></pre>
+Counter({&#39;a&#39;: 3, &#39;b&#39;: 0, &#39;c&#39;: -3, &#39;d&#39;: -6}
+</pre></div>
+
+
 </li>
 </ul>
 <p>通常情况下，Counter对象和字典具有相同的方法。但是以下两个方法会有所不同：</p>
@@ -582,32 +1143,32 @@ Counter({'a': 3, 'b': 0, 'c': -3, 'd': -6}
 <p><strong>update([iterable-or-mapping])</strong></p>
 <p>和<code>dict.update()</code>相似，但是是进行加减操作，而不是替换。</p>
 <p>从源码看，更容易理解一些：</p>
-<pre><code>    def update(*args, **kwds):
-'''Like dict.update() but add counts instead of replacing them.
+<div class="codehilite"><pre><span></span>    def update(*args, **kwds):
+&#39;&#39;&#39;Like dict.update() but add counts instead of replacing them.
 
 Source can be an iterable, a dictionary, or another Counter instance.
 
-&gt;&gt;&gt; c = Counter('which')
-&gt;&gt;&gt; c.update('witch')           # add elements from another iterable
-&gt;&gt;&gt; d = Counter('watch')
+&gt;&gt;&gt; c = Counter(&#39;which&#39;)
+&gt;&gt;&gt; c.update(&#39;witch&#39;)           # add elements from another iterable
+&gt;&gt;&gt; d = Counter(&#39;watch&#39;)
 &gt;&gt;&gt; c.update(d)                 # add elements from another counter
-&gt;&gt;&gt; c['h']                      # four 'h' in which, witch, and watch
+&gt;&gt;&gt; c[&#39;h&#39;]                      # four &#39;h&#39; in which, witch, and watch
 4
 
-'''
+&#39;&#39;&#39;
 # The regular dict.update() operation makes no sense here because the
 # replace behavior results in the some of original untouched counts
 # being mixed-in with all of the other counts for a mismash that
-# doesn't have a straight-forward interpretation in most counting
+# doesn&#39;t have a straight-forward interpretation in most counting
 # contexts.  Instead, we implement straight-addition.  Both the inputs
 # and outputs are allowed to contain zero and negative counts.
 
 if not args:
-    raise TypeError("descriptor 'update' of 'Counter' object "
-                    "needs an argument")
+    raise TypeError(&quot;descriptor &#39;update&#39; of &#39;Counter&#39; object &quot;
+                    &quot;needs an argument&quot;)
 self, *args = args
 if len(args) &gt; 1:
-    raise TypeError('expected at most 1 arguments, got %d' % len(args))
+    raise TypeError(&#39;expected at most 1 arguments, got %d&#39; % len(args))
 iterable = args[0] if args else None
 if iterable is not None:
     if isinstance(iterable, _collections_abc.Mapping):
@@ -621,191 +1182,230 @@ if iterable is not None:
         _count_elements(self, iterable)
 if kwds:
     self.update(kwds)
-</code></pre>
+</pre></div>
+
+
 </li>
 </ul>
-<p>官网给出一些常见操作：</p>
-<pre><code class="python">sum(c.values())                 # total of all counts
-c.clear()                       # reset all counts
-list(c)                         # list unique elements
-set(c)                          # convert to a set
-dict(c)                         # convert to a regular dictionary
-c.items()                       # convert to a list of (elem, cnt) pairs
-Counter(dict(list_of_pairs))    # convert from a list of (elem, cnt) pairs
-c.most_common()[:-n-1:-1]       # n least common elements
-+c                              # remove zero and negative counts
-</code></pre>
-
+<p>官网给出一些常见操作：
+<div class="codehilite"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>                 <span class="c1"># total of all counts</span>
+<span class="n">c</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>                       <span class="c1"># reset all counts</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>                         <span class="c1"># list unique elements</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>                          <span class="c1"># convert to a set</span>
+<span class="nb">dict</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>                         <span class="c1"># convert to a regular dictionary</span>
+<span class="n">c</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>                       <span class="c1"># convert to a list of (elem, cnt) pairs</span>
+<span class="n">Counter</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">list_of_pairs</span><span class="p">))</span>    <span class="c1"># convert from a list of (elem, cnt) pairs</span>
+<span class="n">c</span><span class="o">.</span><span class="n">most_common</span><span class="p">()[:</span><span class="o">-</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>       <span class="c1"># n least common elements</span>
+<span class="o">+</span><span class="n">c</span>                              <span class="c1"># remove zero and negative counts</span>
+</pre></div></p>
 <p>提供了几个数学运算来组合Counter对象以生成多个集合（计数大于零的计数器）。 加法和减法通过添加或减去相应元素的计数来组合计数器。 &amp;和 | 返回相应计数的最小值和最大值。 每个操作都可以接受带有符号计数的输入，但输出将排除计数为零或更少的结果。</p>
-<pre><code class="python">&gt;&gt;&gt; c = Counter(a=3, b=1)
-&gt;&gt;&gt; d = Counter(a=1, b=2)
-&gt;&gt;&gt; c + d                       # add two counters together:  c[x] + d[x]
-Counter({'a': 4, 'b': 3})
-&gt;&gt;&gt; c - d                       # subtract (keeping only positive counts)
-Counter({'a': 2})
-&gt;&gt;&gt; c &amp; d                       # intersection:  min(c[x], d[x]) 
-Counter({'a': 1, 'b': 1})
-&gt;&gt;&gt; c | d                       # union:  max(c[x], d[x])
-Counter({'a': 3, 'b': 2})
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">+</span> <span class="n">d</span>                       <span class="c1"># add two counters together:  c[x] + d[x]</span>
+<span class="n">Counter</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">-</span> <span class="n">d</span>                       <span class="c1"># subtract (keeping only positive counts)</span>
+<span class="n">Counter</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">&amp;</span> <span class="n">d</span>                       <span class="c1"># intersection:  min(c[x], d[x]) </span>
+<span class="n">Counter</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">|</span> <span class="n">d</span>                       <span class="c1"># union:  max(c[x], d[x])</span>
+<span class="n">Counter</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+</pre></div>
 
-<p>一元加法和减法是用于添加空计数器或从空计数器中减去的快捷方式。</p>
-<pre><code class="python">&gt;&gt;&gt; c = Counter(a=2, b=-4)
-&gt;&gt;&gt; +c
-Counter({'a': 2})
-&gt;&gt;&gt; -c
-Counter({'b': 4})
-</code></pre>
-
+<p>一元加法和减法是用于添加空计数器或从空计数器中减去的快捷方式。
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">b</span><span class="o">=-</span><span class="mi">4</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="o">+</span><span class="n">c</span>
+<span class="n">Counter</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="o">-</span><span class="n">c</span>
+<span class="n">Counter</span><span class="p">({</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
+</pre></div></p>
 <p><font color="red">注意</font> : Counter主要用于处理正整数的计数。但是也不要忘记考虑其他类型或负值的情况。Counter类继承自dict，对于key和value是没有限制的。value除了数字也可以存储其他。</p>
-<h2 id="ordereddict"><strong>OrderedDict</strong></h2>
+<h2 id="ordereddict"><strong>OrderedDict</strong><a class="headerlink" href="#ordereddict" title="Permanent link">&para;</a></h2>
 <p>OrderedDict和Dict一样，但是它记住了item插入到字典的顺序。当对有序字典进行迭代时，item会按照第一次插入到字典的顺序返回。</p>
-<p>实现：</p>
-<pre><code class="python">class collections.OrderedDict([items])
-</code></pre>
-
-<p>OrderedDict是dict的子类，支持dict的方法。OrderedDict是一个能记住插入key的顺序的dict。如果有新的item覆盖现有item时，位置不变。但如果是删除该item，再次插入后，将会移到最后。</p>
+<p>实现：
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">([</span><span class="n">items</span><span class="p">])</span>
+</pre></div>
+OrderedDict是dict的子类，支持dict的方法。OrderedDict是一个能记住插入key的顺序的dict。如果有新的item覆盖现有item时，位置不变。但如果是删除该item，再次插入后，将会移到最后。</p>
 <ul>
 <li>
 <p><strong>popitem(last=True)</strong></p>
 <p>该方法返回key-value键值对，并删除该键值对。当<code>last</code>为<code>True</code>时，是按照LIFO(后进先出)的顺序弹出；如果<code>last</code>为<code>False</code>，是按照FIFO(先进先出)的顺序弹出</p>
-<pre><code>&gt;&gt;&gt; from collections import OrderedDict
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; from collections import OrderedDict
 &gt;&gt;&gt; od = OrderedDict(a=1, b=2)
 &gt;&gt;&gt; od
-OrderedDict([('a', 1), ('b', 2)])
+OrderedDict([(&#39;a&#39;, 1), (&#39;b&#39;, 2)])
 &gt;&gt;&gt; od.popitem(last=True)
-('b', 2)
+(&#39;b&#39;, 2)
 &gt;&gt;&gt; od = OrderedDict(a=1, b=2)
 &gt;&gt;&gt; od
-OrderedDict([('a', 1), ('b', 2)])
+OrderedDict([(&#39;a&#39;, 1), (&#39;b&#39;, 2)])
 &gt;&gt;&gt; od.popitem(last=False)
-('a', 1)
+(&#39;a&#39;, 1)
 &gt;&gt;&gt; od
-OrderedDict([('b', 2)])
-</code></pre>
+OrderedDict([(&#39;b&#39;, 2)])
+</pre></div>
+
+
 </li>
 <li>
 <p><strong>move_to_end(key, last=True)</strong></p>
 <p>将现有键移动到有序字典的任一端。 如果<code>last</code>为<code>True</code>（默认值），则将item移动到右端;如果<code>last</code>为<code>False</code>，则将item移动到开头。 如果key不存在，则引发<code>KeyError</code>：</p>
-<pre><code>&gt;&gt;&gt; d = OrderedDict.fromkeys('abcde')
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; d = OrderedDict.fromkeys(&#39;abcde&#39;)
 &gt;&gt;&gt; d
-OrderedDict([('a', None), ('b', None), ('c', None), ('d', None), ('e', None)])
-&gt;&gt;&gt; d.move_to_end('b')
+OrderedDict([(&#39;a&#39;, None), (&#39;b&#39;, None), (&#39;c&#39;, None), (&#39;d&#39;, None), (&#39;e&#39;, None)])
+&gt;&gt;&gt; d.move_to_end(&#39;b&#39;)
 &gt;&gt;&gt; d
-OrderedDict([('a', None), ('c', None), ('d', None), ('e', None), ('b', None)])
-&gt;&gt;&gt; d.move_to_end('b', last=False)
+OrderedDict([(&#39;a&#39;, None), (&#39;c&#39;, None), (&#39;d&#39;, None), (&#39;e&#39;, None), (&#39;b&#39;, None)])
+&gt;&gt;&gt; d.move_to_end(&#39;b&#39;, last=False)
 &gt;&gt;&gt; d
-OrderedDict([('b', None), ('a', None), ('c', None), ('d', None), ('e', None)])
-</code></pre>
+OrderedDict([(&#39;b&#39;, None), (&#39;a&#39;, None), (&#39;c&#39;, None), (&#39;d&#39;, None), (&#39;e&#39;, None)])
+</pre></div>
+
+
 </li>
 </ul>
 <p>除了常用方法外，OrderedDict还支持<code>reversed()</code>来反转</p>
-<pre><code class="python">&gt;&gt;&gt; reversed(d)
-&lt;odict_iterator object at 0x10f813888&gt;
-&gt;&gt;&gt; for i in reversed(d):
-    print(i)
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">odict_iterator</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10f813888</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
 
-e
-d
-c
-a
-b
-</code></pre>
+<span class="n">e</span>
+<span class="n">d</span>
+<span class="n">c</span>
+<span class="n">a</span>
+<span class="n">b</span>
+</pre></div>
 
 <p>由于OrderedDict会记住插入的顺序，因此它可以结合排序一起使用</p>
-<pre><code class="python">&gt;&gt;&gt; d = {'banana': 3, 'apple': 4, 'pear': 1, 'orange': 2}
-&gt;&gt;&gt; t = [1, -1, 0]
-&gt;&gt;&gt; OrderedDict(sorted(d.items(), key=lambda t: t[0]))
-OrderedDict([('apple', 4), ('banana', 3), ('orange', 2), ('pear', 1)])
-&gt;&gt;&gt; OrderedDict(sorted(d.items(), key=lambda t: t[1]))
-OrderedDict([('pear', 1), ('orange', 2), ('banana', 3), ('apple', 4)])
-&gt;&gt;&gt; OrderedDict(sorted(d.items(), key=lambda t: len(t[0])))
-OrderedDict([('pear', 1), ('apple', 4), ('banana', 3), ('orange', 2)])
-</code></pre>
+<p><div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;banana&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;apple&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;pear&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;pear&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;pear&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+<span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;pear&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+</pre></div>
+当删除排序后的OrderedDict的item时，顺序不会变；但如果是插入新的item到OrderedDict中，item会直接加在最后，并不会根据排序插入。</p>
+<p>如果想自定义一个OrderedDict，当出现key值相同的item想插入时，希望可以插入，而不是覆盖，可以这样写：
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">LastUpdatedOrderedDict</span><span class="p">(</span><span class="n">OrderedDict</span><span class="p">):</span>
+    <span class="s1">&#39;Store items in the order the keys were last added&#39;</span>
 
-<p>当删除排序后的OrderedDict的item时，顺序不会变；但如果是插入新的item到OrderedDict中，item会直接加在最后，并不会根据排序插入。</p>
-<p>如果想自定义一个OrderedDict，当出现key值相同的item想插入时，希望可以插入，而不是覆盖，可以这样写：</p>
-<pre><code class="python">class LastUpdatedOrderedDict(OrderedDict):
-    'Store items in the order the keys were last added'
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">OrderedDict</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div></p>
+<p>我们也可以同时继承<code>Counter</code>和<code>OrderedDict</code>。通过这个多继承，可以实现一个根据第一次遇到的不同元素的顺序来对元素进行计数。可能这样说起来有些绕嘴也很糊涂，还是上代码吧：
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">ChainMap</span><span class="p">,</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">OrderedDict</span>
 
-    def __setitem__(self, key, value):
-        if key in self:
-            del self[key]
-        OrderedDict.__setitem__(self, key, value)
-</code></pre>
+<span class="k">class</span> <span class="nc">OrderedCounter</span><span class="p">(</span><span class="n">Counter</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">):</span>
+    <span class="s1">&#39;Counter that remembers the order elements are first encountered&#39;</span>
 
-<p>我们也可以同时继承<code>Counter</code>和<code>OrderedDict</code>。通过这个多继承，可以实现一个根据第一次遇到的不同元素的顺序来对元素进行计数。可能这样说起来有些绕嘴也很糊涂，还是上代码吧：</p>
-<pre><code class="python">from collections import ChainMap, Counter, OrderedDict
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">(</span><span class="si">%r</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
-class OrderedCounter(Counter, OrderedDict):
-    'Counter that remembers the order elements are first encountered'
+    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="p">(</span><span class="n">OrderedDict</span><span class="p">(</span><span class="bp">self</span><span class="p">),)</span>
 
-    def __repr__(self):
-        return '%s(%r)' % (self.__class__.__name__, OrderedDict(self))
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">oc</span> <span class="o">=</span> <span class="n">OrderedCounter</span><span class="p">(</span><span class="s1">&#39;adddddbracadabra&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">oc</span><span class="p">)</span>
 
-    def __reduce__(self):
-        return self.__class__, (OrderedDict(self),)
+<span class="n">OrderedCounter</span><span class="p">(</span><span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]))</span>
+</pre></div>
+原理是这样的：</p>
+<p>调用类方法时，Python必须找到要执行的正确方法。有一个定义了搜索类顺序的一个排序，称为方法解析顺序或<code>mro</code>。<code>mro</code>可以通过<code>__mro__</code>查看：
+<div class="codehilite"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">OrderedCounter</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">)</span>
 
-if __name__ == '__main__':
-    oc = OrderedCounter('adddddbracadabra')
-    print(oc)
-
-OrderedCounter(OrderedDict([('a', 5), ('d', 6), ('b', 2), ('r', 2), ('c', 1)]))
-</code></pre>
-
-<p>原理是这样的：</p>
-<p>调用类方法时，Python必须找到要执行的正确方法。有一个定义了搜索类顺序的一个排序，称为方法解析顺序或<code>mro</code>。<code>mro</code>可以通过<code>__mro__</code>查看：</p>
-<pre><code class="python">print(OrderedCounter.__mro__)
-
-(&lt;class '__main__.OrderedCounter'&gt;, &lt;class 'collections.Counter'&gt;, &lt;class 'collections.OrderedDict'&gt;, &lt;class 'dict'&gt;, &lt;class 'object'&gt;)
-</code></pre>
-
+<span class="p">(</span><span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">OrderedCounter</span><span class="s1">&#39;&gt;, &lt;class &#39;</span><span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="s1">&#39;&gt;, &lt;class &#39;</span><span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="s1">&#39;&gt;, &lt;class &#39;</span><span class="nb">dict</span><span class="s1">&#39;&gt;, &lt;class &#39;</span><span class="nb">object</span><span class="s1">&#39;&gt;)</span>
+</pre></div></p>
 <p>当OrderedDict的实例调用<code>__setitem __()</code>时，它按顺序搜索类：<code>OrderedCounter</code>，<code>Counter</code>，<code>OrderedDict</code>(在这个类找到了调用的方法)。 所以像<code>oc['a'] = 0</code>这样的语句最终会调用<code>OrderedDict.__setitem__()</code>。</p>
-<p>相反，<code>__getitem__</code>不会被<code>mro</code>中的任何子类覆盖，因此<code>count = oc['a']</code>由<code>dict.__getitem__()</code>处理。</p>
-<pre><code class="python">oc = OrderedCounter()    
-oc['a'] = 1             # this call uses OrderedDict.__setitem__
-count = oc['a']         # this call uses dict.__getitem__
-</code></pre>
-
+<p>相反，<code>__getitem__</code>不会被<code>mro</code>中的任何子类覆盖，因此<code>count = oc['a']</code>由<code>dict.__getitem__()</code>处理。
+<div class="codehilite"><pre><span></span><span class="n">oc</span> <span class="o">=</span> <span class="n">OrderedCounter</span><span class="p">()</span>    
+<span class="n">oc</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>             <span class="c1"># this call uses OrderedDict.__setitem__</span>
+<span class="n">count</span> <span class="o">=</span> <span class="n">oc</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>         <span class="c1"># this call uses dict.__getitem__</span>
+</pre></div></p>
 <p>对于像<code>oc.update('foobar')</code>这样的语句，会发生更有趣的调用序列。首先，调用<code>Counter.update()</code>。<code>Counter.update()</code>的代码使用<code>self[elem] = count + self_get(elem, 0)</code>，然后它变成对<code>OrderedDict.__setitem__()</code>的调用。 并且该代码调用<code>dict.__setitem__()</code>。</p>
 <p><font color="red">注意:</font>如果基类顺序颠倒，则不再有效。因为mro不同，从而导致调用过程中会调用错误的方法。</p>
+                
+                  
+                
+              
+              
+                
 
-  <br>
-    
 
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="calculate_similiar/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="calculate_similiar/" class="btn btn-xs btn-link">
-        计算字符串相似度相关方法
-      </a>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../py3标准库——itertools/" title="itertools" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                itertools
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../calculate_similiar/" title="计算字符串相似度相关方法" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                计算字符串相似度相关方法
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
     </div>
-    
-    <div class="wm-article-nav">
-      <a href="python3.7_standard_library/py3标准库——itertools/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="python3.7_standard_library/py3标准库——itertools/" class="btn btn-xs btn-link">
-        itertools
-      </a>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            author by ChuXiaoYi
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
     </div>
-    
   </div>
-
-    <br>
-</div>
-
-<footer class="col-md-12 wm-page-content">
-      <p>
-        <a href="https://github.com/ChuXiaoYi/edit/master/docs/python3.7_standard_library/py3标准库——collections.md"><i class="fa fa-github"></i>
-Edit on GitHub</a>
-      </p><p>author by ChuXiaoYi</p>
-  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
 </footer>
-
-</body>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.39abc4af.js"></script>
+      
+      <script>app.initialize({version:"1.0.3",url:{base:"../.."}})</script>
+      
+    
+  </body>
 </html>

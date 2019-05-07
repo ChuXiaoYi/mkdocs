@@ -1,171 +1,712 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  
-  
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="author" content="褚晓逸">
-    
-    <link rel="shortcut icon" href="../favicon.ico">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>计算字符串相似度相关方法 - python攻城狮</title>
-    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
-    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
-    <link href="../css/base.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/highlight.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
 
-    <script src="../js/jquery-3.2.1.min.js"></script>
-    <script src="../js/bootstrap-3.3.7.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-    <base target="_top">
-    <script>
-      var base_url = '..';
-      var is_top_frame = false;
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+        <link rel="canonical" href="http:// www.chuxiaoyi.cn/calculate_similiar/">
+      
+      
+        <meta name="author" content="褚晓逸">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.3, mkdocs-material-4.2.0">
+    
+    
+      
+        <title>计算字符串相似度相关方法 - cxy's blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.750b69bd.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
         
-        var pageToc = [
-          {title: "Levenshtein", url: "#_top", children: [
-          ]},
-          {title: "difflib", url: "#difflib", children: [
-          ]},
-          {title: "\u4f59\u5f26\u5b9a\u7406", url: "#_1", children: [
-          ]},
-        ];
-
-    </script>
-    <script src="../js/base.js"></script> 
-</head>
-
-<body>
-<script>
-if (is_top_frame) { $('body').addClass('wm-top-page'); }
-</script>
-
-
-
-<div class="container-fluid wm-page-content">
-  <a name="_top"></a>
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+      <a href="#levenshtein" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
     
-    <div class="wm-article-nav pull-right">
-      <a href="celery/celery-01/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="celery/celery-01/" class="btn btn-xs btn-link">
-        celery快速入门
-      </a>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http:// www.chuxiaoyi.cn" title="cxy's blog" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              cxy's blog
+            </span>
+            <span class="md-header-nav__topic">
+              计算字符串相似度相关方法
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
     </div>
-    
-    <div class="wm-article-nav">
-      <a href="python3.7_standard_library/py3标准库——collections/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="python3.7_standard_library/py3标准库——collections/" class="btn btn-xs btn-link">
-        collections
-      </a>
-    </div>
-    
   </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/ChuXiaoYi/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http:// www.chuxiaoyi.cn" title="cxy's blog" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    cxy's blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/ChuXiaoYi/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../daily_problem/" title="日常问题" class="md-nav__link">
+      日常问题
+    </a>
+  </li>
 
     
+      
+      
+      
 
-    <p>产品出了一个奇怪的需求，想通过字符串相似度取匹配城市= =（当然，最后证实通过字符串相似度取判断两个字符串是不是一个城市是不对的！！！）</p>
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      django相关
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        django相关
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../django/django/" title="django开发实战1" class="md-nav__link">
+      django开发实战1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../django/django2/" title="django开发实战2" class="md-nav__link">
+      django开发实战2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      django-rest-framework学习笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        django-rest-framework学习笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../django/django_rest_framework/djang_rest_framework/" title="Serialization" class="md-nav__link">
+      Serialization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../django/django_rest_framework/django_rest_framework_responseAndRequest/" title="Requests and responses" class="md-nav__link">
+      Requests and responses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../django/django_rest_framework/django_rest_framework_ClassBasedViews/" title="基于类的视图" class="md-nav__link">
+      基于类的视图
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      python3.7标准库相关记录
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        python3.7标准库相关记录
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../python3.7_standard_library/py3标准库——functools/" title="functools" class="md-nav__link">
+      functools
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../python3.7_standard_library/py3标准库——itertools/" title="itertools" class="md-nav__link">
+      itertools
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../python3.7_standard_library/py3标准库——collections/" title="collections" class="md-nav__link">
+      collections
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        计算字符串相似度相关方法
+      </label>
+    
+    <a href="./" title="计算字符串相似度相关方法" class="md-nav__link md-nav__link--active">
+      计算字符串相似度相关方法
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#levenshtein" title="Levenshtein" class="md-nav__link">
+    Levenshtein
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#difflib" title="difflib" class="md-nav__link">
+    difflib
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="余弦定理" class="md-nav__link">
+    余弦定理
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      celery
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        celery
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../celery/celery-01/" title="celery快速入门" class="md-nav__link">
+      celery快速入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../celery/celery-02/" title="celery进阶" class="md-nav__link">
+      celery进阶
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      vim
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        vim
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vim/vim-01/" title="vim简单入门" class="md-nav__link">
+      vim简单入门
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#levenshtein" title="Levenshtein" class="md-nav__link">
+    Levenshtein
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#difflib" title="difflib" class="md-nav__link">
+    difflib
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="余弦定理" class="md-nav__link">
+    余弦定理
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/ChuXiaoYi/edit/master/docs/calculate_similiar.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>计算字符串相似度相关方法</h1>
+                
+                <p>产品出了一个奇怪的需求，想通过字符串相似度取匹配城市= =（当然，最后证实通过字符串相似度取判断两个字符串是不是一个城市是不对的！！！）</p>
 <p>这里就记录一下我计算字符串(英文字符串)相似度的方法吧～</p>
 <p>参考文档：</p>
 <ul>
 <li><a href="https://www.jianshu.com/p/06370a33e1ee">python_levenshtein 的安装和使用</a></li>
 <li><a href="https://blog.csdn.net/zz_dd_yy/article/details/51926305">相似度算法之余弦相似度</a></li>
 </ul>
-<h3 id="levenshtein"><strong>Levenshtein</strong></h3>
+<h3 id="levenshtein"><strong>Levenshtein</strong><a class="headerlink" href="#levenshtein" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Levenshtein.hamming(str1, str2)</p>
 <p>计算汉明距离。要求str1和str2必须长度一致。是描述两个等长字串之间对应位置上不同字符的个数。</p>
 <p>用法：</p>
-<pre><code>&gt;&gt;&gt; import Levenshtein     
-&gt;&gt;&gt; Levenshtein.hamming('abc', 'cba')
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; import Levenshtein     
+&gt;&gt;&gt; Levenshtein.hamming(&#39;abc&#39;, &#39;cba&#39;)
 2
-&gt;&gt;&gt; Levenshtein.hamming('abc', 'def')
+&gt;&gt;&gt; Levenshtein.hamming(&#39;abc&#39;, &#39;def&#39;)
 3
-</code></pre>
+</pre></div>
+
+
 </li>
 <li>
 <p>Levenshtein.distance(str1, str2)</p>
 <p>计算编辑距离（也成Levenshtein距离）。是描述由一个字串转化成另一个字串最少的操作次数，在其中的操作包括插入、删除、替换。</p>
 <p>用法：</p>
-<pre><code>&gt;&gt;&gt; Levenshtein.distance('abc', 'ab')
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; Levenshtein.distance(&#39;abc&#39;, &#39;ab&#39;)
 1
-&gt;&gt;&gt; Levenshtein.distance('cxy', 'ab')
+&gt;&gt;&gt; Levenshtein.distance(&#39;cxy&#39;, &#39;ab&#39;)
 3
-</code></pre>
+</pre></div>
+
+
 </li>
 <li>
 <p>Levenshtein.ratio(str1, str2)</p>
 <p>计算莱文斯坦比。计算公式 r = (sum - ldist) / sum, 其中sum是指str1 和 str2 字串的长度总和，ldist是类编辑距离</p>
 <p><font color="red">注意：</font>这里的类编辑距离不是<code>Levenshtein.distance(str1, str2)</code>所说的编辑距离，<code>Levenshtein.distance(str1, str2)</code>中三种操作中每个操作+1，而在此处，删除、插入依然+1，但是替换+2
-这样设计的目的：ratio(&lsquo;a&rsquo;, &lsquo;c&rsquo;)，sum=2,按2中计算为（2-1）/2 = 0.5,’a&rsquo;,&rsquo;c&rsquo;没有重合，显然不合算，但是替换操作+2，就可以解决这个问题。</p>
+这样设计的目的：ratio('a', 'c')，sum=2,按2中计算为（2-1）/2 = 0.5,’a','c'没有重合，显然不合算，但是替换操作+2，就可以解决这个问题。</p>
 <p>用法：</p>
-<pre><code>&gt;&gt;&gt; Levenshtein.ratio('a,cdsf', 'abcd')           
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; Levenshtein.ratio(&#39;a,cdsf&#39;, &#39;abcd&#39;)           
 0.6
-</code></pre>
+</pre></div>
+
+
 </li>
 </ul>
-<h3 id="difflib"><strong>difflib</strong></h3>
+<h3 id="difflib"><strong>difflib</strong><a class="headerlink" href="#difflib" title="Permanent link">&para;</a></h3>
 <p>我主要用的是<code>SequenceMatcher</code>， 因此，本次只介绍<code>SequenceMatcher</code>.</p>
 <p><code>SequenceMatcher</code>是可以对两个可序列化的对象进行比较的类</p>
 <p>官网上的用法是：</p>
-<pre><code>&gt;&gt;&gt; s = SequenceMatcher(lambda x: x == " ",
-...                     "private Thread currentThread;",
-...                     "private volatile Thread currentThread;")
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; s = SequenceMatcher(lambda x: x == &quot; &quot;,
+...                     &quot;private Thread currentThread;&quot;,
+...                     &quot;private volatile Thread currentThread;&quot;)
 &gt;&gt;&gt; print(round(s.ratio(), 3))
 0.866
 
 第一个参数为一个函数，主要用来去掉自己不想算在内的元素；如果没有，可以写`None`
 后面两个参数就是需要比较的两个对象了
-</code></pre>
-<h3 id="_1"><strong>余弦定理</strong></h3>
+</pre></div>
+
+
+<h3 id="_1"><strong>余弦定理</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <p><a href="https://blog.csdn.net/zz_dd_yy/article/details/51926305">相似度算法之余弦相似度</a></p>
 <p>通过阅读上面的文章，我们可以简单总结计算相似度的几个步骤：</p>
 <ol>
 <li>
 <p>列出所有出现的字母，并分别统计两个字符串出现这些字母的次数。这里我是这样写的，利用<code>from collections import Counter, OrderedDict</code></p>
 <p>方法：</p>
-<pre><code>&gt;&gt;&gt; from collections import Counter, OrderedDict
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; from collections import Counter, OrderedDict
 &gt;&gt;&gt; from copy import deepcopy
-&gt;&gt;&gt; a = 'abc'
-&gt;&gt;&gt; b = 'bcde'
+&gt;&gt;&gt; a = &#39;abc&#39;
+&gt;&gt;&gt; b = &#39;bcde&#39;
 &gt;&gt;&gt; item = set(a) | set(b)
 &gt;&gt;&gt; item
-{'b', 'c', 'e', 'd', 'a'}
+{&#39;b&#39;, &#39;c&#39;, &#39;e&#39;, &#39;d&#39;, &#39;a&#39;}
 &gt;&gt;&gt; model = OrderedDict().fromkeys(item)
 &gt;&gt;&gt; model
-OrderedDict([('b', None), ('c', None), ('e', None), ('d', None), ('a', None)])
+OrderedDict([(&#39;b&#39;, None), (&#39;c&#39;, None), (&#39;e&#39;, None), (&#39;d&#39;, None), (&#39;a&#39;, None)])
 &gt;&gt;&gt; model1 = deepcopy(model)
 &gt;&gt;&gt; model2 = deepcopy(model)
 &gt;&gt;&gt; model1.update(Counter(a))
 &gt;&gt;&gt; model1
-OrderedDict([('b', 1), ('c', 1), ('e', None), ('d', None), ('a', 1)])
+OrderedDict([(&#39;b&#39;, 1), (&#39;c&#39;, 1), (&#39;e&#39;, None), (&#39;d&#39;, None), (&#39;a&#39;, 1)])
 &gt;&gt;&gt; model2.update(Counter(b))
 &gt;&gt;&gt; model2
-OrderedDict([('b', 1), ('c', 1), ('e', 1), ('d', 1), ('a', None)])
-</code></pre>
+OrderedDict([(&#39;b&#39;, 1), (&#39;c&#39;, 1), (&#39;e&#39;, 1), (&#39;d&#39;, 1), (&#39;a&#39;, None)])
+</pre></div>
+
+
 <p>这样写的原因是，在比较词频的时候，要保证每个字母的顺序是一样的～</p>
 </li>
 <li>
 <p>利用余弦公式计算相似度</p>
 <p>方法：</p>
-<pre><code>&gt;&gt;&gt; import math
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; import math
 &gt;&gt;&gt; sum = 0 #分子
 &gt;&gt;&gt; q1 = 0  #分母
 &gt;&gt;&gt; q2 = 0  #分母
@@ -184,47 +725,90 @@ OrderedDict([('b', 1), ('c', 1), ('e', 1), ('d', 1), ('a', None)])
 &gt;&gt;&gt; result = float(sum) / (math.sqrt(q1) * math.sqrt(q2))
 &gt;&gt;&gt; result
 0.5773502691896258
-</code></pre>
+</pre></div>
+
+
 </li>
 </ol>
 <p>这样就算出相似度啦～</p>
 <p><font color="red">ps：本文说的计算的字符串，全是英文字符串～～</font></p>
+                
+                  
+                
+              
+              
+                
 
-  <br>
-    
 
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="celery/celery-01/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="celery/celery-01/" class="btn btn-xs btn-link">
-        celery快速入门
-      </a>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../python3.7_standard_library/py3标准库——collections/" title="collections" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                collections
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../celery/celery-01/" title="celery快速入门" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                celery快速入门
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
     </div>
-    
-    <div class="wm-article-nav">
-      <a href="python3.7_standard_library/py3标准库——collections/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="python3.7_standard_library/py3标准库——collections/" class="btn btn-xs btn-link">
-        collections
-      </a>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            author by ChuXiaoYi
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
     </div>
-    
   </div>
-
-    <br>
-</div>
-
-<footer class="col-md-12 wm-page-content">
-      <p>
-        <a href="https://github.com/ChuXiaoYi/edit/master/docs/calculate_similiar.md"><i class="fa fa-github"></i>
-Edit on GitHub</a>
-      </p><p>author by ChuXiaoYi</p>
-  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
 </footer>
-
-</body>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.39abc4af.js"></script>
+      
+      <script>app.initialize({version:"1.0.3",url:{base:".."}})</script>
+      
+    
+  </body>
 </html>
