@@ -1,62 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/daily_problem/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/django/django/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/django/django2/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/django/django_rest_framework/djang_rest_framework/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/django/django_rest_framework/django_rest_framework_responseAndRequest/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/django/django_rest_framework/django_rest_framework_ClassBasedViews/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/python3.7_standard_library/py3标准库——functools/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/python3.7_standard_library/py3标准库——itertools/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/python3.7_standard_library/py3标准库——collections/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/calculate_similiar/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/celery/celery-01/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>None</loc>
+     <loc>http:// www.chuxiaoyi.cn/celery/celery-02/</loc>
+     <lastmod>2019-05-07</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>http:// www.chuxiaoyi.cn/vim/vim-01/</loc>
      <lastmod>2019-05-07</lastmod>
      <changefreq>daily</changefreq>
     </url>

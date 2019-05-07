@@ -1,203 +1,1005 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  
-  
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="author" content="褚晓逸">
-    
-    <link rel="shortcut icon" href="../favicon.ico">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>日常问题 - python攻城狮</title>
-    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
-    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
-    <link href="../css/base.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/highlight.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
 
-    <script src="../js/jquery-3.2.1.min.js"></script>
-    <script src="../js/bootstrap-3.3.7.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-    <base target="_top">
-    <script>
-      var base_url = '..';
-      var is_top_frame = false;
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+        <link rel="canonical" href="http:// www.chuxiaoyi.cn/daily_problem/">
+      
+      
+        <meta name="author" content="褚晓逸">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.3, mkdocs-material-4.2.0">
+    
+    
+      
+        <title>日常问题 - cxy's blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.750b69bd.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
         
-        var pageToc = [
-          {title: "1. \u5c0f\u6570\u8f6c\u6362\u4e3a\u767e\u5206\u6570", url: "#_top", children: [
-          ]},
-          {title: "2. \u6587\u4ef6\u64cd\u4f5c", url: "#2", children: [
-          ]},
-          {title: "3. \u8bfb\u5199csv\u6587\u4ef6", url: "#3-csv", children: [
-          ]},
-          {title: "4. python3.6\u8bfbini\u914d\u7f6e\u6587\u4ef6", url: "#4-python36ini", children: [
-          ]},
-          {title: "5. django\u4e4b\u5141\u8bb8\u5916\u90e8\u673a\u5668\u8bbf\u95ee\u672c\u673a\u670d\u52a1", url: "#5-django", children: [
-          ]},
-          {title: "6. Python\u591a\u8fdb\u7a0b\u5e76\u53d1\u64cd\u4f5c\u4e2d\u8fdb\u7a0b\u6c60Pool\u7684\u5e94\u7528", url: "#6-pythonpool", children: [
-          ]},
-          {title: "7. \u8fdb\u7a0b\u6c60\u4f7f\u7528queue\u961f\u5217", url: "#7-queue", children: [
-          ]},
-          {title: "8. operator.itemgetter()", url: "#8-operatoritemgetter", children: [
-          ]},
-          {title: "9. sorted()\u5185\u5efa\u51fd\u6570", url: "#9-sorted", children: [
-          ]},
-          {title: "10. python2.7 \u89e3\u51b3UnicodeDecodeError: \u2018ascii\u2019 codec can\u2019t decode byte 0xe5 in position 108: ordinal not in range(128\u3002\u3002\u3002\u3002", url: "#10-python27-unicodedecodeerror-ascii-codec-cant-decode-byte-0xe5-in-position-108-ordinal-not-in-range128", children: [
-          ]},
-          {title: "11. \u51e0\u4e2a\u6709\u7528\u7684python\u51fd\u6570 (\u7b1b\u5361\u5c14\u79ef, \u6392\u5217, \u7ec4\u5408)", url: "#11-python", children: [
-          ]},
-          {title: "12. python\u6c42\u4e24\u4e2a\u94fe\u8868\u7ec4\u6210\u7684\u6570\u5b57\u7684\u548c", url: "#12-python", children: [
-          ]},
-          {title: "13. python\u5185\u7f6e\u51fd\u6570\u2014\u2014divmod(a, b)", url: "#13-pythondivmoda-b", children: [
-          ]},
-          {title: "14. python\u5185\u7f6e\u51fd\u6570\u2014\u2014enumerate(sequence, start=0)", url: "#14-pythonenumeratesequence-start0", children: [
-          ]},
-          {title: "15. python\u5185\u7f6e\u51fd\u6570\u2014\u2014filter(function, iterable)", url: "#15-pythonfilterfunction-iterable", children: [
-          ]},
-          {title: "16. datetime", url: "#16-datetime", children: [
-          ]},
-          {title: "17. \u9488\u5bf9\u201ccould not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/vine'\u201d\u7684\u89e3\u51b3\u65b9\u5f0f", url: "#17-could-not-install-packages-due-to-an-environmenterror-errno-13-permission-denied-librarypython27site-packagesvine", children: [
-          ]},
-          {title: "18. \u5b57\u5178\u8f6cxml", url: "#18-xml", children: [
-          ]},
-          {title: "19. or\u548cand", url: "#19-orand", children: [
-          ]},
-          {title: "20. xmltodict\u7684\u5751", url: "#20-xmltodict", children: [
-          ]},
-          {title: "21. \u5217\u8868\u751f\u6210\u5f0f\u4e2d\u7684if-else", url: "#21-if-else", children: [
-          ]},
-          {title: "22. \u9488\u5bf9MySQL said: Authentication plugin 'caching_sha2_password' cannot be loaded: dlopen(/usr/local/...\u7684\u95ee\u9898", url: "#22-mysql-said-authentication-plugin-caching_sha2_password-cannot-be-loaded-dlopenusrlocal", children: [
-          ]},
-          {title: "23. django model\u83b7\u53d6\u7279\u5b9a\u5b57\u6bb5", url: "#23-django-model", children: [
-          ]},
-          {title: "24. Connection reset by peer\u7684\u5e38\u89c1\u539f\u56e0", url: "#24-connection-reset-by-peer", children: [
-          ]},
-          {title: "25. \u5173\u4e8edjango.urls.path\u548cdjango.urls.re_path", url: "#25-djangourlspathdjangourlsre_path", children: [
-          ]},
-        ];
-
-    </script>
-    <script src="../js/base.js"></script> 
-</head>
-
-<body>
-<script>
-if (is_top_frame) { $('body').addClass('wm-top-page'); }
-</script>
-
-
-
-<div class="container-fluid wm-page-content">
-  <a name="_top"></a>
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+      <a href="#1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
     
-    <div class="wm-article-nav pull-right">
-      <a href="django/django/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="django/django/" class="btn btn-xs btn-link">
-        django开发实战1
-      </a>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http:// www.chuxiaoyi.cn" title="cxy's blog" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              cxy's blog
+            </span>
+            <span class="md-header-nav__topic">
+              日常问题
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
     </div>
-    
   </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/ChuXiaoYi/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http:// www.chuxiaoyi.cn" title="cxy's blog" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    cxy's blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/ChuXiaoYi/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        日常问题
+      </label>
+    
+    <a href="./" title="日常问题" class="md-nav__link md-nav__link--active">
+      日常问题
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" title="1. 小数转换为百分数" class="md-nav__link">
+    1. 小数转换为百分数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" title="2. 文件操作" class="md-nav__link">
+    2. 文件操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-csv" title="3. 读写csv文件" class="md-nav__link">
+    3. 读写csv文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-python36ini" title="4. python3.6读ini配置文件" class="md-nav__link">
+    4. python3.6读ini配置文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-django" title="5. django之允许外部机器访问本机服务" class="md-nav__link">
+    5. django之允许外部机器访问本机服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pythonpool" title="6. Python多进程并发操作中进程池Pool的应用" class="md-nav__link">
+    6. Python多进程并发操作中进程池Pool的应用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-queue" title="7. 进程池使用queue队列" class="md-nav__link">
+    7. 进程池使用queue队列
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-operatoritemgetter" title="8. operator.itemgetter()" class="md-nav__link">
+    8. operator.itemgetter()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-sorted" title="9. sorted()内建函数" class="md-nav__link">
+    9. sorted()内建函数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-python27-unicodedecodeerror-ascii-codec-cant-decode-byte-0xe5-in-position-108-ordinal-not-in-range128" title="10. python2.7 解决UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe5 in position 108: ordinal not in range(128。。。。" class="md-nav__link">
+    10. python2.7 解决UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe5 in position 108: ordinal not in range(128。。。。
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-python" title="11. 几个有用的python函数 (笛卡尔积, 排列, 组合)" class="md-nav__link">
+    11. 几个有用的python函数 (笛卡尔积, 排列, 组合)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-python" title="12. python求两个链表组成的数字的和" class="md-nav__link">
+    12. python求两个链表组成的数字的和
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-pythondivmoda-b" title="13. python内置函数——divmod(a, b)" class="md-nav__link">
+    13. python内置函数——divmod(a, b)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-pythonenumeratesequence-start0" title="14. python内置函数——enumerate(sequence, start=0)" class="md-nav__link">
+    14. python内置函数——enumerate(sequence, start=0)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-pythonfilterfunction-iterable" title="15. python内置函数——filter(function, iterable)" class="md-nav__link">
+    15. python内置函数——filter(function, iterable)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-datetime" title="16. datetime" class="md-nav__link">
+    16. datetime
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-could-not-install-packages-due-to-an-environmenterror-errno-13-permission-denied-librarypython27site-packagesvine" title="17. 针对“could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/vine'”的解决方式" class="md-nav__link">
+    17. 针对“could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/vine'”的解决方式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-xml" title="18. 字典转xml" class="md-nav__link">
+    18. 字典转xml
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-orand" title="19. or和and" class="md-nav__link">
+    19. or和and
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-xmltodict" title="20. xmltodict的坑" class="md-nav__link">
+    20. xmltodict的坑
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-if-else" title="21. 列表生成式中的if-else" class="md-nav__link">
+    21. 列表生成式中的if-else
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-mysql-said-authentication-plugin-caching_sha2_password-cannot-be-loaded-dlopenusrlocal" title="22. 针对MySQL said: Authentication plugin 'caching_sha2_password' cannot be loaded: dlopen(/usr/local/...的问题" class="md-nav__link">
+    22. 针对MySQL said: Authentication plugin 'caching_sha2_password' cannot be loaded: dlopen(/usr/local/...的问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-django-model" title="23. django model获取特定字段" class="md-nav__link">
+    23. django model获取特定字段
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-connection-reset-by-peer" title="24. Connection reset by peer的常见原因" class="md-nav__link">
+    24. Connection reset by peer的常见原因
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-djangourlspathdjangourlsre_path" title="25. 关于django.urls.path和django.urls.re_path" class="md-nav__link">
+    25. 关于django.urls.path和django.urls.re_path
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
 
     
+      
+      
+      
 
-    <h3 id="1">1. 小数转换为百分数</h3>
-<pre><code class="python">def change_percent(num):
-return &quot;%.2f%%&quot; % (num * 100)
-</code></pre>
 
-<h3 id="2">2. 文件操作</h3>
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      django相关
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        django相关
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../django/django/" title="django开发实战1" class="md-nav__link">
+      django开发实战1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../django/django2/" title="django开发实战2" class="md-nav__link">
+      django开发实战2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      django-rest-framework学习笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        django-rest-framework学习笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../django/django_rest_framework/djang_rest_framework/" title="Serialization" class="md-nav__link">
+      Serialization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../django/django_rest_framework/django_rest_framework_responseAndRequest/" title="Requests and responses" class="md-nav__link">
+      Requests and responses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../django/django_rest_framework/django_rest_framework_ClassBasedViews/" title="基于类的视图" class="md-nav__link">
+      基于类的视图
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      python3.7标准库相关记录
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        python3.7标准库相关记录
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../python3.7_standard_library/py3标准库——functools/" title="functools" class="md-nav__link">
+      functools
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../python3.7_standard_library/py3标准库——itertools/" title="itertools" class="md-nav__link">
+      itertools
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../python3.7_standard_library/py3标准库——collections/" title="collections" class="md-nav__link">
+      collections
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../calculate_similiar/" title="计算字符串相似度相关方法" class="md-nav__link">
+      计算字符串相似度相关方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      celery
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        celery
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../celery/celery-01/" title="celery快速入门" class="md-nav__link">
+      celery快速入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../celery/celery-02/" title="celery进阶" class="md-nav__link">
+      celery进阶
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      vim
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        vim
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vim/vim-01/" title="vim简单入门" class="md-nav__link">
+      vim简单入门
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" title="1. 小数转换为百分数" class="md-nav__link">
+    1. 小数转换为百分数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" title="2. 文件操作" class="md-nav__link">
+    2. 文件操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-csv" title="3. 读写csv文件" class="md-nav__link">
+    3. 读写csv文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-python36ini" title="4. python3.6读ini配置文件" class="md-nav__link">
+    4. python3.6读ini配置文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-django" title="5. django之允许外部机器访问本机服务" class="md-nav__link">
+    5. django之允许外部机器访问本机服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pythonpool" title="6. Python多进程并发操作中进程池Pool的应用" class="md-nav__link">
+    6. Python多进程并发操作中进程池Pool的应用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-queue" title="7. 进程池使用queue队列" class="md-nav__link">
+    7. 进程池使用queue队列
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-operatoritemgetter" title="8. operator.itemgetter()" class="md-nav__link">
+    8. operator.itemgetter()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-sorted" title="9. sorted()内建函数" class="md-nav__link">
+    9. sorted()内建函数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-python27-unicodedecodeerror-ascii-codec-cant-decode-byte-0xe5-in-position-108-ordinal-not-in-range128" title="10. python2.7 解决UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe5 in position 108: ordinal not in range(128。。。。" class="md-nav__link">
+    10. python2.7 解决UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe5 in position 108: ordinal not in range(128。。。。
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-python" title="11. 几个有用的python函数 (笛卡尔积, 排列, 组合)" class="md-nav__link">
+    11. 几个有用的python函数 (笛卡尔积, 排列, 组合)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-python" title="12. python求两个链表组成的数字的和" class="md-nav__link">
+    12. python求两个链表组成的数字的和
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-pythondivmoda-b" title="13. python内置函数——divmod(a, b)" class="md-nav__link">
+    13. python内置函数——divmod(a, b)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-pythonenumeratesequence-start0" title="14. python内置函数——enumerate(sequence, start=0)" class="md-nav__link">
+    14. python内置函数——enumerate(sequence, start=0)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-pythonfilterfunction-iterable" title="15. python内置函数——filter(function, iterable)" class="md-nav__link">
+    15. python内置函数——filter(function, iterable)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-datetime" title="16. datetime" class="md-nav__link">
+    16. datetime
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-could-not-install-packages-due-to-an-environmenterror-errno-13-permission-denied-librarypython27site-packagesvine" title="17. 针对“could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/vine'”的解决方式" class="md-nav__link">
+    17. 针对“could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/vine'”的解决方式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-xml" title="18. 字典转xml" class="md-nav__link">
+    18. 字典转xml
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-orand" title="19. or和and" class="md-nav__link">
+    19. or和and
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-xmltodict" title="20. xmltodict的坑" class="md-nav__link">
+    20. xmltodict的坑
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-if-else" title="21. 列表生成式中的if-else" class="md-nav__link">
+    21. 列表生成式中的if-else
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-mysql-said-authentication-plugin-caching_sha2_password-cannot-be-loaded-dlopenusrlocal" title="22. 针对MySQL said: Authentication plugin 'caching_sha2_password' cannot be loaded: dlopen(/usr/local/...的问题" class="md-nav__link">
+    22. 针对MySQL said: Authentication plugin 'caching_sha2_password' cannot be loaded: dlopen(/usr/local/...的问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-django-model" title="23. django model获取特定字段" class="md-nav__link">
+    23. django model获取特定字段
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-connection-reset-by-peer" title="24. Connection reset by peer的常见原因" class="md-nav__link">
+    24. Connection reset by peer的常见原因
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-djangourlspathdjangourlsre_path" title="25. 关于django.urls.path和django.urls.re_path" class="md-nav__link">
+    25. 关于django.urls.path和django.urls.re_path
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/ChuXiaoYi/edit/master/docs/daily_problem.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>日常问题</h1>
+                
+                <h3 id="1">1. 小数转换为百分数<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">change_percent</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+<span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.2f%%</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">num</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+
+<h3 id="2">2. 文件操作<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>查看当前目录</li>
 </ul>
-<pre><code class="python">os.getcwd()
-</code></pre>
-
-<p>或</p>
-<pre><code class="python">from os import path 
-d = path.dirname(__file__)
-# __file__ 为当前文件, 若果在ide中运行此行会报错,可改为  #d = path.dirname('.')
-</code></pre>
-
-<ul>
-<li>获得单个目录节点的子节点</li>
-</ul>
-<pre><code class="python">os.listdir(rootdir)
-</code></pre>
+<p><div class="codehilite"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+</pre></div>
+或</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span> 
+<span class="n">d</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="c1"># __file__ 为当前文件, 若果在ide中运行此行会报错,可改为  #d = path.dirname(&#39;.&#39;)</span>
+</pre></div>
 
 <ul>
-<li>获取当前目录下的信息</li>
+<li>
+<p>获得单个目录节点的子节点
+<div class="codehilite"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">rootdir</span><span class="p">)</span>
+</pre></div></p>
+</li>
+<li>
+<p>获取当前目录下的信息
+<div class="codehilite"><pre><span></span><span class="k">for</span> <span class="n">parent</span><span class="p">,</span><span class="n">dirnames</span><span class="p">,</span><span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">rootdir</span><span class="p">):</span>   <span class="c1">#三个参数：分别返回1.父目录 2.所有文件夹名字（不含路径）3.所有文件名字</span>
+
+    <span class="k">for</span> <span class="n">dirname</span> <span class="ow">in</span>  <span class="n">dirnames</span><span class="p">:</span>                       <span class="c1">#输出文件夹信息</span>
+        <span class="k">print</span> <span class="s2">&quot;parent is:&quot;</span> <span class="o">+</span> <span class="n">parent</span>
+        <span class="k">print</span>  <span class="s2">&quot;dirname is&quot;</span> <span class="o">+</span> <span class="n">dirname</span>
+
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>                        <span class="c1">#输出文件信息</span>
+        <span class="k">print</span> <span class="s2">&quot;parent is:&quot;</span> <span class="o">+</span> <span class="n">parent</span>
+        <span class="k">print</span> <span class="s2">&quot;filename is:&quot;</span> <span class="o">+</span> <span class="n">filename</span>
+        <span class="k">print</span> <span class="s2">&quot;the full name of the file is:&quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="n">filename</span><span class="p">)</span> <span class="c1">#输出文件路径信息</span>
+</pre></div></p>
+</li>
 </ul>
-<pre><code class="python">for parent,dirnames,filenames in os.walk(rootdir):   #三个参数：分别返回1.父目录 2.所有文件夹名字（不含路径）3.所有文件名字
-
-    for dirname in  dirnames:                       #输出文件夹信息
-        print &quot;parent is:&quot; + parent
-        print  &quot;dirname is&quot; + dirname
-
-    for filename in filenames:                        #输出文件信息
-        print &quot;parent is:&quot; + parent
-        print &quot;filename is:&quot; + filename
-        print &quot;the full name of the file is:&quot; + os.path.join(parent,filename) #输出文件路径信息
-</code></pre>
-
-<h3 id="3-csv">3. 读写csv文件</h3>
+<h3 id="3-csv">3. 读写csv文件<a class="headerlink" href="#3-csv" title="Permanent link">&para;</a></h3>
 <ul>
 <li>写入</li>
 </ul>
-<pre><code class="python">import csv
-def writer_to_csv(info):
-    result_csv = open('result.csv', 'a', encoding='utf8')
-    writer = csv.writer(result_csv)
-    writer.writerow(info)
-    result_csv.close()
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
+<span class="k">def</span> <span class="nf">writer_to_csv</span><span class="p">(</span><span class="n">info</span><span class="p">):</span>
+    <span class="n">result_csv</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;result.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">result_csv</span><span class="p">)</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+    <span class="n">result_csv</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
 
 <ul>
 <li>读出</li>
 </ul>
-<pre><code class="python">import csv
-def read_csv(file):
-    csv_file = open(file, 'r')
-    reader = csv.reader(csv_file)
-    for item in reader:
-        yield item[0]
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
+<span class="k">def</span> <span class="nf">read_csv</span><span class="p">(</span><span class="nb">file</span><span class="p">):</span>
+    <span class="n">csv_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
 
-<h3 id="4-python36ini">4. python3.6读ini配置文件</h3>
+<h3 id="4-python36ini">4. python3.6读ini配置文件<a class="headerlink" href="#4-python36ini" title="Permanent link">&para;</a></h3>
 <p><strong>说明</strong>：python2.7-3.5使用的是<code>ConfigParser</code>模块</p>
-<pre><code class="python">import configparser
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">configparser</span>
+</pre></div>
 
-<h3 id="5-django">5. django之允许外部机器访问本机服务</h3>
+<h3 id="5-django">5. django之允许外部机器访问本机服务<a class="headerlink" href="#5-django" title="Permanent link">&para;</a></h3>
 <ol>
-<li>开启django服务时，使用0.0.0.0:端口启动，例：</li>
+<li>
+<p>开启django服务时，使用0.0.0.0:端口启动，例：
+<div class="codehilite"><pre><span></span>./manage.py runserver 0.0.0.0:9999
+</pre></div></p>
+</li>
+<li>
+<p>修改setting文件中的ALLOWED_HOSTS
+<div class="codehilite"><pre><span></span>ALLOWED_HOSTS = [&#39;*&#39;, ]
+</pre></div>
+<font color='red'>注意：</font><code>['*', ]</code>一定要加<code>,</code></p>
+</li>
 </ol>
-<pre><code>./manage.py runserver 0.0.0.0:9999
-</code></pre>
-
-<ol>
-<li>修改setting文件中的ALLOWED_HOSTS</li>
-</ol>
-<pre><code>ALLOWED_HOSTS = ['*', ]
-</code></pre>
-
-<p><font color='red'>注意：</font><code>['*', ]</code>一定要加<code>,</code></p>
-<h3 id="6-pythonpool">6. Python多进程并发操作中进程池Pool的应用</h3>
+<h3 id="6-pythonpool">6. Python多进程并发操作中进程池Pool的应用<a class="headerlink" href="#6-pythonpool" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p><strong>说明：</strong></p>
@@ -216,47 +1018,43 @@ def read_csv(file):
     <code>apply_async(func[, args=()[, kwds={}[,callback=None]]])</code>，该方法非阻塞且支持结果返回进行回调。</p>
 </li>
 <li>
-<p>示例：</p>
+<p>示例：
+<div class="codehilite"><pre><span></span>    <span class="kn">import</span> <span class="nn">time</span>
+    <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+        <span class="c1"># fn: 函数参数是数据列表的一个元素</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fn</span> <span class="o">*</span> <span class="n">fn</span>
+
+
+    <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+        <span class="n">testFL</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;顺序执行:&#39;</span><span class="p">)</span>  <span class="c1"># 顺序执行(也就是串行执行，单进程)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">testFL</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">run</span><span class="p">(</span><span class="n">fn</span><span class="p">))</span>
+
+        <span class="n">e1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;顺序执行时间：&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">e1</span> <span class="o">-</span> <span class="n">s</span><span class="p">))</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;多进程执行:&#39;</span><span class="p">)</span>  <span class="c1"># 创建多个进程，并行执行</span>
+        <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># 创建拥有5个进程数量的进程池</span>
+        <span class="c1"># testFL:要处理的数据列表，run：处理testFL列表中数据的函数</span>
+        <span class="c1"># rl = pool.map(run, testFL)</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">testFL</span><span class="p">:</span>
+            <span class="n">pool</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="p">))</span>
+        <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭进程池，不再接受新的进程</span>
+        <span class="n">pool</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>  <span class="c1"># 主进程阻塞等待子进程的退出</span>
+        <span class="n">e2</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;并行执行时间：&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">e2</span> <span class="o">-</span> <span class="n">e1</span><span class="p">))</span>
+        <span class="c1"># print(rl)</span>
+</pre></div></p>
 </li>
-</ul>
-<pre><code class="python">
-    import time
-    from multiprocessing import Pool
-
-
-    def run(fn):
-        # fn: 函数参数是数据列表的一个元素
-        time.sleep(1)
-        return fn * fn
-
-
-    if __name__ == &quot;__main__&quot;:
-        testFL = [1, 2, 3, 4, 5, 6]
-        print('顺序执行:')  # 顺序执行(也就是串行执行，单进程)
-        s = time.time()
-        for fn in testFL:
-            print(run(fn))
-
-        e1 = time.time()
-        print(&quot;顺序执行时间：&quot;, int(e1 - s))
-
-        print('多进程执行:')  # 创建多个进程，并行执行
-        pool = Pool(5)  # 创建拥有5个进程数量的进程池
-        # testFL:要处理的数据列表，run：处理testFL列表中数据的函数
-        # rl = pool.map(run, testFL)
-        for fn in testFL:
-            pool.apply_async(run, args=(fn, ))
-        pool.close()  # 关闭进程池，不再接受新的进程
-        pool.join()  # 主进程阻塞等待子进程的退出
-        e2 = time.time()
-        print(&quot;并行执行时间：&quot;, int(e2 - e1))
-        # print(rl)
-</code></pre>
-
-<ul>
-<li>响应：</li>
-</ul>
-<pre><code>顺序执行:
+<li>
+<p>响应：
+<div class="codehilite"><pre><span></span>顺序执行:
 1
 4
 9
@@ -266,9 +1064,8 @@ def read_csv(file):
 顺序执行时间： 6
 多进程执行:
 并行执行时间： 2
-</code></pre>
-
-<ul>
+</pre></div></p>
+</li>
 <li>
 <p><strong>map()</strong></p>
 </li>
@@ -279,39 +1076,41 @@ def read_csv(file):
 </li>
 <li>
 <p>示例：
-    ```python
-    import time
-    from multiprocessing import Pool</p>
-<p>def run(fn):
-    # fn: 函数参数是数据列表的一个元素
-    time.sleep(1)
-    return fn * fn</p>
-<p>if <strong>name</strong> == &ldquo;<strong>main</strong>&rdquo;:
-    testFL = [1, 2, 3, 4, 5, 6]
-    print(&lsquo;顺序执行:&rsquo;)  # 顺序执行(也就是串行执行，单进程)
-    s = time.time()
-    for fn in testFL:
-        print(run(fn))</p>
-<pre><code>e1 = time.time()
-print("顺序执行时间：", int(e1 - s))
+    <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
 
-print('多进程执行:')  # 创建多个进程，并行执行
-pool = Pool(5)  # 创建拥有5个进程数量的进程池
-# testFL:要处理的数据列表，run：处理testFL列表中数据的函数
-rl = pool.map(run, testFL)
-# for fn in testFL:
-#     pool.apply_async(run, args=(fn, ))
-pool.close()  # 关闭进程池，不再接受新的进程
-pool.join()  # 主进程阻塞等待子进程的退出
-e2 = time.time()
-print(rl)
-print("并行执行时间：", int(e2 - e1))
-</code></pre>
-<p>```
-- 响应：</p>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="c1"># fn: 函数参数是数据列表的一个元素</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fn</span> <span class="o">*</span> <span class="n">fn</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">testFL</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;顺序执行:&#39;</span><span class="p">)</span>  <span class="c1"># 顺序执行(也就是串行执行，单进程)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">testFL</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">run</span><span class="p">(</span><span class="n">fn</span><span class="p">))</span>
+
+    <span class="n">e1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;顺序执行时间：&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">e1</span> <span class="o">-</span> <span class="n">s</span><span class="p">))</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;多进程执行:&#39;</span><span class="p">)</span>  <span class="c1"># 创建多个进程，并行执行</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># 创建拥有5个进程数量的进程池</span>
+    <span class="c1"># testFL:要处理的数据列表，run：处理testFL列表中数据的函数</span>
+    <span class="n">rl</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">testFL</span><span class="p">)</span>
+    <span class="c1"># for fn in testFL:</span>
+    <span class="c1">#     pool.apply_async(run, args=(fn, ))</span>
+    <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭进程池，不再接受新的进程</span>
+    <span class="n">pool</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>  <span class="c1"># 主进程阻塞等待子进程的退出</span>
+    <span class="n">e2</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">rl</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;并行执行时间：&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">e2</span> <span class="o">-</span> <span class="n">e1</span><span class="p">))</span>
+</pre></div></p>
 </li>
-</ul>
-<pre><code>顺序执行:
+<li>响应：
+<div class="codehilite"><pre><span></span>顺序执行:
 1
 4
 9
@@ -322,54 +1121,50 @@ print("并行执行时间：", int(e2 - e1))
 多进程执行:
 [1, 4, 9, 16, 25, 36]
 并行执行时间： 2
-</code></pre>
-
-<h3 id="7-queue">7. 进程池使用queue队列</h3>
-<p><font color='red'>注意：</font>进程池使用队列，应使用<code>Manager</code>对象的Queue</p>
-<pre><code class="python">from multiprocessing import Manager
-qid_queue = Manager().Queue()
-</code></pre>
-
-<h3 id="8-operatoritemgetter">8. operator.itemgetter()</h3>
-<p>返回一个可调用对象，该对象使用被操作元的<strong><code>__getitem__()</code></strong>方法从其被操作元获取<strong>项</strong>。通过该函数作用到对象上才能获取值。如果指定了多个项，则返回查找值的一组。例如:</p>
+</pre></div></li>
+</ul>
+<h3 id="7-queue">7. 进程池使用queue队列<a class="headerlink" href="#7-queue" title="Permanent link">&para;</a></h3>
+<p><font color='red'>注意：</font>进程池使用队列，应使用<code>Manager</code>对象的Queue
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Manager</span>
+<span class="n">qid_queue</span> <span class="o">=</span> <span class="n">Manager</span><span class="p">()</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+</pre></div></p>
+<h3 id="8-operatoritemgetter">8. operator.itemgetter()<a class="headerlink" href="#8-operatoritemgetter" title="Permanent link">&para;</a></h3>
+<p>返回一个可调用对象，该对象使用被操作元的**<code>__getitem__()</code><strong>方法从其被操作元获取**项</strong>。通过该函数作用到对象上才能获取值。如果指定了多个项，则返回查找值的一组。例如:</p>
 <blockquote>
 <ul>
-<li>在f = itemgetter(2)之后，调用f(r)返回r[2]。</li>
-<li>在g = itemgetter(2,5,3)之后，调用g(r)返回(r[2]， r[5]， r[3])。</li>
+<li>在f = itemgetter(2)之后，调用f&reg;返回r[2]。</li>
+<li>在g = itemgetter(2,5,3)之后，调用g&reg;返回(r[2]， r[5]， r[3])。</li>
 </ul>
 </blockquote>
-<p>等价于:</p>
-<pre><code class="python">def itemgetter(*items):
-if len(items) == 1:
-    item = items[0]
-    def g(obj):
-        return obj[item]
-else:
-    def g(obj):
-        return tuple(obj[item] for item in items)
-return g
-</code></pre>
-
-<p>项可以是被操作元的<strong><code>__getitem__()</code></strong>方法所接受的任何类型。字典接受各种哈希值，列表、元组和字符串接受索引或片:</p>
-<pre><code>&gt;&gt;&gt; itemgetter(1)('ABCDEFG')
-'B'
-&gt;&gt;&gt; itemgetter(1,3,5)('ABCDEFG')
-('B', 'D', 'F')
-&gt;&gt;&gt; itemgetter(slice(2,None))('ABCDEFG')
-'CDEFG'
-</code></pre>
-
-<p>在版本2.5中更改:添加了对多个项目提取的支持。
-使用itemgetter()从元组记录中检索特定字段的示例:</p>
-<pre><code>&gt;&gt;&gt; inventory = [('apple', 3), ('banana', 2), ('pear', 5), ('orange', 1)]
+<p>等价于:
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">itemgetter</span><span class="p">(</span><span class="o">*</span><span class="n">items</span><span class="p">):</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">g</span>
+</pre></div>
+项可以是被操作元的**<code>__getitem__()</code>**方法所接受的任何类型。字典接受各种哈希值，列表、元组和字符串接受索引或片:
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; itemgetter(1)(&#39;ABCDEFG&#39;)
+&#39;B&#39;
+&gt;&gt;&gt; itemgetter(1,3,5)(&#39;ABCDEFG&#39;)
+(&#39;B&#39;, &#39;D&#39;, &#39;F&#39;)
+&gt;&gt;&gt; itemgetter(slice(2,None))(&#39;ABCDEFG&#39;)
+&#39;CDEFG&#39;
+</pre></div>
+在版本2.5中更改:添加了对多个项目提取的支持。
+使用itemgetter()从元组记录中检索特定字段的示例:
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; inventory = [(&#39;apple&#39;, 3), (&#39;banana&#39;, 2), (&#39;pear&#39;, 5), (&#39;orange&#39;, 1)]
 &gt;&gt;&gt; getcount = itemgetter(1)
 &gt;&gt;&gt; map(getcount, inventory)
 [3, 2, 5, 1]
 &gt;&gt;&gt; sorted(inventory, key=getcount)
-[('orange', 1), ('banana', 2), ('apple', 3), ('pear', 5)]
-</code></pre>
-
-<h3 id="9-sorted">9. sorted()内建函数</h3>
+[(&#39;orange&#39;, 1), (&#39;banana&#39;, 2), (&#39;apple&#39;, 3), (&#39;pear&#39;, 5)]
+</pre></div></p>
+<h3 id="9-sorted">9. sorted()内建函数<a class="headerlink" href="#9-sorted" title="Permanent link">&para;</a></h3>
 <p><strong>sort 与 sorted 区别：</strong></p>
 <blockquote>
 <ul>
@@ -384,37 +1179,36 @@ return g
 <p>参数说明：</p>
 <blockquote>
 <ul>
-<li>iterable &ndash; 可迭代对象。</li>
-<li>cmp &ndash; 比较的函数，这个具有两个参数，参数的值都是从可迭代对象中取出，此函数必须遵守的规则为，大于则返回1，小于则返回-1，等于则返回0。</li>
-<li>key &ndash; 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。</li>
-<li>reverse &ndash; 排序规则，reverse = True 降序 ， reverse = False 升序（默认）。</li>
+<li>iterable -- 可迭代对象。</li>
+<li>cmp -- 比较的函数，这个具有两个参数，参数的值都是从可迭代对象中取出，此函数必须遵守的规则为，大于则返回1，小于则返回-1，等于则返回0。</li>
+<li>key -- 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。</li>
+<li>reverse -- 排序规则，reverse = True 降序 ， reverse = False 升序（默认）。</li>
 </ul>
 </blockquote>
-<p><strong>例子：</strong></p>
-<pre><code>&gt;&gt;&gt;a = [5,7,6,3,4,1,2]
+<p><strong>例子：</strong>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;a = [5,7,6,3,4,1,2]
 &gt;&gt;&gt; b = sorted(a)       # 保留原列表
 &gt;&gt;&gt; a 
 [5, 7, 6, 3, 4, 1, 2]
 &gt;&gt;&gt; b
 [1, 2, 3, 4, 5, 6, 7]
 
-&gt;&gt;&gt; L=[('b',2),('a',1),('c',3),('d',4)]
+&gt;&gt;&gt; L=[(&#39;b&#39;,2),(&#39;a&#39;,1),(&#39;c&#39;,3),(&#39;d&#39;,4)]
 &gt;&gt;&gt; sorted(L, cmp=lambda x,y:cmp(x[1],y[1]))   # 利用cmp函数
-[('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+[(&#39;a&#39;, 1), (&#39;b&#39;, 2), (&#39;c&#39;, 3), (&#39;d&#39;, 4)]
 &gt;&gt;&gt; sorted(L, key=lambda x:x[1])               # 利用key
-[('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+[(&#39;a&#39;, 1), (&#39;b&#39;, 2), (&#39;c&#39;, 3), (&#39;d&#39;, 4)]
 
 
-&gt;&gt;&gt; students = [('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
+&gt;&gt;&gt; students = [(&#39;john&#39;, &#39;A&#39;, 15), (&#39;jane&#39;, &#39;B&#39;, 12), (&#39;dave&#39;, &#39;B&#39;, 10)]
 &gt;&gt;&gt; sorted(students, key=lambda s: s[2])            # 按年龄排序
-[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+[(&#39;dave&#39;, &#39;B&#39;, 10), (&#39;jane&#39;, &#39;B&#39;, 12), (&#39;john&#39;, &#39;A&#39;, 15)]
 
 &gt;&gt;&gt; sorted(students, key=lambda s: s[2], reverse=True)       # 按降序
-[('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
-</code></pre>
-
-<p><font color='red'><strong>注意</strong></font>：建议使用key，而不是cmp，因为key更节省内存空间</p>
-<h3 id="10-python27-unicodedecodeerror-ascii-codec-cant-decode-byte-0xe5-in-position-108-ordinal-not-in-range128">10. python2.7 解决UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe5 in position 108: ordinal not in range(128。。。。</h3>
+[(&#39;john&#39;, &#39;A&#39;, 15), (&#39;jane&#39;, &#39;B&#39;, 12), (&#39;dave&#39;, &#39;B&#39;, 10)]
+</pre></div>
+<font color='red'><strong>注意</strong></font>：建议使用key，而不是cmp，因为key更节省内存空间</p>
+<h3 id="10-python27-unicodedecodeerror-ascii-codec-cant-decode-byte-0xe5-in-position-108-ordinal-not-in-range128">10. python2.7 解决UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe5 in position 108: ordinal not in range(128。。。。<a class="headerlink" href="#10-python27-unicodedecodeerror-ascii-codec-cant-decode-byte-0xe5-in-position-108-ordinal-not-in-range128" title="Permanent link">&para;</a></h3>
 <p><font color='red'><strong>出现错误原因</strong></font>：</p>
 <blockquote>
 <p>python的str默认是ascii编码，和unicode编码冲突</p>
@@ -423,37 +1217,36 @@ return g
 <blockquote>
 <p>import sys
 reload(sys)
-sys.setdefaultencoding(&lsquo;utf8&rsquo;)</p>
+sys.setdefaultencoding('utf8')</p>
 </blockquote>
-<h3 id="11-python">11. 几个有用的python函数 (笛卡尔积, 排列, 组合)</h3>
+<h3 id="11-python">11. 几个有用的python函数 (笛卡尔积, 排列, 组合)<a class="headerlink" href="#11-python" title="Permanent link">&para;</a></h3>
 <blockquote>
 <ul>
 <li><strong>product</strong> 笛卡尔积</li>
 <li><strong>permutations</strong> 排列</li>
 <li><strong>combinations</strong> 组合,没有重复</li>
-<li><strong>combinations_with_replacement</strong> 组合,有重复</li>
+<li><strong>combinations_with_replacement</strong> 组合,有重复
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; import itertools
+&gt;&gt;&gt; for i in itertools.product(&#39;ABCD&#39;, r=2):
+...     print i,
+... 
+(&#39;A&#39;, &#39;A&#39;) (&#39;A&#39;, &#39;B&#39;) (&#39;A&#39;, &#39;C&#39;) (&#39;A&#39;, &#39;D&#39;) (&#39;B&#39;, &#39;A&#39;) (&#39;B&#39;, &#39;B&#39;) (&#39;B&#39;, &#39;C&#39;) (&#39;B&#39;, &#39;D&#39;) (&#39;C&#39;, &#39;A&#39;) (&#39;C&#39;, &#39;B&#39;) (&#39;C&#39;, &#39;C&#39;) (&#39;C&#39;, &#39;D&#39;) (&#39;D&#39;, &#39;A&#39;) (&#39;D&#39;, &#39;B&#39;) (&#39;D&#39;, &#39;C&#39;) (&#39;D&#39;, &#39;D&#39;)
+&gt;&gt;&gt; for i in itertools.permutations(&#39;ABCD&#39;, 2):
+...     print i,
+... 
+(&#39;A&#39;, &#39;B&#39;) (&#39;A&#39;, &#39;C&#39;) (&#39;A&#39;, &#39;D&#39;) (&#39;B&#39;, &#39;A&#39;) (&#39;B&#39;, &#39;C&#39;) (&#39;B&#39;, &#39;D&#39;) (&#39;C&#39;, &#39;A&#39;) (&#39;C&#39;, &#39;B&#39;) (&#39;C&#39;, &#39;D&#39;) (&#39;D&#39;, &#39;A&#39;) (&#39;D&#39;, &#39;B&#39;) (&#39;D&#39;, &#39;C&#39;)
+&gt;&gt;&gt; for i in itertools.combinations(&#39;ABCD&#39;, 2):
+...     print i,
+... 
+(&#39;A&#39;, &#39;B&#39;) (&#39;A&#39;, &#39;C&#39;) (&#39;A&#39;, &#39;D&#39;) (&#39;B&#39;, &#39;C&#39;) (&#39;B&#39;, &#39;D&#39;) (&#39;C&#39;, &#39;D&#39;)
+&gt;&gt;&gt; for i in itertools.combinations_with_replacement(&#39;ABCD&#39;, 2):
+...     print i,
+... 
+(&#39;A&#39;, &#39;A&#39;) (&#39;A&#39;, &#39;B&#39;) (&#39;A&#39;, &#39;C&#39;) (&#39;A&#39;, &#39;D&#39;) (&#39;B&#39;, &#39;B&#39;) (&#39;B&#39;, &#39;C&#39;) (&#39;B&#39;, &#39;D&#39;) (&#39;C&#39;, &#39;C&#39;) (&#39;C&#39;, &#39;D&#39;) (&#39;D&#39;, &#39;D&#39;)
+</pre></div></li>
 </ul>
 </blockquote>
-<pre><code>&gt;&gt;&gt; import itertools
-&gt;&gt;&gt; for i in itertools.product('ABCD', r=2):
-...     print i,
-... 
-('A', 'A') ('A', 'B') ('A', 'C') ('A', 'D') ('B', 'A') ('B', 'B') ('B', 'C') ('B', 'D') ('C', 'A') ('C', 'B') ('C', 'C') ('C', 'D') ('D', 'A') ('D', 'B') ('D', 'C') ('D', 'D')
-&gt;&gt;&gt; for i in itertools.permutations('ABCD', 2):
-...     print i,
-... 
-('A', 'B') ('A', 'C') ('A', 'D') ('B', 'A') ('B', 'C') ('B', 'D') ('C', 'A') ('C', 'B') ('C', 'D') ('D', 'A') ('D', 'B') ('D', 'C')
-&gt;&gt;&gt; for i in itertools.combinations('ABCD', 2):
-...     print i,
-... 
-('A', 'B') ('A', 'C') ('A', 'D') ('B', 'C') ('B', 'D') ('C', 'D')
-&gt;&gt;&gt; for i in itertools.combinations_with_replacement('ABCD', 2):
-...     print i,
-... 
-('A', 'A') ('A', 'B') ('A', 'C') ('A', 'D') ('B', 'B') ('B', 'C') ('B', 'D') ('C', 'C') ('C', 'D') ('D', 'D')
-</code></pre>
-
-<h3 id="12-python">12. python求两个链表组成的数字的和</h3>
+<h3 id="12-python">12. python求两个链表组成的数字的和<a class="headerlink" href="#12-python" title="Permanent link">&para;</a></h3>
 <p>给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。
 你可以假设除了数字 0 之外，这两个数字都不会以零开头
 示例：</p>
@@ -462,75 +1255,74 @@ sys.setdefaultencoding(&lsquo;utf8&rsquo;)</p>
 输出：7 -&gt; 0 -&gt; 8
 原因：342 + 465 = 807</p>
 </blockquote>
-<p><strong>代码实现：</strong></p>
-<pre><code class="python"># Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+<p><strong>代码实现：</strong>
+<div class="codehilite"><pre><span></span><span class="c1"># Definition for singly-linked list.</span>
+<span class="c1"># class ListNode:</span>
+<span class="c1">#     def __init__(self, x):</span>
+<span class="c1">#         self.val = x</span>
+<span class="c1">#         self.next = None</span>
 
-def addTwoNumbers(self, l1, l2):
-    &quot;&quot;&quot;
-    :type l1: ListNode
-    :type l2: ListNode
-    :rtype: ListNode
-    &quot;&quot;&quot;
-    val_sum = l1.val + l2.val
-    list_node = ListNode(val_sum % 10)
-    a = val_sum // 10
-    node = list_node
-    while True:
-        try:
-            l1 = l1.next
-        except:
-            pass
-        try:
-            l2 = l2.next
-        except:
-            pass
-        if not l1 and not l2:
-            break
-        elif not l1:
-            l1_val = 0
-            l2_val = l2.val
-        elif not l2:
-            l2_val = 0
-            l1_val = l1.val
-        else:
-            l1_val = l1.val
-            l2_val = l2.val
-        val_sum = l1_val + l2_val + a
-        temp_node = ListNode(val_sum % 10)
-        node.next = temp_node
-        node = temp_node
-        a = val_sum // 10
-    if a != 0:
-        node.next = ListNode(a)
-    return list_node
-</code></pre>
-
-<h3 id="13-pythondivmoda-b">13. python内置函数——divmod(a, b)</h3>
+<span class="k">def</span> <span class="nf">addTwoNumbers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :type l1: ListNode</span>
+<span class="sd">    :type l2: ListNode</span>
+<span class="sd">    :rtype: ListNode</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">val_sum</span> <span class="o">=</span> <span class="n">l1</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="n">l2</span><span class="o">.</span><span class="n">val</span>
+    <span class="n">list_node</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">val_sum</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">val_sum</span> <span class="o">//</span> <span class="mi">10</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">list_node</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">l1</span> <span class="o">=</span> <span class="n">l1</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">l2</span> <span class="o">=</span> <span class="n">l2</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">l1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">l2</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">l1</span><span class="p">:</span>
+            <span class="n">l1_val</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">l2_val</span> <span class="o">=</span> <span class="n">l2</span><span class="o">.</span><span class="n">val</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">l2</span><span class="p">:</span>
+            <span class="n">l2_val</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">l1_val</span> <span class="o">=</span> <span class="n">l1</span><span class="o">.</span><span class="n">val</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">l1_val</span> <span class="o">=</span> <span class="n">l1</span><span class="o">.</span><span class="n">val</span>
+            <span class="n">l2_val</span> <span class="o">=</span> <span class="n">l2</span><span class="o">.</span><span class="n">val</span>
+        <span class="n">val_sum</span> <span class="o">=</span> <span class="n">l1_val</span> <span class="o">+</span> <span class="n">l2_val</span> <span class="o">+</span> <span class="n">a</span>
+        <span class="n">temp_node</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">val_sum</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">temp_node</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">temp_node</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">val_sum</span> <span class="o">//</span> <span class="mi">10</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">list_node</span>
+</pre></div></p>
+<h3 id="13-pythondivmoda-b">13. python内置函数——divmod(a, b)<a class="headerlink" href="#13-pythondivmoda-b" title="Permanent link">&para;</a></h3>
 <ul>
 <li>v2.7<blockquote>
 <p>实际上是算a除以b的商和余数，返回(商，余数)</p>
 </blockquote>
 </li>
 </ul>
-<pre><code>divmod(1,2)
+<div class="codehilite"><pre><span></span>divmod(1,2)
 (0, 1)
 divmod(5, 1)
 (5, 0)
-</code></pre>
+</pre></div>
 
-<h3 id="14-pythonenumeratesequence-start0">14. python内置函数——enumerate(sequence, start=0)</h3>
-<pre><code>&gt;&gt;&gt; seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+<h3 id="14-pythonenumeratesequence-start0">14. python内置函数——enumerate(sequence, start=0)<a class="headerlink" href="#14-pythonenumeratesequence-start0" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; seasons = [&#39;Spring&#39;, &#39;Summer&#39;, &#39;Fall&#39;, &#39;Winter&#39;]
 &gt;&gt;&gt; list(enumerate(seasons))
-[(0, 'Spring'), (1, 'Summer'), (2, 'Fall'), (3, 'Winter')]
+[(0, &#39;Spring&#39;), (1, &#39;Summer&#39;), (2, &#39;Fall&#39;), (3, &#39;Winter&#39;)]
 &gt;&gt;&gt; list(enumerate(seasons, start=1))
-[(1, 'Spring'), (2, 'Summer'), (3, 'Fall'), (4, 'Winter')]
-</code></pre>
+[(1, &#39;Spring&#39;), (2, &#39;Summer&#39;), (3, &#39;Fall&#39;), (4, &#39;Winter&#39;)]
+</pre></div>
 
-<h3 id="15-pythonfilterfunction-iterable">15. python内置函数——filter(function, iterable)</h3>
+<h3 id="15-pythonfilterfunction-iterable">15. python内置函数——filter(function, iterable)<a class="headerlink" href="#15-pythonfilterfunction-iterable" title="Permanent link">&para;</a></h3>
 <ul>
 <li>v2.7</li>
 <li>
@@ -546,7 +1338,7 @@ divmod(5, 1)
 </blockquote>
 </li>
 </ul>
-<h3 id="16-datetime">16. datetime</h3>
+<h3 id="16-datetime">16. datetime<a class="headerlink" href="#16-datetime" title="Permanent link">&para;</a></h3>
 <p>datetime模块用于是date和time模块的合集，datetime有两个常量，MAXYEAR和MINYEAR，分别是9999和1.</p>
 <blockquote>
 <p>datetime模块定义了5个类，分别是
@@ -559,108 +1351,90 @@ divmod(5, 1)
 <ul>
 <li>
 <p><strong>datetime.date类</strong>
-date类有三个参数,datetime.date(year,month,day)，返回<strong>datetime.date(2018, 7, 30)</strong></p>
+date类有三个参数,datetime.date(year,month,day)，返回**datetime.date(2018, 7, 30)**</p>
 </li>
 <li>
-<p><strong>datetime.date.ctime()</strong>,返回格式如 Sun Apr 16 00:00:00 2017</p>
+<p><strong>datetime.date.ctime()</strong>,返回格式如 Sun Apr 16 00:00:00 2017
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;datetime.date.ctime(datetime.date(2018, 7, 30))
+&#39;Mon Jul 30 00:00:00 2018&#39;
+</pre></div></p>
 </li>
-</ul>
-<pre><code>&gt;&gt;&gt;datetime.date.ctime(datetime.date(2018, 7, 30))
-'Mon Jul 30 00:00:00 2018'
-</code></pre>
-
-<ul>
-<li><strong>datetime.date.fromtimestamp(timestamp)</strong>,根据给定的时间戮，返回一个date对象；<strong>datetime.date.today()</strong>作用相同</li>
-</ul>
-<pre><code>&gt;&gt;&gt;datetime.date.today()
+<li>
+<p><strong>datetime.date.fromtimestamp(timestamp)</strong>,根据给定的时间戮，返回一个date对象；**datetime.date.today()**作用相同
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;datetime.date.today()
 datetime.date(2018, 7, 30)
-</code></pre>
-
-<ul>
-<li><strong>datetime.date.isocalendar()</strong>:返回格式如(year，month，day)的元组</li>
-</ul>
-<pre><code>&gt;&gt;&gt;datetime.date.isocalendar(datetime.date(2018, 7, 30))
+</pre></div></p>
+</li>
+<li>
+<p><strong>datetime.date.isocalendar()</strong>:返回格式如(year，month，day)的元组
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;datetime.date.isocalendar(datetime.date(2018, 7, 30))
 (2018, 31, 1)
-</code></pre>
-
-<ul>
-<li><strong>datetime.date.isoformat()</strong>：返回格式如YYYY-MM-DD</li>
-</ul>
-<pre><code>&gt;&gt;&gt;datetime.date.isoformat(datetime.date(2018, 7, 30))
-'2018-07-30'
-</code></pre>
-
-<ul>
-<li><strong>datetime.date.isoweekday()</strong>：返回给定日期的星期（0-6），星期一=0，星期日=6</li>
-</ul>
-<pre><code>&gt;&gt;&gt;datetime.date.isoweekday(datetime.date.today())
+</pre></div></p>
+</li>
+<li>
+<p><strong>datetime.date.isoformat()</strong>：返回格式如YYYY-MM-DD
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;datetime.date.isoformat(datetime.date(2018, 7, 30))
+&#39;2018-07-30&#39;
+</pre></div></p>
+</li>
+<li>
+<p><strong>datetime.date.isoweekday()</strong>：返回给定日期的星期（0-6），星期一=0，星期日=6
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;datetime.date.isoweekday(datetime.date.today())
 1
-</code></pre>
-
-<ul>
-<li><strong>datetime.date.replace(year,month,day)</strong>：替换给定日期，但不改变原日期</li>
-</ul>
-<pre><code>&gt;&gt;&gt;a = datetime.date.today()
+</pre></div></p>
+</li>
+<li>
+<p><strong>datetime.date.replace(year,month,day)</strong>：替换给定日期，但不改变原日期
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;a = datetime.date.today()
 &gt;&gt;&gt;a.replace(day=26)
 datetime.date(2018, 7, 26)
-</code></pre>
-
-<ul>
-<li><strong>datetime.date.strftime(format)</strong>:把日期时间按照给定的format进行格式化。</li>
-</ul>
-<pre><code>&gt;&gt;&gt;datetime.date.strftime(datetime.date.today(), '%Y-%m-%d')
-'2018-07-30'
-</code></pre>
-
-<pre><code>```
-&gt;&gt;&gt;a = datetime.date.today()
+</pre></div></p>
+</li>
+<li>
+<p><strong>datetime.date.strftime(format)</strong>:把日期时间按照给定的format进行格式化。
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;datetime.date.strftime(datetime.date.today(), &#39;%Y-%m-%d&#39;)
+&#39;2018-07-30&#39;
+</pre></div>
+    <div class="codehilite"><pre><span></span>&gt;&gt;&gt;a = datetime.date.today()
 &gt;&gt;&gt;a
 datetime.date(2018, 7, 30)
-&gt;&gt;&gt;a.strftime('%Y-%m-%d')
-'2018-07-30'
-```
-</code></pre>
-<ul>
-<li><strong>datetime.date.timetuple()</strong>：返回日期对应的time.struct_time对象</li>
-</ul>
-<pre><code>&gt;&gt;&gt;a = datetime.date.today()
+&gt;&gt;&gt;a.strftime(&#39;%Y-%m-%d&#39;)
+&#39;2018-07-30&#39;
+</pre></div></p>
+</li>
+<li>
+<p><strong>datetime.date.timetuple()</strong>：返回日期对应的time.struct_time对象
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;a = datetime.date.today()
 &gt;&gt;&gt;datetime.date.timetuple(a)
 time.struct_time(tm_year=2018, tm_mon=7, tm_mday=30, tm_hour=0, tm_min=0, tm_sec=0, tm_wday=0, tm_yday=211, tm_isdst=-1)
-
-</code></pre>
-
-<ul>
-<li><strong>datetime.date.weekday()</strong>：返回日期的星期</li>
-</ul>
-<pre><code>&gt;&gt;&gt;a = datetime.date.today()
+</pre></div></p>
+</li>
+<li>
+<p><strong>datetime.date.weekday()</strong>：返回日期的星期
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;a = datetime.date.today()
 &gt;&gt;&gt;datetime.date.weekday(a)
 0
 
 &gt;&gt;&gt;a.weekday()
 0
-</code></pre>
-
-<ul>
+</pre></div></p>
+</li>
 <li>
 <p><strong>datetime.time类</strong>
 time类有5个参数，datetime.time(hour,minute,second,microsecond,tzoninfo),返回08:29:30</p>
 </li>
 <li>
-<p><strong>datetime.time.replace()</strong></p>
-</li>
-</ul>
-<pre><code>&gt;&gt;&gt;datetime.time.replace(datetime.time(), hour=1)
+<p><strong>datetime.time.replace()</strong>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;datetime.time.replace(datetime.time(), hour=1)
 datetime.time(1, 0)
-</code></pre>
-
-<ul>
-<li><strong>datetime.time.strftime(format)</strong>:按照format格式返回时间</li>
-</ul>
-<pre><code>&gt;&gt;&gt;datetime.time.strftime(datetime.time(2,3), &quot;%H:%M&quot;)
-'02:03'
-</code></pre>
-
-<ul>
+</pre></div></p>
+</li>
+<li>
+<p><strong>datetime.time.strftime(format)</strong>:按照format格式返回时间
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;datetime.time.strftime(datetime.time(2,3), &quot;%H:%M&quot;)
+&#39;02:03&#39;
+</pre></div></p>
+</li>
 <li>
 <p><strong>datetime.time.tzname()</strong>：返回时区名字</p>
 </li>
@@ -690,25 +1464,18 @@ datetime类有很多参数，datetime(year, month, day[, hour[, minute[, second[
 <p><strong>datetime.datetime.replace()</strong></p>
 </li>
 <li>
-<p><strong>datetime.datetime.strftime()</strong>：由日期格式转化为字符串格式</p>
+<p><strong>datetime.datetime.strftime()</strong>：由日期格式转化为字符串格式
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;datetime.datetime.now().strftime(&#39;%b-%d-%Y %H:%M:%S&#39;)
+&#39;Apr-16-2017 21:01:35&#39;
+</pre></div></p>
 </li>
-</ul>
-<pre><code>&gt;&gt;&gt;datetime.datetime.now().strftime('%b-%d-%Y %H:%M:%S')
-'Apr-16-2017 21:01:35'
-</code></pre>
-
-<ul>
-<li><strong>datetime.datetime.strptime()</strong>:由字符串格式转化为日期格式</li>
-</ul>
-<pre><code>&gt;&gt;&gt;datetime.datetime.strptime('Apr-16-2017 21:01:35', '%b-%d-%Y %H:%M:%S')
+<li><strong>datetime.datetime.strptime()</strong>:由字符串格式转化为日期格式
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt;datetime.datetime.strptime(&#39;Apr-16-2017 21:01:35&#39;, &#39;%b-%d-%Y %H:%M:%S&#39;)
 2017-04-16 21:01:35
-</code></pre>
-
-<ul>
+</pre></div></li>
 <li><strong>datetime.timedelta类</strong>
-datetime.datetime.timedelta用于计算两个日期之间的差值，例如：</li>
-</ul>
-<pre><code>&gt;&gt;&gt; a=datetime.datetime.now()
+datetime.datetime.timedelta用于计算两个日期之间的差值，例如：
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; a=datetime.datetime.now()
 &gt;&gt;&gt; b=datetime.datetime.now()
 &gt;&gt;&gt; a
 datetime.datetime(2017, 4, 16, 21, 21, 20, 871000)
@@ -719,60 +1486,54 @@ datetime.datetime(2017, 4, 16, 21, 21, 29, 603000)
 datetime.timedelta(0, 8, 732000)
 &gt;&gt;&gt; (b-a).seconds
 8
-</code></pre>
-
-<p>或者</p>
-<pre><code>time1 = datetime.datetime(2016, 10, 20)
+</pre></div>
+或者
+<div class="codehilite"><pre><span></span>time1 = datetime.datetime(2016, 10, 20)
 time2 = datetime.datetime(2015, 11, 2)
 &quot;&quot;&quot;计算天数差值&quot;&quot;&quot;
 print(time1-time2).days
 
 &quot;&quot;&quot;计算两个日期之间相隔的秒数&quot;&quot;&quot;
 print (time1-time2).total_seconds()
-</code></pre>
-
-<h3 id="17-could-not-install-packages-due-to-an-environmenterror-errno-13-permission-denied-librarypython27site-packagesvine">17. 针对“could not install packages due to an EnvironmentError: [Errno 13] Permission denied: &lsquo;/Library/Python/2.7/site-packages/vine&rsquo;”的解决方式</h3>
-<pre><code>pip install --user flask
-</code></pre>
-
-<p>在install后加<font color='red'><strong>&ndash;user</strong></font></p>
-<h3 id="18-xml">18. 字典转xml</h3>
+</pre></div></li>
+</ul>
+<h3 id="17-could-not-install-packages-due-to-an-environmenterror-errno-13-permission-denied-librarypython27site-packagesvine">17. 针对“could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/vine'”的解决方式<a class="headerlink" href="#17-could-not-install-packages-due-to-an-environmenterror-errno-13-permission-denied-librarypython27site-packagesvine" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite"><pre><span></span>pip install --user flask
+</pre></div>
+在install后加<font color='red'><strong>--user</strong></font></p>
+<h3 id="18-xml">18. 字典转xml<a class="headerlink" href="#18-xml" title="Permanent link">&para;</a></h3>
 <ul>
 <li>v2.7
 dicttoxml会自动在头部添加<code>&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</code>
 并通过参数设置xml的属性</li>
 </ul>
-<pre><code>import dicttoxml
+<div class="codehilite"><pre><span></span>import dicttoxml
 dicttoxml.dicttoxml(self.post_data_dict, root=True, custom_root=&quot;request&quot;, attr_type=False)
-</code></pre>
+</pre></div>
 
-<h3 id="19-orand">19. or和and</h3>
+<h3 id="19-orand">19. or和and<a class="headerlink" href="#19-orand" title="Permanent link">&para;</a></h3>
 <p>如果用or，应该把为true的写在or前，减小运算时间；
 如果用and，应该把false的写在and前</p>
-<h3 id="20-xmltodict">20. xmltodict的坑</h3>
+<h3 id="20-xmltodict">20. xmltodict的坑<a class="headerlink" href="#20-xmltodict" title="Permanent link">&para;</a></h3>
 <ul>
 <li>如果xml中在同一级有相同元素，就会把相同元素变成列表；如果没有相同元素，那么就把该元素变为字典</li>
 <li>对于xml中为空的情况，xmltodict会自动将值变为<code>None</code></li>
 </ul>
-<h3 id="21-if-else">21. 列表生成式中的if-else</h3>
+<h3 id="21-if-else">21. 列表生成式中的if-else<a class="headerlink" href="#21-if-else" title="Permanent link">&para;</a></h3>
 <ul>
 <li>只有if</li>
 </ul>
-<pre><code>[a for a in a_list if a==1]
-</code></pre>
+<p><div class="codehilite"><pre><span></span>[a for a in a_list if a==1]
+</pre></div>
+- if-else</p>
+<div class="codehilite"><pre><span></span>[a if a==1 else a-1 for a in a_list]
+</pre></div>
 
-<ul>
-<li>if-else</li>
-</ul>
-<pre><code>[a if a==1 else a-1 for a in a_list]
-</code></pre>
-
-<h3 id="22-mysql-said-authentication-plugin-caching_sha2_password-cannot-be-loaded-dlopenusrlocal">22. 针对MySQL said: Authentication plugin &lsquo;caching_sha2_password&rsquo; cannot be loaded: dlopen(/usr/local/&hellip;的问题</h3>
-<p>在使用MySQL Workbench连接本地数据库的时候，出现了</p>
-<pre><code>MySQL said: Authentication plugin 'caching_sha2_password' cannot be loaded: dlopen(/usr/local/lib/plugin/caching_sha2_password.so, 2): image not found
-</code></pre>
-
-<p>这是因为在链接数据库时不能加载‘caching_sha2_password&rsquo;这个插件，也就是不能对身份验证。</p>
+<h3 id="22-mysql-said-authentication-plugin-caching_sha2_password-cannot-be-loaded-dlopenusrlocal">22. 针对MySQL said: Authentication plugin 'caching_sha2_password' cannot be loaded: dlopen(/usr/local/...的问题<a class="headerlink" href="#22-mysql-said-authentication-plugin-caching_sha2_password-cannot-be-loaded-dlopenusrlocal" title="Permanent link">&para;</a></h3>
+<p>在使用MySQL Workbench连接本地数据库的时候，出现了
+<div class="codehilite"><pre><span></span>MySQL said: Authentication plugin &#39;caching_sha2_password&#39; cannot be loaded: dlopen(/usr/local/lib/plugin/caching_sha2_password.so, 2): image not found
+</pre></div>
+这是因为在链接数据库时不能加载‘caching_sha2_password'这个插件，也就是不能对身份验证。</p>
 <p>解决方案是：
 1. 打开系统偏好设置，找到mysql，点击Initialize Database。
 2. 输入你的新密码，记住这个密码，用于后期链接数据库的登陆使用。
@@ -780,11 +1541,11 @@ dicttoxml.dicttoxml(self.post_data_dict, root=True, custom_root=&quot;request&qu
 4. 重启mysql服务。
 这样在连接就没有问题了
 <img alt="image_1cktk6n6bvdc1210o2jeotrnm9.png-380.8kB" src="http://static.zybuluo.com/chuxiaoyi/zq7tgu3d2ygiplckpf8k0y2a/image_1cktk6n6bvdc1210o2jeotrnm9.png" /></p>
-<h3 id="23-django-model">23. django model获取特定字段</h3>
-<pre><code>comment_list = Comment.objects.all()[:5].only('post', 'text')   # 只获取特定字段
-</code></pre>
+<h3 id="23-django-model">23. django model获取特定字段<a class="headerlink" href="#23-django-model" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>comment_list = Comment.objects.all()[:5].only(&#39;post&#39;, &#39;text&#39;)   # 只获取特定字段
+</pre></div>
 
-<h3 id="24-connection-reset-by-peer">24. Connection reset by peer的常见原因</h3>
+<h3 id="24-connection-reset-by-peer">24. Connection reset by peer的常见原因<a class="headerlink" href="#24-connection-reset-by-peer" title="Permanent link">&para;</a></h3>
 <p>Connection reset by peer: socket write error错误分析：</p>
 <blockquote>
 <p>常出现的Connection reset by peer: 原因可能是多方面的，不过更常见的原因是：<br />
@@ -794,41 +1555,75 @@ dicttoxml.dicttoxml(self.post_data_dict, root=True, custom_root=&quot;request&qu
 </blockquote>
 <p>通常原因为：远程主机上对等方应用程序突然停止运行，或远程主机重新启动，或远程主机在远程方套接字上使用了“强制”关闭 （参见setsockopt(SO_LINGER)）。另外，在一个或多个操作正在进行时，如果连接因“keep-alive”活动检测到一个失败而中 断，也可能导致此错误。此时，正在进行的操作以错误码WSAENETRESET失败返回，后续操作将失败返回错误码WSAECONNRESET。
 但是如果频繁出现，就表示很 多客户端连接到Apache服务器的响应时间太长了，可能是网络的问题或者服务器性能问题。</p>
-<h3 id="25-djangourlspathdjangourlsre_path">25. 关于django.urls.path和django.urls.re_path</h3>
-<p>在django2.0以后<code>django.urls.path</code>不用于正则匹配，如果想用正则，可以用<code>django.urls.re_path</code></p>
-<pre><code>from django.urls import re_path
-re_path(r'^(?P&lt;album_id&gt;[0-9])/$', views.detail, name='detail'),
-</code></pre>
+<h3 id="25-djangourlspathdjangourlsre_path">25. 关于django.urls.path和django.urls.re_path<a class="headerlink" href="#25-djangourlspathdjangourlsre_path" title="Permanent link">&para;</a></h3>
+<p>在django2.0以后<code>django.urls.path</code>不用于正则匹配，如果想用正则，可以用<code>django.urls.re_path</code>
+<div class="codehilite"><pre><span></span>from django.urls import re_path
+re_path(r&#39;^(?P&lt;album_id&gt;[0-9])/$&#39;, views.detail, name=&#39;detail&#39;),
+</pre></div>
+如果用url()，也会链接到re_path()的</p>
+                
+                  
+                
+              
+              
+                
 
-<p>如果用url()，也会链接到re_path()的</p>
 
-  <br>
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="django/django/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="django/django/" class="btn btn-xs btn-link">
-        django开发实战1
-      </a>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+        
+          <a href="../django/django/" title="django开发实战1" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                django开发实战1
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            author by ChuXiaoYi
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
     </div>
     
-  </div>
-
-    <br>
-</div>
-
-<footer class="col-md-12 wm-page-content">
-      <p>
-        <a href="https://github.com/ChuXiaoYi/edit/master/docs/daily_problem.md"><i class="fa fa-github"></i>
-Edit on GitHub</a>
-      </p><p>author by ChuXiaoYi</p>
-  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
-</footer>
-
-</body>
+      <script src="../assets/javascripts/application.39abc4af.js"></script>
+      
+      <script>app.initialize({version:"1.0.3",url:{base:".."}})</script>
+      
+    
+  </body>
 </html>
