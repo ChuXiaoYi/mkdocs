@@ -46,6 +46,12 @@
     
       <link rel="stylesheet" href="../../../assets/stylesheets/application.750b69bd.css">
       
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
       
     
     
@@ -63,11 +69,38 @@
     
     
       
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-36723568-3", "mkdocs.org")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
   
-    <body dir="ltr">
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     <svg class="md-svg">
       <defs>
@@ -549,23 +582,49 @@
                 <p><font color="blue">注意： 该笔记主要翻译自<a href="http://www.django-rest-framework.org/tutorial/1-serialization/">官方文档</a></font></p>
 <h1 id="_1">入门<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>首先，创建新项目
-<div class="codehilite"><pre><span></span>django-admin.py startproject tutorial
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>django-admin.py startproject tutorial
 cd tutorial
 </pre></div>
+</td></tr></table>
 完成后，我们可以创建一个我们将用于创建简单Web API的应用程序。
-<div class="codehilite"><pre><span></span>./manage.py startapp snippets
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>./manage.py startapp snippets
 </pre></div>
+</td></tr></table>
 我们需要添加我们的新 <code>snippets</code> 应用和 <code>rest_framework</code> 应用 <code>INSTALLED_APPS</code> 。让我们编辑 <code>tutorial/settings.py</code> 文件
-<div class="codehilite"><pre><span></span>INSTALLED_APPS = (
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>INSTALLED_APPS = (
     ...
     &#39;rest_framework&#39;,
     &#39;snippets.apps.SnippetsConfig&#39;,
 ) 
 </pre></div>
+</td></tr></table>
 好的，我们已经准备好了。</p>
 <h1 id="_2">创建一个模型<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
 <p>首先，创建一个 <code>Snippet</code> 用于存储代码片段的简单model。继续编辑 <code>snippets/models.py</code> 文件
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
 <span class="kn">from</span> <span class="nn">pygments.lexers</span> <span class="kn">import</span> <span class="n">get_all_lexers</span>
 <span class="kn">from</span> <span class="nn">pygments.styles</span> <span class="kn">import</span> <span class="n">get_all_styles</span>
 
@@ -585,13 +644,44 @@ cd tutorial
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;created&#39;</span><span class="p">,)</span>
 </pre></div>
+</td></tr></table>
 我们还需要为我们的代码段模型创建初始迁移，并首次同步数据库。(这里使用的是默认的sqlite)
-<div class="codehilite"><pre><span></span>./manage.py makemigrations snippets
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>./manage.py makemigrations snippets
 ./manage.py migrate
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <h1 id="serializer">创建一个Serializer类<a class="headerlink" href="#serializer" title="Permanent link">&para;</a></h1>
 <p>我们需要做的第一件事就是提供一个序列化和反序列化 <code>snippet</code> 实例的方法，并把它放到例如 <code>json</code> 中。我们可以通过声明与Django表单非常相似的序列化器来完成此操作。在 <code>snippets</code> 名为的目录中创建一个文件 <code>serializers.py</code> 并添加以下内容。
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
 <span class="kn">from</span> <span class="nn">snippets.models</span> <span class="kn">import</span> <span class="n">Snippet</span><span class="p">,</span> <span class="n">LANGUAGE_CHOICES</span><span class="p">,</span> <span class="n">STYLE_CHOICES</span>
 
 
@@ -621,16 +711,27 @@ cd tutorial
         <span class="n">instance</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">instance</span>
 </pre></div>
+</td></tr></table>
 serializer类定义了序列化/反序列化的字段。<code>create()</code> 和 <code>update()</code> 方法定义了在调用 <code>serializer.save()</code> 时实例如何被创建或修改</p>
 <p>serializer类和django <code>Form</code> 类很相似，并且在各个字段上包含类似的验证标志，例如 <code>required</code> , <code>max_length</code> 和 <code>default</code>。</p>
 <p>字段标志还可以控制在某些情况下应该如何显示序列化程序，例如在渲染HTML时。<code>{'base_template': 'textarea.html'}</code> 相当于在django <code>Form</code>类中使用 <code>widget=widgets.Textarea</code> 。这对于控制可浏览API的显示方式特别有用，我们将在本教程后面看到。</p>
 <p>我们实际上也可以通过使用 <code>ModelSerializer</code> 类来节省一些时间，我们稍后会看到，但是现在我们先保持我们定义的serializer</p>
 <h1 id="serializers">使用Serializers<a class="headerlink" href="#serializers" title="Permanent link">&para;</a></h1>
 <p>在进一步深入之前，我们将熟悉如何使用新的Serializer类。让我们进入Django shell。
-<div class="codehilite"><pre><span></span>python manage.py shell
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>python manage.py shell
 </pre></div>
+</td></tr></table>
 好的，一旦我们完成了一些导入，让我们创建几个代码片段来处理。
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">snippets.models</span> <span class="kn">import</span> <span class="n">Snippet</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">snippets.models</span> <span class="kn">import</span> <span class="n">Snippet</span>
 <span class="kn">from</span> <span class="nn">snippets.serializers</span> <span class="kn">import</span> <span class="n">SnippetSerializer</span>
 <span class="kn">from</span> <span class="nn">rest_framework.renderers</span> <span class="kn">import</span> <span class="n">JSONRenderer</span>
 <span class="kn">from</span> <span class="nn">rest_framework.parsers</span> <span class="kn">import</span> <span class="n">JSONParser</span>
@@ -641,24 +742,41 @@ serializer类定义了序列化/反序列化的字段。<code>create()</code> �
 <span class="n">snippet</span> <span class="o">=</span> <span class="n">Snippet</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s1">&#39;print &quot;hello, world&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">snippet</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </pre></div>
+</td></tr></table>
 我们现在有几个snippet实例可供使用。我们来看看序列化其中一个实例。
-<div class="codehilite"><pre><span></span>serializer = SnippetSerializer(snippet)
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>serializer = SnippetSerializer(snippet)
 serializer.data
 # {&#39;id&#39;: 2, &#39;title&#39;: u&#39;&#39;, &#39;code&#39;: u&#39;print &quot;hello, world&quot;\n&#39;, &#39;linenos&#39;: False, &#39;language&#39;: u&#39;python&#39;, &#39;style&#39;: u&#39;friendly&#39;}
 </pre></div>
+</td></tr></table>
 此时我们已将model实例转换为Python自然数据类型。为了完成序列化过程，我们将数据渲染到 <code>json</code>。
-<div class="codehilite"><pre><span></span>content = JSONRenderer().render(serializer.data)
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>content = JSONRenderer().render(serializer.data)
 content
 # &#39;{&quot;id&quot;: 2, &quot;title&quot;: &quot;&quot;, &quot;code&quot;: &quot;print \\&quot;hello, world\\&quot;\\n&quot;, &quot;linenos&quot;: false, &quot;language&quot;: &quot;python&quot;, &quot;style&quot;: &quot;friendly&quot;}&#39;
 </pre></div>
+</td></tr></table>
 反序列化是类似的。首先，我们将流解析为Python数据类型...
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.utils.six</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.utils.six</span> <span class="kn">import</span> <span class="n">BytesIO</span>
 
 <span class="n">stream</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">JSONParser</span><span class="p">()</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <p>...然后我们将解析后的数据类型还原为完全填充的对象实例。
-<div class="codehilite"><pre><span></span>serializer = SnippetSerializer(data=data)
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>serializer = SnippetSerializer(data=data)
 serializer.is_valid()
 # True
 serializer.validated_data
@@ -666,23 +784,40 @@ serializer.validated_data
 serializer.save()
 # &lt;Snippet: Snippet object&gt;
 </pre></div>
+</td></tr></table>
 请注意API与表单的相似程度。当我们开始编写使用序列化器的视图时，相似性应该变得更加明显。</p>
 <p>我们还可以序列化querysets而不是model实例。为此，我们只需在序列化类中添加参数 <code>many=True</code>
-<div class="codehilite"><pre><span></span>serializer = SnippetSerializer(Snippet.objects.all(), many=True)
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>serializer = SnippetSerializer(Snippet.objects.all(), many=True)
 serializer.data
 # [OrderedDict([(&#39;id&#39;, 1), (&#39;title&#39;, u&#39;&#39;), (&#39;code&#39;, u&#39;foo = &quot;bar&quot;\n&#39;), (&#39;linenos&#39;, False), (&#39;language&#39;, &#39;python&#39;), (&#39;style&#39;, &#39;friendly&#39;)]), OrderedDict([(&#39;id&#39;, 2), (&#39;title&#39;, u&#39;&#39;), (&#39;code&#39;, u&#39;print &quot;hello, world&quot;\n&#39;), (&#39;linenos&#39;, False), (&#39;language&#39;, &#39;python&#39;), (&#39;style&#39;, &#39;friendly&#39;)]), OrderedDict([(&#39;id&#39;, 3), (&#39;title&#39;, u&#39;&#39;), (&#39;code&#39;, u&#39;print &quot;hello, world&quot;&#39;), (&#39;linenos&#39;, False), (&#39;language&#39;, &#39;python&#39;), (&#39;style&#39;, &#39;friendly&#39;)])]
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <h1 id="modelserializers">使用ModelSerializers<a class="headerlink" href="#modelserializers" title="Permanent link">&para;</a></h1>
 <p><code>SnippetSerializer</code> 类复制了很多信息，这些都包含在 <code>Snippet</code> 模型中。如果我们能够使代码更简洁，那将是很好的。</p>
 <p>与Django提供 <code>Form</code> 类和 <code>ModelForm</code> 类的方式相同，REST框架包括 <code>Serializer</code> 类和 <code>ModelSerializer</code> 类。</p>
 <p>让我们看看使用 <code>ModelSerializer</code> 类重构我们的序列化程序。再次打开 <code>snippets/serializers.py</code> 文件，并使用以下内容替换 <code>SnippetSerializer</code> 类。
-<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">SnippetSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">SnippetSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Snippet</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="s1">&#39;linenos&#39;</span><span class="p">,</span> <span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="s1">&#39;style&#39;</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 序列化程序具有的一个不错的属性是，您可以通过打印其对象来检查序列化程序实例中的所有字段。打开Django shell <code>python manage.py shell</code> ，然后尝试以下操作：
-<div class="codehilite"><pre><span></span>from snippets.serializers import SnippetSerializer
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>from snippets.serializers import SnippetSerializer
 serializer = SnippetSerializer()
 print(repr(serializer))
 # SnippetSerializer():
@@ -693,6 +828,7 @@ print(repr(serializer))
 #    language = ChoiceField(choices=[(&#39;Clipper&#39;, &#39;FoxPro&#39;), (&#39;Cucumber&#39;, &#39;Gherkin&#39;), (&#39;RobotFramework&#39;, &#39;RobotFramework&#39;), (&#39;abap&#39;, &#39;ABAP&#39;), (&#39;ada&#39;, &#39;Ada&#39;)...
 #    style = ChoiceField(choices=[(&#39;autumn&#39;, &#39;autumn&#39;), (&#39;borland&#39;, &#39;borland&#39;), (&#39;bw&#39;, &#39;bw&#39;), (&#39;colorful&#39;, &#39;colorful&#39;)...
 </pre></div>
+</td></tr></table>
 重要的是要记住 <code>ModelSerializer</code> 类没有做任何特别神奇的事情，它们只是创建序列化程序类的快捷方式：</p>
 <ul>
 <li>自动确定字段集。</li>
@@ -701,15 +837,37 @@ print(repr(serializer))
 <h1 id="serializerdjango">使用我们的Serializer编写常规Django视图<a class="headerlink" href="#serializerdjango" title="Permanent link">&para;</a></h1>
 <p>让我们看看如何使用我们的新Serializer类编写一些API视图。目前我们不会使用任何REST框架的其他功能，我们只会将视图写为常规Django视图。
 编辑 <code>snippets/views.py</code>文件，然后添加以下内容。
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span><span class="p">,</span> <span class="n">JsonResponse</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span><span class="p">,</span> <span class="n">JsonResponse</span>
 <span class="kn">from</span> <span class="nn">django.views.decorators.csrf</span> <span class="kn">import</span> <span class="n">csrf_exempt</span>
 <span class="kn">from</span> <span class="nn">rest_framework.renderers</span> <span class="kn">import</span> <span class="n">JSONRenderer</span>
 <span class="kn">from</span> <span class="nn">rest_framework.parsers</span> <span class="kn">import</span> <span class="n">JSONParser</span>
 <span class="kn">from</span> <span class="nn">snippets.models</span> <span class="kn">import</span> <span class="n">Snippet</span>
 <span class="kn">from</span> <span class="nn">snippets.serializers</span> <span class="kn">import</span> <span class="n">SnippetSerializer</span>
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <p>我们API的核心是一个支持列出所有存在的snippets，或创建一个新snippets的视图
-<div class="codehilite"><pre><span></span><span class="nd">@csrf_exempt</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nd">@csrf_exempt</span>
 <span class="k">def</span> <span class="nf">snippet_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    List all code snippets, or create a new snippet.</span>
@@ -726,10 +884,35 @@ print(repr(serializer))
             <span class="n">serializer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
             <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">201</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <p>请注意，因为我们希望能够从没有CSRF令牌的客户端POST到此视图，所以我们需要将视图标记为 <code>csrf_exempt</code> 。这不是您通常想要做的事情，REST框架视图实际上使用的行为比这更明智，但它现在可以用于我们的目的</p>
 <p>我们还需要一个与单个snippet相对应的视图，并可用于检索，更新或删除代码段。
-<div class="codehilite"><pre><span></span><span class="nd">@csrf_exempt</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nd">@csrf_exempt</span>
 <span class="k">def</span> <span class="nf">snippet_detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieve, update or delete a code snippet.</span>
@@ -755,8 +938,15 @@ print(repr(serializer))
         <span class="n">snippet</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">204</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 最后，我们需要链接这些视图。创建 <code>snippets/urls.py</code> 文件：
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
 <span class="kn">from</span> <span class="nn">snippets</span> <span class="kn">import</span> <span class="n">views</span>
 
 <span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
@@ -764,21 +954,35 @@ print(repr(serializer))
     <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^snippets/(?P&lt;pk&gt;[0-9]+)/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">snippet_detail</span><span class="p">),</span>
 <span class="p">]</span>
 </pre></div>
+</td></tr></table>
 我们还需要链接tutorial/urls.py文件中的根urlconf ，以包含我们的snippet应用的URL。
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span><span class="p">,</span> <span class="n">include</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span><span class="p">,</span> <span class="n">include</span>
 
 <span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;snippets.urls&#39;</span><span class="p">)),</span>
 <span class="p">]</span>
 </pre></div>
+</td></tr></table>
 <font color="red">值得注意的是，目前还有一些我们没有正确处理的边缘情况。如果我们发送错误的json，或者如果使用视图无法处理的方法发出请求，那么我们最终将得到500“服务器错误”响应。不过，现在这样做。</font></p>
 <h1 id="web-api">测试我们对Web API的第一次尝试<a class="headerlink" href="#web-api" title="Permanent link">&para;</a></h1>
 <p>现在我们启动服务器
 退出shell。。。
-<div class="codehilite"><pre><span></span>quit()
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>quit()
 </pre></div>
+</td></tr></table>
 并启动django服务器
-<div class="codehilite"><pre><span></span>./manage.py runserver
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>./manage.py runserver
 
 Validating models...
 
@@ -787,13 +991,36 @@ Django version 1.11, using settings &#39;tutorial.settings&#39;
 Development server is running at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 </pre></div>
+</td></tr></table>
 在另一个终端窗口中，我们可以测试服务器。</p>
 <p>我们可以使用<a href="https://curl.haxx.se/">curl</a>或<a href="https://github.com/jakubroztocil/httpie#installation">httpie</a>测试我们的API 。Httpie是一个用Python编写的用户友好的http客户端。我们安装一下吧。</p>
 <p>您可以使用pip安装httpie：
-<div class="codehilite"><pre><span></span>pip install httpie
-</pre></div></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>pip install httpie
+</pre></div>
+</td></tr></table></p>
 <p>最后，我们可以获取所有snippets的列表信息
-<div class="codehilite"><pre><span></span>http http://127.0.0.1:8000/snippets/
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>http http://127.0.0.1:8000/snippets/
 
 HTTP/1.1 200 OK
 ...
@@ -815,9 +1042,21 @@ HTTP/1.1 200 OK
     &quot;style&quot;: &quot;friendly&quot;
   }
 ]
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <p>或者我们可以通过引用其id来获取特定snippet：
-<div class="codehilite"><pre><span></span>http http://127.0.0.1:8000/snippets/2/
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>http http://127.0.0.1:8000/snippets/2/
 
 HTTP/1.1 200 OK
 ...
@@ -830,6 +1069,7 @@ HTTP/1.1 200 OK
   &quot;style&quot;: &quot;friendly&quot;
 }
 </pre></div>
+</td></tr></table>
 同样，您可以通过在Web浏览器中访问这些URL来显示相同​​的json。</p>
 <h1 id="_3">我们现在在哪<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
 <p>到目前为止我们做得还不错，我们有一个序列化API，感觉非常类似于Django的Forms API，以及一些常规的Django视图。</p>
@@ -842,6 +1082,22 @@ HTTP/1.1 200 OK
               
                 
 
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http:// www.chuxiaoyi.cn/django/django_rest_framework/djang_rest_framework/";
+      this.page.identifier =
+        "/django/django_rest_framework/djang_rest_framework/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//chuxiaoyi.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
 
               
             </article>
@@ -902,6 +1158,15 @@ HTTP/1.1 200 OK
           Material for MkDocs</a>
       </div>
       
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/ChuXiaoYi?tab=repositories" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://blog.csdn.net/weixin_40156487" class="md-footer-social__link fa fa-book"></a>
+    
+  </div>
+
     </div>
   </div>
 </footer>

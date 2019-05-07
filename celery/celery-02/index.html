@@ -46,6 +46,12 @@
     
       <link rel="stylesheet" href="../../assets/stylesheets/application.750b69bd.css">
       
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
       
     
     
@@ -63,11 +69,38 @@
     
     
       
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-36723568-3", "mkdocs.org")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
   
-    <body dir="ltr">
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     <svg class="md-svg">
       <defs>
@@ -534,6 +567,22 @@
                 
 
 
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http:// www.chuxiaoyi.cn/celery/celery-02/";
+      this.page.identifier =
+        "/celery/celery-02/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//chuxiaoyi.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+
               
             </article>
           </div>
@@ -593,6 +642,15 @@
           Material for MkDocs</a>
       </div>
       
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/ChuXiaoYi?tab=repositories" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://blog.csdn.net/weixin_40156487" class="md-footer-social__link fa fa-book"></a>
+    
+  </div>
+
     </div>
   </div>
 </footer>

@@ -46,6 +46,12 @@
     
       <link rel="stylesheet" href="../../assets/stylesheets/application.750b69bd.css">
       
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
       
     
     
@@ -63,11 +69,38 @@
     
     
       
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-36723568-3", "mkdocs.org")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
   
-    <body dir="ltr">
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     <svg class="md-svg">
       <defs>
@@ -463,6 +496,12 @@
       
       
       
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
     </ul>
   
 </nav>
@@ -680,6 +719,12 @@
       
       
       
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
     </ul>
   
 </nav>
@@ -707,7 +752,28 @@
 <p>将旧式比较函数转换为关键字函数。与接受字关键函数(如sort()、min()、max()、heapq. nbiggest()、heapq.nsmallest()、itertools.groupby())的工具一起使用。该函数主要用于从Python 2转换过来的程序的转换工具，Python 2支持使用比较函数。</p>
 <p>比较函数是任何可调用的函数，它接受两个参数，进行比较，然后返回负数(小于)、零(相等)或正数(大于)。键函数是一个可调用函数，它接受一个参数并返回另一个值作为排序键。</p>
 <p>放上一波源码：
-<div class="codehilite"><pre><span></span><span class="c1">################################################################################</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1">################################################################################</span>
 <span class="c1">### cmp_to_key() function converter</span>
 <span class="c1">################################################################################</span>
 
@@ -729,9 +795,44 @@
             <span class="k">return</span> <span class="n">mycmp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span>
         <span class="fm">__hash__</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="k">return</span> <span class="n">K</span>
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <p>写一个demo，看一下运行流程：
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">functools</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">functools</span>
 
 
 <span class="k">class</span> <span class="nc">MyObject</span><span class="p">:</span>
@@ -767,9 +868,23 @@
 <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">get_key_wrapper</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 通常情况下，<code>cmp_to_key()</code> 将直接使用，但在本例中引入了一个额外的包装函数，以在调用关键函数时输出更多信息。
 输出如下：
-<div class="codehilite"><pre><span></span>key_wrapper(MyObject(5)) -&gt; &lt;functools.KeyWrapper object at 0x10692e510&gt;
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>key_wrapper(MyObject(5)) -&gt; &lt;functools.KeyWrapper object at 0x10692e510&gt;
 key_wrapper(MyObject(4)) -&gt; &lt;functools.KeyWrapper object at 0x10692e4f0&gt;
 key_wrapper(MyObject(3)) -&gt; &lt;functools.KeyWrapper object at 0x10692e4d0&gt;
 key_wrapper(MyObject(2)) -&gt; &lt;functools.KeyWrapper object at 0x10692e470&gt;
@@ -783,7 +898,8 @@ MyObject(2)
 MyObject(3)
 MyObject(4)
 MyObject(5)
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <h3 id="functoolslru_cachemaxsize128-typedfalse"><strong>@functools.lru_cache(maxsize=128, typed=False)</strong><a class="headerlink" href="#functoolslru_cachemaxsize128-typedfalse" title="Permanent link">&para;</a></h3>
 <p>这个装饰器实现了备忘的功能，是一项优化技术，把耗时的函数的结果保存起来，避免传入相同的参数时重复计算。lru 是（least recently used）的缩写，即最近最少使用原则。表明缓存不会无限制增长，一段时间不用的缓存条目会被扔掉。 
 这个装饰器支持传入参数，还能有这种操作的？maxsize 是保存最近多少个调用的结果，最好设置为 2 的倍数，默认为 128。如果设置为 None 的话就相当于是 maxsize 为正无穷了。还有一个参数是 type，如果 type 设置为 true，即把不同参数类型得到的结果分开保存，如 f(3) 和 f(3.0) 会被区分开。 </p>
@@ -794,7 +910,13 @@ MyObject(5)
 <p>decorator还提供了一个cache_clear()函数，用于清除或使缓存失效。</p>
 <p>原始的底层函数可以通过__wrapped__属性访问。这对于内省、绕过缓存或使用不同的缓存重新包装函数非常有用。</p>
 <p>写了个函数追踪结果
-<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">track</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">track</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
     <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
@@ -802,24 +924,81 @@ MyObject(5)
         <span class="k">return</span> <span class="n">result</span>
     <span class="k">return</span> <span class="n">inner</span>
 </pre></div>
+</td></tr></table>
 递归函数适合使用这个装饰器，那就拿经典的斐波那契数列来测试吧 </p>
 <p>不使用缓存
-<div class="codehilite"><pre><span></span><span class="nd">@track</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nd">@track</span>
 <span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">n</span>
     <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <p>使用缓存
-<div class="codehilite"><pre><span></span><span class="nd">@functools.lru_cache</span><span class="p">()</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nd">@functools.lru_cache</span><span class="p">()</span>
 <span class="nd">@track</span>
 <span class="k">def</span> <span class="nf">fib_with_cache</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">n</span>
     <span class="k">return</span> <span class="n">fib_with_cache</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib_with_cache</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 测试代码
-<div class="codehilite"><pre><span></span>fib(10)
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>fib(10)
 
 fib --&gt; (0) --&gt; 0 
 fib --&gt; (1) --&gt; 1 
@@ -866,7 +1045,21 @@ fib --&gt; (0) --&gt; 0
 
 时间花费：0:00:00.001295
 </pre></div>
-<div class="codehilite"><pre><span></span>fib_with_cache(10)
+</td></tr></table>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>fib_with_cache(10)
 
 fib_with_cache --&gt; (0) --&gt; 0 
 fib_with_cache --&gt; (1) --&gt; 1 
@@ -881,21 +1074,36 @@ fib_with_cache --&gt; (9) --&gt; 34
 fib_with_cache --&gt; (10) --&gt; 55 
 时间花费：0:00:00.000117
 </pre></div>
+</td></tr></table>
 可以很明显的看到，使用缓存的时候，只调用了 11 次就得出了结果，并且花费时间只为 0.000117 秒</p>
 <p>我们再把数字调大，传入的参数改为 31
-<div class="codehilite"><pre><span></span>fib(31)
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>fib(31)
 
 时间花费：0:00:41.323180
-</pre></div></p>
-<div class="codehilite"><pre><span></span>fib_with_cache(31)
+</pre></div>
+</td></tr></table></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>fib_with_cache(31)
 
 时间花费：0:00:00.000282
 </pre></div>
+</td></tr></table>
 
 <p>时间相差居然如此之多！</p>
 <p>这个装饰器还提供 cache_clear() 用于清理缓存，以及 cache_info() 用于查看缓存信息 
 官方还提供了另外一个例子，用于缓存静态网页的内容</p>
-<div class="codehilite"><pre><span></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_pep</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
     <span class="s1">&#39;Retrieve text of a Python Enhancement Proposal&#39;</span>
     <span class="n">resource</span> <span class="o">=</span> <span class="s1">&#39;http://www.python.org/dev/peps/pep-</span><span class="si">%04d</span><span class="s1">/&#39;</span> <span class="o">%</span> <span class="n">num</span>
@@ -905,12 +1113,39 @@ fib_with_cache --&gt; (10) --&gt; 55
     <span class="k">except</span> <span class="n">urllib</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">:</span>
         <span class="k">return</span> <span class="s1">&#39;Not Found&#39;</span>
 </pre></div>
+</td></tr></table>
 
 <h3 id="functoolstotal_ordering"><strong>@functools.total_ordering</strong><a class="headerlink" href="#functoolstotal_ordering" title="Permanent link">&para;</a></h3>
 <p>给定一个类定义一个或多个丰富的比较排序方法，这个类装饰器提供其余的方法。这简化了指定所有可能的丰富比较操作所涉及的工作:</p>
 <p>如果你已经定义了 <strong>eq</strong> 方法，以及 <strong>lt</strong>、<strong>le</strong>、<strong>gt</strong> 或者 <strong>ge</strong>() 其中之一， 即可自动生成其它比较方法。</p>
 <p>上一波源码：
-<div class="codehilite"><pre><span></span><span class="n">_convert</span> <span class="o">=</span> <span class="p">{</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">_convert</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;__lt__&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;__gt__&#39;</span><span class="p">,</span> <span class="n">_gt_from_lt</span><span class="p">),</span>
                <span class="p">(</span><span class="s1">&#39;__le__&#39;</span><span class="p">,</span> <span class="n">_le_from_lt</span><span class="p">),</span>
                <span class="p">(</span><span class="s1">&#39;__ge__&#39;</span><span class="p">,</span> <span class="n">_ge_from_lt</span><span class="p">)],</span>
@@ -937,9 +1172,42 @@ fib_with_cache --&gt; (10) --&gt; 55
             <span class="n">opfunc</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">opname</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">opname</span><span class="p">,</span> <span class="n">opfunc</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">cls</span>
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <p>来一个demo:
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">total_ordering</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">total_ordering</span>
 
 
 <span class="nd">@total_ordering</span>
@@ -973,8 +1241,18 @@ fib_with_cache --&gt; (10) --&gt; 55
 <span class="k">print</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">a</span> <span class="o">&gt;=</span> <span class="n">b</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 结果输出为：
-<div class="codehilite"><pre><span></span>=== my eq===
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>=== my eq===
 False
 === my total_ordering===
 True
@@ -984,10 +1262,19 @@ False
 False
 === my total_ordering===
 True
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <h3 id="functoolspartialfunc-args-keywords"><strong>functools.partial(func, *args, **keywords)</strong><a class="headerlink" href="#functoolspartialfunc-args-keywords" title="Permanent link">&para;</a></h3>
 <p>该方法返回一个新的局部对象，当被调用时，它的行为将像函数调用一样，带有位置参数args和关键字参数关键字。如果向调用提供了更多的参数，它们将被附加到args中。如果提供了额外的关键字参数，它们将扩展并覆盖关键字。大致相当于:
-<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">partial</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">keywords</span><span class="p">):</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">partial</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">keywords</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">newfunc</span><span class="p">(</span><span class="o">*</span><span class="n">fargs</span><span class="p">,</span> <span class="o">**</span><span class="n">fkeywords</span><span class="p">):</span>
         <span class="n">newkeywords</span> <span class="o">=</span> <span class="n">keywords</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">newkeywords</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">fkeywords</span><span class="p">)</span>
@@ -997,15 +1284,107 @@ True
     <span class="n">newfunc</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span>
     <span class="k">return</span> <span class="n">newfunc</span>
 </pre></div>
+</td></tr></table>
 partial()用于部分函数应用程序，该应用程序“冻结”函数参数和/或关键字的一部分，从而生成一个带有简化签名的新对象。例如，可以使用partial()创建一个可调用的函数，其行为类似于int()函数，其中基参数默认为2:
-<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">basetwo</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">basetwo</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s1">&#39;Convert base 2 string to an int.&#39;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">basetwo</span><span class="p">(</span><span class="s1">&#39;10010&#39;</span><span class="p">)</span>
 <span class="mi">18</span>
 </pre></div>
+</td></tr></table>
 上一波源码：
-<div class="codehilite"><pre><span></span><span class="c1">################################################################################</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1">################################################################################</span>
 <span class="c1">### partial() argument application</span>
 <span class="c1">################################################################################</span>
 
@@ -1092,9 +1471,16 @@ partial()用于部分函数应用程序，该应用程序“冻结”函数参�
     <span class="kn">from</span> <span class="nn">_functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="k">pass</span>
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <p>通过下面这个简单的demo，会更一目了然：</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 
 <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
@@ -1102,6 +1488,7 @@ partial()用于部分函数应用程序，该应用程序“冻结”函数参�
 <span class="n">add_y</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># add_y 是一个函数</span>
 <span class="n">add_y</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>                 <span class="c1"># 结果是 7</span>
 </pre></div>
+</td></tr></table>
 
 <h3 id="functoolspartialmethodfunc-args-keywords-42">**functools.partialmethod(func, <em>args, **keywords) *</em><a class="headerlink" href="#functoolspartialmethodfunc-args-keywords-42" title="Permanent link">&para;</a></h3>
 <p>返回一个新的partialmethod描述符，它的行为类似于partial，只是它被设计为作为方法定义使用，而不是直接调用。</p>
@@ -1110,7 +1497,23 @@ partial()用于部分函数应用程序，该应用程序“冻结”函数参�
 的调用被委托给底层描述符，结果返回一个适当的部分对象。</p>
 <p>当func是非描述符可调用时，会动态创建一个合适的绑定方法。当作为方法使用时，这就像一个普通的Python函数:self参数将作为第一个位置参数插入，甚至在提供给partialmethod构造函数的args和关键字之前。</p>
 <p>举个栗子：
-<div class="codehilite"><pre><span></span>&gt;&gt;&gt; class Cell(object):
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>&gt;&gt;&gt; class Cell(object):
 ...     def __init__(self):
 ...         self._alive = False
 ...     @property
@@ -1127,11 +1530,20 @@ False
 &gt;&gt;&gt; c.set_alive()
 &gt;&gt;&gt; c.alive
 True
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <h3 id="functoolsreducefunction-iterable-initializer"><strong>functools.reduce(function, iterable[, initializer])</strong><a class="headerlink" href="#functoolsreducefunction-iterable-initializer" title="Permanent link">&para;</a></h3>
 <p>将两个参数的函数累加到序列的项上，从左到右，使序列减少到一个值。例如,<code>reduce(lambda x, y: x+y, [1, 2, 3, 4, 5])</code>计算<code>((((1 + 2)+(3)+ 4)+ 5)</code>。左边的参数x是累计值，右边的参数y是序列的更新值。如果存在可选初始化器，则该初始化器将放置在计算中序列项的前面，并在序列为空时充当缺省值。如果初始值设定项未给定，且序列仅包含一个项，则返回第一个项。</p>
 <p>相当于：
-<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">reduce</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">iterable</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">reduce</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">iterable</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">initializer</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">value</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
@@ -1140,12 +1552,36 @@ True
     <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">value</span>
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <h3 id="functoolssingledispatch"><strong>@functools.singledispatch</strong><a class="headerlink" href="#functoolssingledispatch" title="Permanent link">&para;</a></h3>
 <p>使用过别的面向对象语言，如 java 等，肯定熟悉各种方法的重载，但是对于 Python 来说是不支持方法的重载的，不过其为我们提供了一个装饰器，能将普通函数变为泛函数（generic function） </p>
 <p>比如你要针对不同类型的数据进行不同的处理，而又不想将它们写到一起，那就可以使用@singledispatch 装饰器了 </p>
 <p>举个例子：
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">functools</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">functools</span>
 
 <span class="nd">@functools.singledispatch</span>
 <span class="k">def</span> <span class="nf">typecheck</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
@@ -1170,25 +1606,53 @@ True
     <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
     <span class="n">typecheck</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 看一下结果：
-<div class="codehilite"><pre><span></span>&lt;class &#39;list&#39;&gt;
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>&lt;class &#39;list&#39;&gt;
 list--
 </pre></div>
+</td></tr></table>
 换几个值试一下：
-<div class="codehilite"><pre><span></span>a = 1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>a = 1
 
 &lt;class &#39;int&#39;&gt;
 int--
 </pre></div>
-<div class="codehilite"><pre><span></span>a = &quot;aaaa&quot;
+</td></tr></table>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>a = &quot;aaaa&quot;
 
 &lt;class &#39;str&#39;&gt;
 str--
 </pre></div>
+</td></tr></table>
 singledispatch机制一个显著特征是，可以在系统的任何地方和任何模块中注册专门的函数，如果后来模块中增加了新的类型，可以轻松地添加一个新的专门函数来处理新类型。很像设计模式中的策略模式</p>
 <h3 id="functoolsupdate_wrapperwrapper-wrapped-assignedwrapper_assignments-updatedwrapper_updates"><strong>functools.update_wrapper(wrapper, wrapped, assigned=WRAPPER_ASSIGNMENTS, updated=WRAPPER_UPDATES)</strong><a class="headerlink" href="#functoolsupdate_wrapperwrapper-wrapped-assignedwrapper_assignments-updatedwrapper_updates" title="Permanent link">&para;</a></h3>
 <p>这个函数就是用来更新修饰器函数的，具体更新些什么呢，我们可以直接把它的源码搬过来看一下：
-<div class="codehilite"><pre><span></span><span class="n">WRAPPER_ASSIGNMENTS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;__module__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__qualname__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">WRAPPER_ASSIGNMENTS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;__module__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__qualname__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span>
                        <span class="s1">&#39;__annotations__&#39;</span><span class="p">)</span>
 <span class="n">WRAPPER_UPDATES</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;__dict__&#39;</span><span class="p">,)</span>
 <span class="k">def</span> <span class="nf">update_wrapper</span><span class="p">(</span><span class="n">wrapper</span><span class="p">,</span>
@@ -1207,9 +1671,22 @@ singledispatch机制一个显著特征是，可以在系统的任何地方和任
     <span class="n">wrapper</span><span class="o">.</span><span class="n">__wrapped__</span> <span class="o">=</span> <span class="n">wrapped</span>
     <span class="k">return</span> <span class="n">wrapper</span>
 </pre></div>
+</td></tr></table>
 大家可以发现，这个函数的作用就是从 被修饰的函数(wrapped) 中取出一些属性值来，赋值给 修饰器函数(wrapper) 。为什么要这么做呢，我们看下面这个例子。</p>
 <p>首先我们写个自定义的修饰器，没有任何的功能，仅有文档字符串，如下所示：
-<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">wrapper_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;这个是修饰函数&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1223,9 +1700,26 @@ singledispatch机制一个显著特征是，可以在系统的任何地方和任
 <span class="k">print</span><span class="p">(</span><span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>  <span class="c1"># 输出`这个是修饰函数`</span>
 <span class="k">print</span><span class="p">(</span><span class="n">wrapped</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>  <span class="c1"># 输出`wrapper_function`</span>
 </pre></div>
+</td></tr></table>
 从上面的例子我们可以看到，我想要获取<code>wrapped</code>这个被修饰函数的文档字符串，但是却获取成了<code>wrapper_function</code>的文档字符串，<code>wrapped</code>函数的名字也变成了<code>wrapper_function</code>函数的名字。这是因为给<code>wrapped</code>添加上<code>@wrapper</code>修饰器相当于执行了一句<code>wrapped = wrapper(wrapped)</code>，执行完这条语句之后，<code>wrapped</code>函数就变成了<code>wrapper_function</code>函数。遇到这种情况该怎么办呢，首先我们可以手动地在<code>wrapper</code>函数中更改<code>wrapper_function</code>的<code>__doc__</code>和<code>__name__</code>属性，但聪明的你肯定也想到了，我们可以直接用<code>update_wrapper</code>函数来实现这个功能。</p>
 <p>我们对上面定义的修饰器稍作修改，添加了一句update_wrapper(wrapper_function, f)。
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">update_wrapper</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">update_wrapper</span>
 
 <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">wrapper_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1243,10 +1737,18 @@ singledispatch机制一个显著特征是，可以在系统的任何地方和任
 <span class="k">print</span><span class="p">(</span><span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>  <span class="c1"># 输出`这个是被修饰的函数`</span>
 <span class="k">print</span><span class="p">(</span><span class="n">wrapped</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>  <span class="c1"># 输出`wrapped`</span>
 </pre></div>
+</td></tr></table>
 此时我们可以发现，<code>__doc__</code>和<code>__name__</code>属性已经能够按我们预想的那样显示了，除此之外，<code>update_wrapper</code>函数也对<code>__module__</code>和<code>__dict__</code>等属性进行了更改和更新。</p>
 <h3 id="functoolswrapswrapped-assignedwrapper_assignments-updatedwrapper_updates"><strong>@functools.wraps(wrapped, assigned=WRAPPER_ASSIGNMENTS, updated=WRAPPER_UPDATES)</strong><a class="headerlink" href="#functoolswrapswrapped-assignedwrapper_assignments-updatedwrapper_updates" title="Permanent link">&para;</a></h3>
 <p>看一下源码：
-<div class="codehilite"><pre><span></span><span class="n">WRAPPER_ASSIGNMENTS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;__module__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__qualname__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">WRAPPER_ASSIGNMENTS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;__module__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__qualname__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span>
                        <span class="s1">&#39;__annotations__&#39;</span><span class="p">)</span>
 <span class="n">WRAPPER_UPDATES</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;__dict__&#39;</span><span class="p">,)</span>
 <span class="k">def</span> <span class="nf">wraps</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span>
@@ -1254,9 +1756,26 @@ singledispatch机制一个显著特征是，可以在系统的任何地方和任
           <span class="n">updated</span> <span class="o">=</span> <span class="n">WRAPPER_UPDATES</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">partial</span><span class="p">(</span><span class="n">update_wrapper</span><span class="p">,</span> <span class="n">wrapped</span><span class="o">=</span><span class="n">wrapped</span><span class="p">,</span>
                    <span class="n">assigned</span><span class="o">=</span><span class="n">assigned</span><span class="p">,</span> <span class="n">updated</span><span class="o">=</span><span class="n">updated</span><span class="p">)</span>
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
 <p>没错，就是这么的简单，只有这么一句，我们可以看出，wraps函数其实就是一个修饰器版的update_wrapper函数，它的功能和update_wrapper是一模一样的。我们可以修改我们上面的自定义修饰器的例子，做出一个更方便阅读的版本。</p>
-<p><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<p><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 
 <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -1274,6 +1793,7 @@ singledispatch机制一个显著特征是，可以在系统的任何地方和任
 <span class="k">print</span><span class="p">(</span><span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>  <span class="c1"># 输出`这个是被修饰的函数`</span>
 <span class="k">print</span><span class="p">(</span><span class="n">wrapped</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>  <span class="c1"># 输出`wrapped`</span>
 </pre></div>
+</td></tr></table>
 <code>wraps</code>修饰器，其实就是将**被修饰的函数(wrapped)<strong>的一些属性值赋值给**修饰器函数(wrapper)</strong>，最终让属性的显示更符合我们的直觉。</p>
                 
                   
@@ -1282,6 +1802,22 @@ singledispatch机制一个显著特征是，可以在系统的任何地方和任
               
                 
 
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http:// www.chuxiaoyi.cn/python3.7_standard_library/py3标准库——functools/";
+      this.page.identifier =
+        "/python3.7_standard_library/py3标准库——functools/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//chuxiaoyi.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
 
               
             </article>
@@ -1342,6 +1878,15 @@ singledispatch机制一个显著特征是，可以在系统的任何地方和任
           Material for MkDocs</a>
       </div>
       
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/ChuXiaoYi?tab=repositories" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://blog.csdn.net/weixin_40156487" class="md-footer-social__link fa fa-book"></a>
+    
+  </div>
+
     </div>
   </div>
 </footer>

@@ -46,6 +46,12 @@
     
       <link rel="stylesheet" href="../assets/stylesheets/application.750b69bd.css">
       
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
       
     
     
@@ -63,11 +69,38 @@
     
     
       
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-36723568-3", "mkdocs.org")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
   
-    <body dir="ltr">
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     <svg class="md-svg">
       <defs>
@@ -460,6 +493,12 @@
       
       
       
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
     </ul>
   
 </nav>
@@ -594,6 +633,12 @@
       
       
       
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
     </ul>
   
 </nav>
@@ -624,25 +669,32 @@
 <p>Levenshtein.hamming(str1, str2)</p>
 <p>计算汉明距离。要求str1和str2必须长度一致。是描述两个等长字串之间对应位置上不同字符的个数。</p>
 <p>用法：</p>
-<div class="codehilite"><pre><span></span>&gt;&gt;&gt; import Levenshtein     
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>&gt;&gt;&gt; import Levenshtein     
 &gt;&gt;&gt; Levenshtein.hamming(&#39;abc&#39;, &#39;cba&#39;)
 2
 &gt;&gt;&gt; Levenshtein.hamming(&#39;abc&#39;, &#39;def&#39;)
 3
 </pre></div>
-
+</td></tr></table>
 
 </li>
 <li>
 <p>Levenshtein.distance(str1, str2)</p>
 <p>计算编辑距离（也成Levenshtein距离）。是描述由一个字串转化成另一个字串最少的操作次数，在其中的操作包括插入、删除、替换。</p>
 <p>用法：</p>
-<div class="codehilite"><pre><span></span>&gt;&gt;&gt; Levenshtein.distance(&#39;abc&#39;, &#39;ab&#39;)
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>&gt;&gt;&gt; Levenshtein.distance(&#39;abc&#39;, &#39;ab&#39;)
 1
 &gt;&gt;&gt; Levenshtein.distance(&#39;cxy&#39;, &#39;ab&#39;)
 3
 </pre></div>
-
+</td></tr></table>
 
 </li>
 <li>
@@ -651,10 +703,11 @@
 <p><font color="red">注意：</font>这里的类编辑距离不是<code>Levenshtein.distance(str1, str2)</code>所说的编辑距离，<code>Levenshtein.distance(str1, str2)</code>中三种操作中每个操作+1，而在此处，删除、插入依然+1，但是替换+2
 这样设计的目的：ratio('a', 'c')，sum=2,按2中计算为（2-1）/2 = 0.5,’a','c'没有重合，显然不合算，但是替换操作+2，就可以解决这个问题。</p>
 <p>用法：</p>
-<div class="codehilite"><pre><span></span>&gt;&gt;&gt; Levenshtein.ratio(&#39;a,cdsf&#39;, &#39;abcd&#39;)           
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>&gt;&gt;&gt; Levenshtein.ratio(&#39;a,cdsf&#39;, &#39;abcd&#39;)           
 0.6
 </pre></div>
-
+</td></tr></table>
 
 </li>
 </ul>
@@ -662,7 +715,14 @@
 <p>我主要用的是<code>SequenceMatcher</code>， 因此，本次只介绍<code>SequenceMatcher</code>.</p>
 <p><code>SequenceMatcher</code>是可以对两个可序列化的对象进行比较的类</p>
 <p>官网上的用法是：</p>
-<div class="codehilite"><pre><span></span>&gt;&gt;&gt; s = SequenceMatcher(lambda x: x == &quot; &quot;,
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>&gt;&gt;&gt; s = SequenceMatcher(lambda x: x == &quot; &quot;,
 ...                     &quot;private Thread currentThread;&quot;,
 ...                     &quot;private volatile Thread currentThread;&quot;)
 &gt;&gt;&gt; print(round(s.ratio(), 3))
@@ -671,7 +731,7 @@
 第一个参数为一个函数，主要用来去掉自己不想算在内的元素；如果没有，可以写`None`
 后面两个参数就是需要比较的两个对象了
 </pre></div>
-
+</td></tr></table>
 
 <h3 id="_1"><strong>余弦定理</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <p><a href="https://blog.csdn.net/zz_dd_yy/article/details/51926305">相似度算法之余弦相似度</a></p>
@@ -680,7 +740,24 @@
 <li>
 <p>列出所有出现的字母，并分别统计两个字符串出现这些字母的次数。这里我是这样写的，利用<code>from collections import Counter, OrderedDict</code></p>
 <p>方法：</p>
-<div class="codehilite"><pre><span></span>&gt;&gt;&gt; from collections import Counter, OrderedDict
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>&gt;&gt;&gt; from collections import Counter, OrderedDict
 &gt;&gt;&gt; from copy import deepcopy
 &gt;&gt;&gt; a = &#39;abc&#39;
 &gt;&gt;&gt; b = &#39;bcde&#39;
@@ -699,14 +776,32 @@ OrderedDict([(&#39;b&#39;, 1), (&#39;c&#39;, 1), (&#39;e&#39;, None), (&#39;d&#3
 &gt;&gt;&gt; model2
 OrderedDict([(&#39;b&#39;, 1), (&#39;c&#39;, 1), (&#39;e&#39;, 1), (&#39;d&#39;, 1), (&#39;a&#39;, None)])
 </pre></div>
-
+</td></tr></table>
 
 <p>这样写的原因是，在比较词频的时候，要保证每个字母的顺序是一样的～</p>
 </li>
 <li>
 <p>利用余弦公式计算相似度</p>
 <p>方法：</p>
-<div class="codehilite"><pre><span></span>&gt;&gt;&gt; import math
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>&gt;&gt;&gt; import math
 &gt;&gt;&gt; sum = 0 #分子
 &gt;&gt;&gt; q1 = 0  #分母
 &gt;&gt;&gt; q2 = 0  #分母
@@ -726,7 +821,7 @@ OrderedDict([(&#39;b&#39;, 1), (&#39;c&#39;, 1), (&#39;e&#39;, 1), (&#39;d&#39;,
 &gt;&gt;&gt; result
 0.5773502691896258
 </pre></div>
-
+</td></tr></table>
 
 </li>
 </ol>
@@ -739,6 +834,22 @@ OrderedDict([(&#39;b&#39;, 1), (&#39;c&#39;, 1), (&#39;e&#39;, 1), (&#39;d&#39;,
               
                 
 
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http:// www.chuxiaoyi.cn/calculate_similiar/";
+      this.page.identifier =
+        "/calculate_similiar/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//chuxiaoyi.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
 
               
             </article>
@@ -799,6 +910,15 @@ OrderedDict([(&#39;b&#39;, 1), (&#39;c&#39;, 1), (&#39;e&#39;, 1), (&#39;d&#39;,
           Material for MkDocs</a>
       </div>
       
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/ChuXiaoYi?tab=repositories" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://blog.csdn.net/weixin_40156487" class="md-footer-social__link fa fa-book"></a>
+    
+  </div>
+
     </div>
   </div>
 </footer>

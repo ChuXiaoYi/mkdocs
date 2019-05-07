@@ -46,6 +46,12 @@
     
       <link rel="stylesheet" href="../../assets/stylesheets/application.750b69bd.css">
       
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
       
     
     
@@ -63,11 +69,38 @@
     
     
       
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-36723568-3", "mkdocs.org")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
   
-    <body dir="ltr">
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     <svg class="md-svg">
       <defs>
@@ -527,6 +560,12 @@
       
       
       
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
     </ul>
   
 </nav>
@@ -568,6 +607,12 @@
       
       
       
+        <li class="md-nav__item">
+          <a href="#__comments" title="Comments" class="md-nav__link md-nav__link--active">
+            Comments
+          </a>
+        </li>
+      
     </ul>
   
 </nav>
@@ -587,12 +632,52 @@
                 
                 <h2 id="vim">启动vim<a class="headerlink" href="#vim" title="Permanent link">&para;</a></h2>
 <p>默认情况下
-<div class="codehilite"><pre><span></span>vim file
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>vim file
 </pre></div>
+</td></tr></table>
 打开多个文件
-<div class="codehilite"><pre><span></span>vim -o file1 file2 file3  水平分割打开窗口
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>vim -o file1 file2 file3  水平分割打开窗口
 vim -O file1 file2 file3  垂直分割打开窗口
-</pre></div></p>
+</pre></div>
+</td></tr></table></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>testtest：</p>
+</div>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="o">~~</span><span class="kn">import</span> <span class="nn">flask</span><span class="o">~~</span>
+</pre></div>
+</td></tr></table>
+
+<p>Lorem ipsum<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> dolor sit amet, consectetur adipiscing elit.[^2]</p>
+<p>title: Lorem ipsum dolor sit amet
+description: Nullam urna elit, malesuada eget finibus ut, ac tortor.
+path: path/to/file
+source: file.js
+hero: Metadata enables hero teaser texts</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Nulla lobortis egestas semper</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Curabitur elit nibh, euismod et ullamcorper at, iaculis feugiat est</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Vestibulum convallis sit amet nisi a tincidunt<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> In hac habitasse platea dictumst</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> In scelerisque nibh non dolor mollis congue sed et metus</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Sed egestas felis quis elit dapibus, ac aliquet turpis mattis</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Praesent sed risus massa</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Aenean pretium efficitur erat, donec pharetra, ligula non scelerisque</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Nulla vel eros venenatis, imperdiet enim id, faucibus nisi</li>
+</ul>
+<p><del>aaaa</del></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
                 
                   
                 
@@ -600,6 +685,22 @@ vim -O file1 file2 file3  垂直分割打开窗口
               
                 
 
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http:// www.chuxiaoyi.cn/vim/vim-01/";
+      this.page.identifier =
+        "/vim/vim-01/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//chuxiaoyi.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
 
               
             </article>
@@ -646,6 +747,15 @@ vim -O file1 file2 file3  垂直分割打开窗口
           Material for MkDocs</a>
       </div>
       
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/ChuXiaoYi?tab=repositories" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://blog.csdn.net/weixin_40156487" class="md-footer-social__link fa fa-book"></a>
+    
+  </div>
+
     </div>
   </div>
 </footer>

@@ -46,6 +46,12 @@
     
       <link rel="stylesheet" href="../../../assets/stylesheets/application.750b69bd.css">
       
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
       
     
     
@@ -63,11 +69,38 @@
     
     
       
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-36723568-3", "mkdocs.org")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
   
-    <body dir="ltr">
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     <svg class="md-svg">
       <defs>
@@ -549,7 +582,29 @@
                 <p>我们还可以使用基于类的视图而不是基于函数的视图来编写API视图。正如我们将看到的，这是一个强大的模式，允许我们重用公共功能，并帮助我们保持代码DRY（Don't repeat yourself）。</p>
 <h1 id="api">使用基于类的视图重写我们的API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h1>
 <p>我们将重构<code>views.py</code>中的视图，将视图方法重写为基于类的视图
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">snippets.models</span> <span class="kn">import</span> <span class="n">Snippet</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">snippets.models</span> <span class="kn">import</span> <span class="n">Snippet</span>
 <span class="kn">from</span> <span class="nn">snippets.serializers</span> <span class="kn">import</span> <span class="n">SnippetSerializer</span>
 <span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">Http404</span>
 <span class="kn">from</span> <span class="nn">rest_framework.views</span> <span class="kn">import</span> <span class="n">APIView</span>
@@ -573,8 +628,35 @@
             <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_400_BAD_REQUEST</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 虽然它看起来和前一个示例很像，但是它更好的分离了不同的http请求。我们也要更新<code>SnippetDetail</code>
-<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">SnippetDetail</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">SnippetDetail</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieve, update or delete a snippet instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -602,8 +684,18 @@
         <span class="n">snippet</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_204_NO_CONTENT</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 既然我们已经使用了基于类的视图，那么现在我们要稍微修改<code>snippets/urls.py</code>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
 <span class="kn">from</span> <span class="nn">rest_framework.urlpatterns</span> <span class="kn">import</span> <span class="n">format_suffix_patterns</span>
 <span class="kn">from</span> <span class="nn">snippets</span> <span class="kn">import</span> <span class="n">views</span>
 
@@ -614,6 +706,7 @@
 
 <span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">format_suffix_patterns</span><span class="p">(</span><span class="n">urlpatterns</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 好啦。运行试一下。你会发现它和之前运行的一样。</p>
                 
                   
@@ -622,6 +715,22 @@
               
                 
 
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http:// www.chuxiaoyi.cn/django/django_rest_framework/django_rest_framework_ClassBasedViews/";
+      this.page.identifier =
+        "/django/django_rest_framework/django_rest_framework_ClassBasedViews/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//chuxiaoyi.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
 
               
             </article>
@@ -682,6 +791,15 @@
           Material for MkDocs</a>
       </div>
       
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/ChuXiaoYi?tab=repositories" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://blog.csdn.net/weixin_40156487" class="md-footer-social__link fa fa-book"></a>
+    
+  </div>
+
     </div>
   </div>
 </footer>

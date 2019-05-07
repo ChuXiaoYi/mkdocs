@@ -46,6 +46,12 @@
     
       <link rel="stylesheet" href="../../../assets/stylesheets/application.750b69bd.css">
       
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
       
     
     
@@ -63,11 +69,38 @@
     
     
       
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-36723568-3", "mkdocs.org")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
   
-    <body dir="ltr">
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     <svg class="md-svg">
       <defs>
@@ -549,14 +582,17 @@
                 <p>从这里开始，我们将真正开始涵盖REST框架的核心。让我们介绍几个基本构建块。</p>
 <h1 id="request">Request对象<a class="headerlink" href="#request" title="Permanent link">&para;</a></h1>
 <p>REST框架引入了一个 <code>Request</code>对象 用来扩展常规 <code>HttpRequest</code> 对象，并提供更灵活的请求解析。<code>Request</code> 对象的核心功能是 <code>request.data</code> 属性，它类似于 <code>request.POST</code> ，但对于使用Web API更有用。</p>
-<div class="codehilite"><pre><span></span>request.POST  # Only handles form data.  Only works for &#39;POST&#39; method.
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>request.POST  # Only handles form data.  Only works for &#39;POST&#39; method.
 request.data  # Handles arbitrary data.  Works for &#39;POST&#39;, &#39;PUT&#39; and &#39;PATCH&#39; methods.
 </pre></div>
+</td></tr></table>
 
 <h1 id="response">Response对象<a class="headerlink" href="#response" title="Permanent link">&para;</a></h1>
 <p>REST框架还引入了一个 <code>Response</code> 对象，这是TemplateResponse的一种类型，它接受未渲染的内容并根据内容来确定返回给客户端的正确内容类型。
-<div class="codehilite"><pre><span></span>return Response(data)  # Renders to content type as requested by the client.
-</pre></div></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>return Response(data)  # Renders to content type as requested by the client.
+</pre></div>
+</td></tr></table></p>
 <h1 id="status-codes">Status codes<a class="headerlink" href="#status-codes" title="Permanent link">&para;</a></h1>
 <p>在视图中使用数字HTTP状态代码并不总能明显地读取数据，而且很容易忽略错误代码。REST框架为每个状态代码提供了更显式的标识符，例如状态模块中的 <code>HTTP_400_BAD_REQUEST</code> 。在整个过程中使用这些标识符是一个好主意，而不是使用数字标识符。</p>
 <h1 id="api">包装API视图<a class="headerlink" href="#api" title="Permanent link">&para;</a></h1>
@@ -570,7 +606,29 @@ request.data  # Handles arbitrary data.  Works for &#39;POST&#39;, &#39;PUT&#39;
 <h1 id="_1">组合起来<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>好的，让我们继续并开始使用这些新组件来编写一些视图。</p>
 <p>我们不再需要 <code>views.py</code> 中的 <code>JSONResponse</code> 类了，所以删除它。开始重构视图。
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">status</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">status</span>
 <span class="kn">from</span> <span class="nn">rest_framework.decorators</span> <span class="kn">import</span> <span class="n">api_view</span>
 <span class="kn">from</span> <span class="nn">rest_framework.response</span> <span class="kn">import</span> <span class="n">Response</span>
 <span class="kn">from</span> <span class="nn">snippets.models</span> <span class="kn">import</span> <span class="n">Snippet</span>
@@ -594,9 +652,33 @@ request.data  # Handles arbitrary data.  Works for &#39;POST&#39;, &#39;PUT&#39;
             <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_400_BAD_REQUEST</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 我们的实例视图是对前一个示例的改进。它更简洁一些，现在代码与我们使用Forms API非常相似。我们还使用命名的状态代码status code ，这使得响应更明确。</p>
 <p>以下是 <code>views.py</code> 模块中单个snippet的视图。
-<div class="codehilite"><pre><span></span><span class="nd">@api_view</span><span class="p">([</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span><span class="p">,</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">])</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nd">@api_view</span><span class="p">([</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span><span class="p">,</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">snippet_detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieve, update or delete a code snippet.</span>
@@ -621,17 +703,29 @@ request.data  # Handles arbitrary data.  Works for &#39;POST&#39;, &#39;PUT&#39;
         <span class="n">snippet</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_204_NO_CONTENT</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 这应该都非常熟悉 - 与使用常规Django视图没有太大区别。</p>
 <p>注意，我们不再显式地将请求或响应绑定到给定的content type。<code>request.data</code>可以处理传入的json请求，但也可以处理其他格式。类似的，我们将数据返回响应对象，但允许REST框架将响应渲染为正确的content type。</p>
 <h1 id="url">向url添加可选格式后缀<a class="headerlink" href="#url" title="Permanent link">&para;</a></h1>
 <p>为了利用我们的响应不再硬连接到单一内容类型的事实，让我们在API端点中添加对格式后缀的支持。使用格式后缀为我们提供了明确引用给定格式的url，这意味着我们的API能够处理诸如<code>http://example.com/api/items/4.json</code> 之类的url。</p>
 <p>首先向两个视图都添加format关键字参数，如下所示。
-<div class="codehilite"><pre><span></span>def snippet_list(request, format=None):
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>def snippet_list(request, format=None):
 </pre></div>
-<div class="codehilite"><pre><span></span>def snippet_detail(request, pk, format=None):
+</td></tr></table>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>def snippet_detail(request, pk, format=None):
 </pre></div>
+</td></tr></table>
 现在更新 <code>snippets/urls.py</code> 文件，在现有url之外附加一组format_suffix_patterns。
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
 <span class="kn">from</span> <span class="nn">rest_framework.urlpatterns</span> <span class="kn">import</span> <span class="n">format_suffix_patterns</span>
 <span class="kn">from</span> <span class="nn">snippets</span> <span class="kn">import</span> <span class="n">views</span>
 
@@ -642,11 +736,33 @@ request.data  # Handles arbitrary data.  Works for &#39;POST&#39;, &#39;PUT&#39;
 
 <span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">format_suffix_patterns</span><span class="p">(</span><span class="n">urlpatterns</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 我们不需要添加这些额外的url模式，但是它提供了一种简单、干净的方式来引用特定的格式。</p>
 <h1 id="_2">它看起来怎么样?<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
 <p>继续从命令行测试API，就像我们在<a href="http://www.django-rest-framework.org/tutorial/1-serialization/">教程第1部分</a>中所做的那样。一切工作都非常相似，但是我们在发送无效请求时得到了更好的错误处理。
 我们可以像以前一样得到所有snippets的列表。
-<div class="codehilite"><pre><span></span>http http://127.0.0.1:8000/snippets/
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>http http://127.0.0.1:8000/snippets/
 
 HTTP/1.1 200 OK
 ...
@@ -669,16 +785,43 @@ HTTP/1.1 200 OK
   }
 ]
 </pre></div>
+</td></tr></table>
 我们可以通过使用Accept头来控制返回的响应的格式:
-<div class="codehilite"><pre><span></span>http http://127.0.0.1:8000/snippets/ Accept:application/json  # Request JSON
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>http http://127.0.0.1:8000/snippets/ Accept:application/json  # Request JSON
 http http://127.0.0.1:8000/snippets/ Accept:text/html         # Request HTML
 </pre></div>
+</td></tr></table>
 或加上格式后缀:
-<div class="codehilite"><pre><span></span>http http://127.0.0.1:8000/snippets.json  # JSON suffix
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>http http://127.0.0.1:8000/snippets.json  # JSON suffix
 http http://127.0.0.1:8000/snippets.api   # Browsable API suffix
 </pre></div>
+</td></tr></table>
 类似地，我们可以使用Content-Type头来控制发送请求的格式。
-<div class="codehilite"><pre><span></span># POST using form data
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># POST using form data
 http --form POST http://127.0.0.1:8000/snippets/ code=&quot;print 123&quot;
 
 {
@@ -702,6 +845,7 @@ http --json POST http://127.0.0.1:8000/snippets/ code=&quot;print 456&quot;
     &quot;style&quot;: &quot;friendly&quot;
 }
 </pre></div>
+</td></tr></table>
 如果您向上面的 <code>http</code> 请求添加 <code>—debug</code> 切换，您将能够在请求标头中看到请求类型。</p>
 <p>现在，通过访问http://127.0.0.1:8000/snippets/，在web浏览器中打开API。</p>
 <h1 id="_3">可浏览性<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
@@ -717,6 +861,22 @@ http --json POST http://127.0.0.1:8000/snippets/ code=&quot;print 456&quot;
               
                 
 
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http:// www.chuxiaoyi.cn/django/django_rest_framework/django_rest_framework_responseAndRequest/";
+      this.page.identifier =
+        "/django/django_rest_framework/django_rest_framework_responseAndRequest/";
+    };
+    (function() {
+      var d = document, s = d.createElement("script");
+      s.src = "//chuxiaoyi.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
 
               
             </article>
@@ -777,6 +937,15 @@ http --json POST http://127.0.0.1:8000/snippets/ code=&quot;print 456&quot;
           Material for MkDocs</a>
       </div>
       
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/ChuXiaoYi?tab=repositories" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://blog.csdn.net/weixin_40156487" class="md-footer-social__link fa fa-book"></a>
+    
+  </div>
+
     </div>
   </div>
 </footer>
